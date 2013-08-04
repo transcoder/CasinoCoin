@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 1.0.0.3
+!define VERSION 1.0.0.4
 !define COMPANY "CasinoCoin project"
 !define URL http://www.casinocoin.org/
 
@@ -45,13 +45,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile casinocoin-1.0.0.3-win32-setup.exe
+OutFile casinocoin-1.0.0.4-win32-setup.exe
 InstallDir $PROGRAMFILES\CasinoCoin
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 1.0.0.3
+VIProductVersion 1.0.0.4
 VIAddVersionKey ProductName CasinoCoin
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
