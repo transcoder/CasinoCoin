@@ -2,7 +2,6 @@ src/*.exe
 src/casinocoin
 src/casinocoind
 src/test_casinocoin
-src/build.h
 .*.swp
 *.*~*
 *.bak
@@ -10,24 +9,26 @@ src/build.h
 *.orig
 *.o
 *.patch
-.bitcoin
-#compilation and Qt preprocessor part
+.casinocoin
+
+# Compilation and Qt preprocessor part
 *.qm
 Makefile
 casinocoin-qt
-#resources cpp
+CasinoCoin-Qt.app
+
+# Unit-tests
+Makefile.test
+casinocoin-qt_test
+
+# Resources cpp
 qrc_*.cpp
-#qt creator
+
+# Qt creator
 *.pro.user
-#mac specific
+
+# Mac specific
 .DS_Store
 build
-.cproject
-.project
-debug
-release
-.svn
-object_script.casinocoin-qt.Debug
-object_script.casinocoin-qt.Release
-object_script.litecoin-qt.Debug
-object_script.litecoin-qt.Release
+
+!src/leveldb-*/Makefile

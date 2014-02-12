@@ -1,11 +1,13 @@
 #include "clientmodel.h"
+
 #include "guiconstants.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
 #include "transactiontablemodel.h"
 
+#include "alert.h"
 #include "main.h"
-#include "init.h" // for pwalletMain
+#include "checkpoints.h"
 #include "ui_interface.h"
 
 #include <QDateTime>
@@ -15,10 +17,10 @@ static const int64 nClientStartupTime = GetTime();
 
 ClientModel::ClientModel(OptionsModel *optionsModel, QObject *parent) :
     QObject(parent), optionsModel(optionsModel),
-    cachedNumBlocks(0), cachedNumBlocksOfPeers(0), cachedHashrate(0), pollTimer(0)
+    cachedNumBlocks(0), cachedNumBlocksOfPeers(0),
+    cachedReindexing(0), cachedImporting(0),
+    numBlocksAtStartup(-1), pollTimer(0)
 {
-    numBlocksAtStartup = -1;
-
     pollTimer = new QTimer(this);
     pollTimer->setInterval(MODEL_UPDATE_DELAY);
     pollTimer->start();
@@ -48,43 +50,19 @@ int ClientModel::getNumBlocksAtStartup()
     return numBlocksAtStartup;
 }
 
-int ClientModel::getHashrate() const
-{
-    if (GetTimeMillis() - nHPSTimerStart > 8000)
-        return (boost::int64_t)0;
-    return (boost::int64_t)dHashesPerSec;
-}
-
-// CasinoCoin: copied from bitcoinrpc.cpp.
-double ClientModel::GetDifficulty() const
-{
-    // Floating point number that is a multiple of the minimum difficulty,
-    // minimum difficulty = 1.0.
-
-    if (pindexBest == NULL)
-        return 1.0;
-    int nShift = (pindexBest->nBits >> 24) & 0xff;
-
-    double dDiff =
-        (double)0x0000ffff / (double)(pindexBest->nBits & 0x00ffffff);
-
-    while (nShift < 29)
-    {
-        dDiff *= 256.0;
-        nShift++;
-    }
-    while (nShift > 29)
-    {
-        dDiff /= 256.0;
-        nShift--;
-    }
-
-    return dDiff;
-}
-
 QDateTime ClientModel::getLastBlockDate() const
 {
-    return QDateTime::fromTime_t(pindexBest->GetBlockTime());
+    if (pindexBest)
+        return QDateTime::fromTime_t(pindexBest->GetBlockTime());
+    else if(!isTestNet())
+        return QDateTime::fromTime_t(1231006505); // Genesis block's time
+    else
+        return QDateTime::fromTime_t(1296688602); // Genesis block's time (testnet)
+}
+
+double ClientModel::getVerificationProgress() const
+{
+    return Checkpoints::GuessVerificationProgress(pindexBest);
 }
 
 void ClientModel::updateTimer()
@@ -94,11 +72,18 @@ void ClientModel::updateTimer()
     int newNumBlocks = getNumBlocks();
     int newNumBlocksOfPeers = getNumBlocksOfPeers();
 
-    if(cachedNumBlocks != newNumBlocks || cachedNumBlocksOfPeers != newNumBlocksOfPeers)
-        emit numBlocksChanged(newNumBlocks, newNumBlocksOfPeers);
+    // check for changed number of blocks we have, number of blocks peers claim to have, reindexing state and importing state
+    if (cachedNumBlocks != newNumBlocks || cachedNumBlocksOfPeers != newNumBlocksOfPeers ||
+        cachedReindexing != fReindex || cachedImporting != fImporting)
+    {
+        cachedNumBlocks = newNumBlocks;
+        cachedNumBlocksOfPeers = newNumBlocksOfPeers;
+        cachedReindexing = fReindex;
+        cachedImporting = fImporting;
 
-    cachedNumBlocks = newNumBlocks;
-    cachedNumBlocksOfPeers = newNumBlocksOfPeers;
+        // ensure we return the maximum of newNumBlocksOfPeers and newNumBlocks to not create weird displays in the GUI
+        emit numBlocksChanged(newNumBlocks, std::max(newNumBlocksOfPeers, newNumBlocks));
+    }
 }
 
 void ClientModel::updateNumConnections(int numConnections)
@@ -116,13 +101,11 @@ void ClientModel::updateAlert(const QString &hash, int status)
         CAlert alert = CAlert::getAlertByHash(hash_256);
         if(!alert.IsNull())
         {
-            emit error(tr("Network Alert"), QString::fromStdString(alert.strStatusBar), false);
+            emit message(tr("Network Alert"), QString::fromStdString(alert.strStatusBar), CClientUIInterface::ICON_ERROR);
         }
     }
 
-    // Emit a numBlocksChanged when the status message changes,
-    // so that the view recomputes and updates the status bar.
-    emit numBlocksChanged(getNumBlocks(), getNumBlocksOfPeers());
+    emit alertsChanged(getStatusBarWarnings());
 }
 
 bool ClientModel::isTestNet() const
@@ -133,6 +116,18 @@ bool ClientModel::isTestNet() const
 bool ClientModel::inInitialBlockDownload() const
 {
     return IsInitialBlockDownload();
+}
+
+enum BlockSource ClientModel::getBlockSource() const
+{
+    if (fReindex)
+        return BLOCK_SOURCE_REINDEX;
+    else if (fImporting)
+        return BLOCK_SOURCE_DISK;
+    else if (getNumConnections() > 0)
+        return BLOCK_SOURCE_NETWORK;
+
+    return BLOCK_SOURCE_NONE;
 }
 
 int ClientModel::getNumBlocksOfPeers() const
@@ -158,6 +153,11 @@ QString ClientModel::formatFullVersion() const
 QString ClientModel::formatBuildDate() const
 {
     return QString::fromStdString(CLIENT_DATE);
+}
+
+bool ClientModel::isReleaseVersion() const
+{
+    return CLIENT_VERSION_IS_RELEASE;
 }
 
 QString ClientModel::clientName() const

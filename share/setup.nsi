@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 1.0.0.4
+!define VERSION 1.1.0.0
 !define COMPANY "CasinoCoin project"
 !define URL http://www.casinocoin.org/
 
@@ -45,13 +45,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile casinocoin-1.0.0.4-win32-setup.exe
+OutFile casinocoin-1.1.0.0-win32-setup.exe
 InstallDir $PROGRAMFILES\CasinoCoin
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 1.0.0.4
+VIProductVersion 1.1.0.0
 VIAddVersionKey ProductName CasinoCoin
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
@@ -67,7 +67,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
     File ../release/casinocoin-qt.exe
-    File /oname=license.txt ../COPYING
+    File /oname=COPYING.txt ../COPYING
     File /oname=readme.txt ../doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
     File ../src/casinocoind.exe
@@ -99,9 +99,9 @@ Section -post SEC0001
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoModify 1
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
     WriteRegStr HKCR "casinocoin" "URL Protocol" ""
-    WriteRegStr HKCR "casinocoin" "" "URL:Bitcoin"
+    WriteRegStr HKCR "casinocoin" "" "URL:CasinoCoin"
     WriteRegStr HKCR "casinocoin\DefaultIcon" "" $INSTDIR\casinocoin-qt.exe
-    WriteRegStr HKCR "casinocoin\shell\open\command" "" '"$INSTDIR\casinocoin-qt.exe" "$$1"'
+    WriteRegStr HKCR "casinocoin\shell\open\command" "" '"$INSTDIR\casinocoin-qt.exe" "%1"'
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -120,7 +120,7 @@ done${UNSECTION_ID}:
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
     Delete /REBOOTOK $INSTDIR\casinocoin-qt.exe
-    Delete /REBOOTOK $INSTDIR\license.txt
+    Delete /REBOOTOK $INSTDIR\COPYING.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
     RMDir /r /REBOOTOK $INSTDIR\daemon
     RMDir /r /REBOOTOK $INSTDIR\src
