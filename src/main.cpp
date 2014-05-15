@@ -1214,7 +1214,10 @@ unsigned int static GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const 
 
 unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader *pblock, uint64 TargetBlocksSpacingSeconds, uint64 PastBlocksMin, uint64 PastBlocksMax)
 {
-	/* Kimoto Gravity Well implementation - credit to Dr Kimoto Chan of Megacoin Needs Updating-Kepoly */
+	/* Kimoto Gravity Well implementation - credit to Dr Kimoto Chan of Megacoin */
+    //
+    // We need to add digishield or darkgravity. Unless a Dev can come up with another solution. 
+    //
 	const CBlockIndex  *BlockLastSolved = pindexLast;
 	const CBlockIndex  *BlockReading = pindexLast;
 	const CBlockHeader *BlockCreating = pblock;
