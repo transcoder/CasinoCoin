@@ -41,10 +41,10 @@ Technical Specifications
 Links
 ======
 
-Website: http://casinoco.in
+Website: http://casinocoin.org
 
 
-Forum: http://forum.casinoco.in
+Forum: http://forums.casinocoin.org
 
 
 Source: https://github.com/casinocoin/casinocoin
