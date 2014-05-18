@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = casinocoin-qt
 macx:TARGET = "CasinoCoin-Qt"
-VERSION = 1.1.0.0
+VERSION = 1.2.0.0
 INCLUDEPATH += src src/json src/qt
 QT += core gui network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -23,8 +23,8 @@ BOOST_INCLUDE_PATH=E:/crypto/deps/boost_1_53_0
 BOOST_LIB_PATH=E:/crypto/deps/boost_1_53_0/stage/lib
 BDB_INCLUDE_PATH=E:/crypto/deps/db-4.8.30.NC/build_unix
 BDB_LIB_PATH=E:/crypto/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=E:/crypto/deps/openssl-1.0.1b/include
-OPENSSL_LIB_PATH=E:/crypto/deps/openssl-1.0.1b
+OPENSSL_INCLUDE_PATH=E:/crypto/deps/openssl-1.0.1g/include
+OPENSSL_LIB_PATH=E:/crypto/deps/openssl-1.0.1g
 QRENCODE_INCLUDE_PATH=E:/crypto/deps/qrencode-3.4.3
 QRENCODE_LIB_PATH=E:/crypto/deps/qrencode-3.4.3/.libs
 
