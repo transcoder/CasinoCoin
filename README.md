@@ -33,6 +33,7 @@ Technical Specifications
  - 30 second block time targets
  - ~336 million total coins
  - 720 blocks to retarget difficulty
+ - new digishield difficulty retargetting system (from block 445000) 
  - 50 coins per block, halves every 3,153,600 blocks (~3 years)
  - fair launch, absolutely no premine
 
@@ -46,6 +47,5 @@ Website: http://casinoco.in
 Forum: http://forum.casinoco.in
 
 
-Source: https://github.com/transcoder/CasinoCoin
-
+Source: https://github.com/casinocoin/casinocoin
 
