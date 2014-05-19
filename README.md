@@ -1,4 +1,4 @@
-
+<h2>Correct Wallet Version = 1.2.x</h2>
 <p align="center"><img src="https://raw.github.com/transcoder/CasinoCoin/master/src/qt/res/images/logo.png" /></p>
 
 CasinoCoin: An open source, peer-to-peer Internet currency specifically designed for online casino gaming.
@@ -32,20 +32,29 @@ Technical Specifications
  - scrypt proof-of-work algorithm
  - 30 second block time targets
  - ~336 million total coins
- - 720 blocks to retarget difficulty
+ - new digishield difficulty retargetting system (from block 445000) 
  - 50 coins per block, halves every 3,153,600 blocks (~3 years)
  - fair launch, absolutely no premine
 
+Quickstart for Linux users
+==========================
+    
+    cd ~
+    sudo apt-get install build-essential libboost-all-dev libcurl4-openssl-dev libdb5.1-dev libdb5.1++-dev
+    git clone git://github.com/casinocoin/casinocoin.git
+    cd casinocoin
+    qmake USE_UPNP=- USE_IPV6=1 USE_QRCODE=1 && make
+    
+For more information and options, please look at doc/build-unix.md.
 
 Links
 ======
 
-Website: http://casinoco.in
+Website: http://casinocoin.org
 
 
-Forum: http://forum.casinoco.in
+Forum: http://forums.casinocoin.org
 
 
-Source: https://github.com/transcoder/CasinoCoin
-
+Source: https://github.com/casinocoin/casinocoin
 
