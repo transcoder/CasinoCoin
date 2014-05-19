@@ -1,4 +1,4 @@
-<h2>Please bear with us while we update code, and HardFork</h2>
+<h2>Correct Wallet Version = 1.2.x</h2>
 <p align="center"><img src="https://raw.github.com/transcoder/CasinoCoin/master/src/qt/res/images/logo.png" /></p>
 
 CasinoCoin: An open source, peer-to-peer Internet currency specifically designed for online casino gaming.
