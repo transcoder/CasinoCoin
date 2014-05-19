@@ -36,6 +36,16 @@ Technical Specifications
  - 50 coins per block, halves every 3,153,600 blocks (~3 years)
  - fair launch, absolutely no premine
 
+Quickstart for Linux users
+==========================
+    
+    cd ~
+    sudo apt-get install build-essential libboost-all-dev libcurl4-openssl-dev libdb5.1-dev libdb5.1++-dev
+    git clone git://github.com/casinocoin/casinocoin.git
+    cd casinocoin
+    qmake USE_UPNP=- USE_IPV6=1 USE_QRCODE=1 && make
+    
+For more information and options, please look at doc/build-unix.md.
 
 Links
 ======
