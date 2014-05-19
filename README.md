@@ -1,4 +1,7 @@
-<h2>Correct Wallet Version = 1.2.x</h2>
+<h2>Please download the updated wallet asap, hard fork incoming at block 445000</h2>
+<h3>[Click here to download the most recent wallet version -> 1.2.0 (Updated on May, 19, 2014)](https://github.com/casinocoin/casinocoin/releases/tag/1.2.0.0 "Click to go to releases page")</h3>
+
+
 <p align="center"><img src="https://raw.github.com/transcoder/CasinoCoin/master/src/qt/res/images/logo.png" /></p>
 
 CasinoCoin: An open source, peer-to-peer Internet currency specifically designed for online casino gaming.
