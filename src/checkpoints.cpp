@@ -60,13 +60,22 @@ namespace Checkpoints
 	    (     197777, uint256("0x2f9203c38cede6e1c61a69eb43c4f62d8e04ba62a57a7d866f4d715eec033cd4"))
 	    (     207777, uint256("0x3631874522954f18e6834ad68918dcc060b2712fea7a381e11e10193c6ab2f24"))
 	    (     217777, uint256("0xc86150e3408be1ca10eb1b94f374ae331c07dec6e2162bf06f5c31d83faa9715"))
+        (     237777, uint256("0x6f9d56c970ec057c9d6b20e930e50811d8b5d0215046c80bb681d914e2cca4ea"))
+        (     257777, uint256("0x53e08f4dfe94f5c489aeb564ba84b5e131d026827533f7b446e956541c94eab2"))
+        (     277777, uint256("0x69f7a0b78bf4609971af3702ffd8d2dec7df07d784240aaa28a67d0c78365668"))
+        (     297777, uint256("0xe1b8520b0cc8e03785330dcee2bd31415f44b90f6af9176336859a6230c09de2"))
+        (     317777, uint256("0x0458c7effe8348b551f47c3d7115c9347f4121749549650d495b88e8d0a9c666"))
+        (     347777, uint256("0x9ba10b9cd9b94e903e67da6a1033841a3e66b6a33f09cbaec2146d4f72dbea2d"))
+        (     377777, uint256("0x6eecff79e07910c69ac5340ad34c74cd95ecdfb0282ac62b30e7ba443114a628"))
+        (     444429, uint256("0x01f8b85612927fd3660e7e036f559770ebb09d896f54abf70d99be2fe1793155")) // last solved checkpoint candidate while updating
+            // (we need to know the debug.log tx= for the last checkpoint)
         ;
     static const CCheckpointData data = {
         &mapCheckpoints,
-        1391536800, // * UNIX timestamp of last checkpoint block
-        356643,    // * total number of transactions between genesis and last checkpoint
-                    //   (the tx=... number in the SetBestChain debug.log lines)
-        4500.0     // * estimated number of transactions per day after checkpoint
+        1400510546, // * UNIX timestamp of last checkpoint block
+        661156,    // * total number of transactions between genesis and last checkpoint
+                   //   (the tx=... number in the SetBestChain debug.log lines)
+        4     // * estimated number of transactions per day after checkpoint
     };
 
     static MapCheckpoints mapCheckpointsTestnet = 
