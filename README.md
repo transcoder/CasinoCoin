@@ -32,7 +32,6 @@ Technical Specifications
  - scrypt proof-of-work algorithm
  - 30 second block time targets
  - ~336 million total coins
- - 720 blocks to retarget difficulty
  - new digishield difficulty retargetting system (from block 445000) 
  - 50 coins per block, halves every 3,153,600 blocks (~3 years)
  - fair launch, absolutely no premine
