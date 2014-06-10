@@ -31,7 +31,7 @@ static const int PROTOCOL_VERSION = 70003;
 static const int INIT_PROTO_VERSION = 209;
 
 // disconnect from peers older than this proto version
-static const int MIN_PEER_PROTO_VERSION = 70003; // TODO: Change to 70003 before block 445000 to force new client downloading and therefore doing the actual hard fork
+static const int MIN_PEER_PROTO_VERSION = 70004; // TODO: Change to 70003 before block 445000 to force new client downloading and therefore doing the actual hard fork
 
 // nTime field added to CAddress, starting with this version;
 // if possible, avoid requesting addresses nodes older than this

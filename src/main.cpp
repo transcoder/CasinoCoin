@@ -1108,8 +1108,12 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
         nSubsidy = 45 * COIN;
     }
 
-    // Subsidy is cut in half every 3153600 blocks, which will occur approximately every 3 years
-    nSubsidy >>= (nHeight / 3153600);
+    // Permantently reduce the number of mined coins to 10 after block 620000
+    if(nHeight > 620000){
+	nSubsidy = 10 * COIN;
+    }
+
+    
 
     return nSubsidy + nFees;
 }
