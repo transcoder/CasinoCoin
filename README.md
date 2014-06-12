@@ -38,8 +38,8 @@ Technical Specifications
  - 50 coins per block, halves every 3,153,600 blocks (~3 years)
  - fair launch, absolutely no premine
 
-Casinocoin Announcement Mailing Lists
-=====================================
+Casinocoin Mailing Lists
+========================
 
 If you operate a pool or service that relies on Casinocoin wallets, please subscribe to the "Csinocoin Development" mailing list for notifications of client updates, hardforks,or other issues that may impact you.
 
