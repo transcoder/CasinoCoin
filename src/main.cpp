@@ -1108,8 +1108,8 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
         nSubsidy = 45 * COIN;
     }
 
-    // Permantently reduce the number of mined coins to 10 after block 620000
-    if(nHeight > 620000){
+    // Permantently reduce the number of mined coins to 10 after block 575000
+    if(nHeight > 575000){
         if(nHeight < 3756000){
 	    nSubsidy = 10 * COIN;
         }
