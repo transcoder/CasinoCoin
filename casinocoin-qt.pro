@@ -19,19 +19,33 @@ CONFIG += thread
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
-#BOOST_LIB_SUFFIX=-mgw48-mt-s-1_55
-#BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
-BOOST_INCLUDE_PATH=/usr/include/boost
-#BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
-BOOST_LIB_PATH=/usr/include/boost/stage/lib
-BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
-BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1g/include
-OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1g
-MINIUPNPC_INCLUDE_PATH=C:/deps/
-MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
-QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.3
-QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.3/.libs
+win32 {
+    BOOST_LIB_SUFFIX=-mt
+    BOOST_THREAD_LIB_SUFFIX=_win32-mt
+    #BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
+    #BOOST_INCLUDE_PATH=/home/ubuntu/deps/windows/boost_1_55_0
+    #BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
+    #BOOST_LIB_PATH=/home/ubuntu/deps/windows/boost_1_55_0/stage/lib
+    BDB_INCLUDE_PATH=/home/ubuntu/deps/windows/db-4.8.30.NC/build_unix
+    BDB_LIB_PATH=/home/ubuntu/deps/windows/db-4.8.30.NC/build_unix
+    OPENSSL_INCLUDE_PATH=/home/ubuntu/deps/windows/openssl-1.0.1h/include
+    OPENSSL_LIB_PATH=/home/ubuntu/deps/windows/openssl-1.0.1h
+    MINIUPNPC_INCLUDE_PATH=/home/ubuntu/deps/windows/
+    MINIUPNPC_LIB_PATH=/home/ubuntu/deps/windows/miniupnpc
+    QRENCODE_INCLUDE_PATH=/home/ubuntu/deps/windows/qrencode-3.4.3
+    QRENCODE_LIB_PATH=/home/ubuntu/deps/windows/qrencode-3.4.3/.libs
+} else {
+    BOOST_INCLUDE_PATH=/home/ubuntu/deps/linux/boost_1_55_0
+    BOOST_LIB_PATH=/home/ubuntu/deps/linux/boost_1_55_0/stage/lib
+    BDB_INCLUDE_PATH=/home/ubuntu/deps/linux/db-4.8.30.NC/build_unix
+    BDB_LIB_PATH=/home/ubuntu/deps/linux/db-4.8.30.NC/build_unix
+    OPENSSL_INCLUDE_PATH=/home/ubuntu/deps/linux/openssl-1.0.1h/include
+    OPENSSL_LIB_PATH=/home/ubuntu/deps/linux/openssl-1.0.1h
+    MINIUPNPC_INCLUDE_PATH=/home/ubuntu/deps/linux/
+    MINIUPNPC_LIB_PATH=/home/ubuntu/deps/linux/miniupnpc
+    QRENCODE_INCLUDE_PATH=/home/ubuntu/deps/linux/qrencode-3.4.3
+    QRENCODE_LIB_PATH=/home/ubuntu/deps/linux/qrencode-3.4.3/.libs
+}
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -146,7 +160,7 @@ QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) cl
     DEFINES += HAVE_BUILD_INFO
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wno-unused-local-typedefs -Wno-strict-aliasing -Wstack-protector
 
 # Input
 DEPENDPATH += src src/json src/qt
@@ -356,8 +370,9 @@ CODECFORTR = UTF-8
 TRANSLATIONS = $$files(src/qt/locale/bitcoin_*.ts)
 
 isEmpty(QMAKE_LRELEASE) {
-    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\\lrelease.exe
-    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+#    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\\lrelease.exe
+#    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+    QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
 }
 isEmpty(QM_DIR):QM_DIR = $$PWD/src/qt/locale
 # automatically build translations, so they can be included in resource file

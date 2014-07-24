@@ -5,18 +5,34 @@
 # :=0 --> UPnP support turned off by default at runtime
 # :=1 --> UPnP support turned on by default at runtime
 # :=- --> No UPnP support - miniupnp not required
-USE_UPNP:=0
+USE_UPNP:=-
 
 # :=1 --> Enable IPv6 support
 # :=0 --> Disable IPv6 support
 USE_IPV6:=1
 
+# :=1 --> Enable QR Code support
+# :=0 --> Disable QR Code support
+USE_QRCODE=1
+
+# define libraries
+BOOST_LIB_PATH=/home/ubuntu/deps/linux/boost_1_55_0/stage/lib
+BDB_LIB_PATH=/home/ubuntu/deps/linux/db-4.8.30.NC/build_unix
+OPENSSL_LIB_PATH=/home/ubuntu/deps/linux/openssl-1.0.1h
+MINIUPNPC_LIB_PATH=/home/ubuntu/deps/linux/miniupnpc
+
+# define includes
+BOOST_INCLUDE_PATH=/home/ubuntu/deps/linux/boost_1_55_0
+BDB_INCLUDE_PATH=/home/ubuntu/deps/linux/db-4.8.30.NC/build_unix
+OPENSSL_INCLUDE_PATH=/home/ubuntu/deps/linux/openssl-1.0.1h
+MINIUPNPC_INCLUDE_PATH=/home/ubuntu/deps/linux
+
 LINK:=$(CXX)
 
 DEFS=-DBOOST_SPIRIT_THREADSAFE -D_FILE_OFFSET_BITS=64
 
-DEFS += $(addprefix -I,$(CURDIR) $(CURDIR)/obj $(BOOST_INCLUDE_PATH) $(BDB_INCLUDE_PATH) $(OPENSSL_INCLUDE_PATH))
-LIBS = $(addprefix -L,$(BOOST_LIB_PATH) $(BDB_LIB_PATH) $(OPENSSL_LIB_PATH))
+DEFS += $(addprefix -I,$(CURDIR) $(CURDIR)/obj $(BOOST_INCLUDE_PATH) $(BDB_INCLUDE_PATH) $(OPENSSL_INCLUDE_PATH) $(MINIUPNPC_INCLUDE_PATH))
+LIBS = $(addprefix -L,$(BOOST_LIB_PATH) $(BDB_LIB_PATH) $(OPENSSL_LIB_PATH) $(MINIUPNPC_LIB_PATH))
 
 TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
 
