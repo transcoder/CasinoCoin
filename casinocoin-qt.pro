@@ -22,10 +22,6 @@ CONFIG += thread
 win32 {
     BOOST_LIB_SUFFIX=-mt
     BOOST_THREAD_LIB_SUFFIX=_win32-mt
-    #BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
-    #BOOST_INCLUDE_PATH=/home/ubuntu/deps/windows/boost_1_55_0
-    #BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
-    #BOOST_LIB_PATH=/home/ubuntu/deps/windows/boost_1_55_0/stage/lib
     BDB_INCLUDE_PATH=/home/ubuntu/deps/windows/db-4.8.30.NC/build_unix
     BDB_LIB_PATH=/home/ubuntu/deps/windows/db-4.8.30.NC/build_unix
     OPENSSL_INCLUDE_PATH=/home/ubuntu/deps/windows/openssl-1.0.1h/include
@@ -34,6 +30,17 @@ win32 {
     MINIUPNPC_LIB_PATH=/home/ubuntu/deps/windows/miniupnpc
     QRENCODE_INCLUDE_PATH=/home/ubuntu/deps/windows/qrencode-3.4.3
     QRENCODE_LIB_PATH=/home/ubuntu/deps/windows/qrencode-3.4.3/.libs
+} macx {
+    BOOST_INCLUDE_PATH=/usr/local/opt/boost/include
+    BOOST_LIB_PATH=/usr/local/opt/boost/lib
+    BDB_INCLUDE_PATH=/usr/local/opt/berkeley-db4/include
+    BDB_LIB_PATH=/usr/local/opt/berkeley-db4/lib
+    OPENSSL_INCLUDE_PATH=/usr/local/opt/openssl/include
+    OPENSSL_LIB_PATH=/usr/local/opt/openssl/lib
+    MINIUPNPC_INCLUDE_PATH=/usr/local/opt/miniupnpc/include
+    MINIUPNPC_LIB_PATH=/usr/local/opt/miniupnpc/lib
+    QRENCODE_INCLUDE_PATH=/usr/local/opt/qrencode/include
+    QRENCODE_LIB_PATH=/usr/local/opt/qrencode/lib
 } else {
     BOOST_INCLUDE_PATH=/home/ubuntu/deps/linux/boost_1_55_0
     BOOST_LIB_PATH=/home/ubuntu/deps/linux/boost_1_55_0/stage/lib
@@ -160,7 +167,11 @@ QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) cl
     DEFINES += HAVE_BUILD_INFO
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wno-unused-local-typedefs -Wno-strict-aliasing -Wstack-protector
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wno-strict-aliasing -Wstack-protector
+
+!macx {
+   QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-local-typedefs
+}
 
 # Input
 DEPENDPATH += src src/json src/qt
