@@ -9,6 +9,7 @@
 #include "transactionfilterproxy.h"
 #include "guiutil.h"
 #include "guiconstants.h"
+#include "qtquick_controls/cpp/guibannerwidget.h"
 
 #include <QAbstractItemDelegate>
 #include <QPainter>
@@ -100,9 +101,11 @@ OverviewPage::OverviewPage(QWidget *parent) :
     currentUnconfirmedBalance(-1),
     currentImmatureBalance(-1),
     txdelegate(new TxViewDelegate()),
-    filter(0)
+	filter(0),
+	advertsWidget(0)
 {
     ui->setupUi(this);
+	createAdvertsWidget();
 
     // Recent transactions
     ui->listTransactions->setItemDelegate(txdelegate);
@@ -145,7 +148,16 @@ void OverviewPage::setBalance(qint64 balance, qint64 unconfirmedBalance, qint64 
     // for the non-mining users
     bool showImmature = immatureBalance != 0;
     ui->labelImmature->setVisible(showImmature);
-    ui->labelImmatureText->setVisible(showImmature);
+	ui->labelImmatureText->setVisible(showImmature);
+}
+
+void OverviewPage::createAdvertsWidget()
+{
+	advertsWidget = new GUIBannerWidget( this );
+	ui->verticalLayoutAdvertWidget->addWidget( advertsWidget->dockQmlToWidget(), Qt::AlignCenter );
+	// first load from local files as its faster, than look for new ads in CasinoCoinAPI
+//	advertsWidget->PopulateBannerLocally();
+	advertsWidget->PopulateBannerFromWeb();
 }
 
 void OverviewPage::setClientModel(ClientModel *model)
@@ -210,4 +222,25 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 {
     ui->labelWalletStatus->setVisible(fShow);
     ui->labelTransactionsStatus->setVisible(fShow);
+}
+
+
+void OverviewPage::on_pushButtonToggleAdverts_clicked()
+{
+	if ( ui->verticalLayoutAdvertWidget->itemAt( 0 ) )
+	{
+		QWidget* pAdvertWidget = ui->verticalLayoutAdvertWidget->itemAt( 0 )->widget();
+		if ( pAdvertWidget )
+		{
+			pAdvertWidget->setVisible( !pAdvertWidget->isVisible() );
+			if ( pAdvertWidget->isVisible() )
+			{
+				ui->pushButtonToggleAdverts->setText( tr( "Hide all advertisements" ) );
+			}
+			else
+			{
+				ui->pushButtonToggleAdverts->setText( tr( "Show advertisements" ) );
+			}
+		}
+	}
 }

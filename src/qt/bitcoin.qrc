@@ -1,4 +1,4 @@
-<!DOCTYPE RCC><RCC version="1.0">
+<RCC>
     <qresource prefix="/icons">
         <file alias="bitcoin">res/icons/bitcoin.png</file>
         <file alias="address-book">res/icons/address-book.png</file>
@@ -40,6 +40,10 @@
         <file alias="filesave">res/icons/filesave.png</file>
         <file alias="qrcode">res/icons/qrcode.png</file>
         <file alias="debugwindow">res/icons/debugwindow.png</file>
+        <file>res/icons/adverts_arrow_left.png</file>
+        <file>res/icons/adverts_arrow_left_hover.png</file>
+        <file>res/icons/adverts_arrow_right.png</file>
+        <file>res/icons/adverts_arrow_right_hover.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
@@ -98,5 +102,10 @@
         <file alias="uk">locale/bitcoin_uk.qm</file>
         <file alias="zh_CN">locale/bitcoin_zh_CN.qm</file>
         <file alias="zh_TW">locale/bitcoin_zh_TW.qm</file>
+    </qresource>
+    <qresource prefix="/qml">
+        <file>qtquick_controls/qml/QmlGUIBannerControl.qml</file>
+        <file>qtquick_controls/qml/QmlGUIBannerListView.qml</file>
+        <file>qtquick_controls/qml/QmlGUIBannerWindow.qml</file>
     </qresource>
 </RCC>

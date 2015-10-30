@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>342</height>
+    <width>782</width>
+    <height>406</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,18 @@
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="QFrame" name="frame">
+         <property name="minimumSize">
+          <size>
+           <width>470</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>470</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
@@ -101,7 +113,7 @@
              <number>12</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="label">
+             <widget class="QLabel" name="labelBalanceText">
               <property name="text">
                <string>Balance:</string>
               </property>
@@ -124,13 +136,16 @@
               <property name="text">
                <string notr="true">0 CSC</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
               <property name="textInteractionFlags">
                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
               </property>
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="labelUnconfirmedText">
               <property name="text">
                <string>Unconfirmed:</string>
               </property>
@@ -152,6 +167,9 @@
               </property>
               <property name="text">
                <string notr="true">0 CSC</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
               <property name="textInteractionFlags">
                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
@@ -179,54 +197,76 @@
               <property name="text">
                <string notr="true">0 CSC</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
               <property name="textInteractionFlags">
                <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
               </property>
              </widget>
+            </item>
+            <item row="3" column="0" colspan="2">
+             <widget class="QWidget" name="widgetBuyCSCButton" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="5" column="0" colspan="2">
+             <widget class="QPushButton" name="pushButtonToggleAdverts">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Hide all advertisements (temporary)</string>
+              </property>
+              <property name="autoDefault">
+               <bool>false</bool>
+              </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0" colspan="2">
+             <layout class="QVBoxLayout" name="verticalLayoutAdvertWidget"/>
             </item>
            </layout>
           </item>
          </layout>
         </widget>
        </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="../bitcoin.qrc">:/images/backg</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="margin">
-          <number>-2</number>
-         </property>
-        </widget>
-       </item>       
       </layout>
      </item>
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QFrame" name="frame_2">
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>

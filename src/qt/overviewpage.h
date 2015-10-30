@@ -10,6 +10,7 @@ class ClientModel;
 class WalletModel;
 class TxViewDelegate;
 class TransactionFilterProxy;
+class GUIBannerWidget;
 
 QT_BEGIN_NAMESPACE
 class QModelIndex;
@@ -45,10 +46,15 @@ private:
     TxViewDelegate *txdelegate;
     TransactionFilterProxy *filter;
 
+	GUIBannerWidget* advertsWidget;
+	/** Create widget to populate adverts */
+	void createAdvertsWidget();
+
 private slots:
     void updateDisplayUnit();
     void handleTransactionClicked(const QModelIndex &index);
     void updateAlerts(const QString &warnings);
+	void on_pushButtonToggleAdverts_clicked();
 };
 
 #endif // OVERVIEWPAGE_H

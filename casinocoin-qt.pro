@@ -3,7 +3,7 @@ TARGET = casinocoin-qt
 macx:TARGET = "CasinoCoin-Qt"
 VERSION = 1.3.0.0
 INCLUDEPATH += src src/json src/qt
-QT += core gui network
+QT += core gui network quick
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE USE_IPV6 __NO_SYSTEM_INCLUDES
 CONFIG += no_include_pwd
@@ -259,7 +259,20 @@ HEADERS += src/qt/bitcoingui.h \
     src/threadsafety.h \
     src/limitedmap.h \
     src/qt/macnotificationhandler.h \
-    src/qt/splashscreen.h
+    src/qt/splashscreen.h \
+    src/qt/CSCPublicAPI/casinocoinwebapi.h \
+    src/qt/CSCPublicAPI/casinocoinwebapiparser.h \
+    src/qt/CSCPublicAPI/jsonactivepromotionsparser.h \
+    src/qt/CSCPublicAPI/jsonsingleactivepromotion.h \
+    src/qt/qtquick_controls/cpp/guibannercontrol.h \
+    src/qt/qtquick_controls/cpp/guibannerlistview.h \
+    src/qt/qtquick_controls/cpp/guibannerwidget.h \
+    src/qt/qtquick_controls/cpp/listiteminterface.h \
+    src/qt/qtquick_controls/cpp/qmlbannerlistitem.h \
+    src/qt/qtquick_controls/cpp/qmlbannerlistmodel.h \
+    src/qt/qtquick_controls/cpp/qmlimageprovider.h \
+    src/qt/qtquick_controls/cpp/qmllistitem.h \
+    src/qt/qtquick_controls/cpp/qmllistmodel.h
 
 SOURCES += src/qt/bitcoin.cpp \
     src/qt/bitcoingui.cpp \
@@ -330,7 +343,19 @@ SOURCES += src/qt/bitcoin.cpp \
     src/noui.cpp \
     src/leveldb.cpp \
     src/txdb.cpp \
-    src/qt/splashscreen.cpp
+    src/qt/splashscreen.cpp \
+    src/qt/CSCPublicAPI/casinocoinwebapi.cpp \
+    src/qt/CSCPublicAPI/casinocoinwebapiparser.cpp \
+    src/qt/CSCPublicAPI/jsonactivepromotionsparser.cpp \
+    src/qt/CSCPublicAPI/jsonsingleactivepromotion.cpp \
+    src/qt/qtquick_controls/cpp/guibannercontrol.cpp \
+    src/qt/qtquick_controls/cpp/guibannerlistview.cpp \
+    src/qt/qtquick_controls/cpp/guibannerwidget.cpp \
+    src/qt/qtquick_controls/cpp/qmlbannerlistitem.cpp \
+    src/qt/qtquick_controls/cpp/qmlbannerlistmodel.cpp \
+    src/qt/qtquick_controls/cpp/qmlimageprovider.cpp \
+    src/qt/qtquick_controls/cpp/qmllistitem.cpp \
+    src/qt/qtquick_controls/cpp/qmllistmodel.cpp
 
 RESOURCES += src/qt/bitcoin.qrc
 
@@ -403,7 +428,10 @@ OTHER_FILES += README.md \
     src/test/*.cpp \
     src/test/*.h \
     src/qt/test/*.cpp \
-    src/qt/test/*.h
+    src/qt/test/*.h \
+    src/qt/qtquick_controls/qml/QmlGUIBannerControl.qml \
+    src/qt/qtquick_controls/qml/QmlGUIBannerListView.qml \
+    src/qt/qtquick_controls/qml/QmlGUIBannerWindow.qml
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
