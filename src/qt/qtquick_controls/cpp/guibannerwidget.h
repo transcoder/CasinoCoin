@@ -7,6 +7,8 @@
 class CasinoCoinWebAPIParser;
 class CasinoCoinWebAPI;
 class GUIBannerControl;
+class QmlImageProvider;
+class JsonActivePromotionsParser;
 
 class GUIBannerWidget : public QWidget
 {
@@ -28,9 +30,9 @@ private:
 
 	CasinoCoinWebAPIParser* m_pWebApiParserTemporary;
 	CasinoCoinWebAPI*		m_pWebApiTemporary;
-
+	QmlImageProvider*		m_pQmlImageProvider;
 private slots:
-	void slotNetworkError( QNetworkReply::NetworkError a_eError );
+	void slotPopulateFromWeb( JsonActivePromotionsParser* a_pPromotionsParser );
 };
 
 #endif // GUIBANNERWIDGET_H

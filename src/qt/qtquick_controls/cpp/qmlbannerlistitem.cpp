@@ -8,7 +8,7 @@ QmlBannerListItem::QmlBannerListItem(QString a_strImageSource, QString a_strDest
 }
 
 QmlBannerListItem::QmlBannerListItem( const JsonSingleActivePromotion& a_rCasinoDescription, QObject* a_pParent )
-	: QmlListItem( QVariant( a_rCasinoDescription.GetImagePath() ), a_rCasinoDescription.find( "access_url" ).value().toVariant(), a_rCasinoDescription.find( "description" ).value().toVariant(), a_pParent )
+	: QmlListItem( QVariant( a_rCasinoDescription.GetImageName() ), a_rCasinoDescription.find( "access_url" ).value().toVariant(), a_rCasinoDescription.find( "description" ).value().toVariant(), a_pParent )
 {
 }
 

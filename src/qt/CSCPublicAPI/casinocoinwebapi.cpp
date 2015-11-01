@@ -13,22 +13,22 @@ CasinoCoinWebAPI::CasinoCoinWebAPI( QObject*a_pParent )
 
 void CasinoCoinWebAPI::GetActivePromotions()
 {
-	Get( s_strServerAddress + "/" + s_strServerEndpoint + "/ActivePromotions" );
+	Get( s_strServerAddress + s_strServerEndpoint + "/ActivePromotions" );
 }
 
 void CasinoCoinWebAPI::GetActiveCasinos()
 {
-	Get( s_strServerAddress + "/" + s_strServerEndpoint + "/ActiveCasinos" );
+	Get( s_strServerAddress + s_strServerEndpoint + "/ActiveCasinos" );
 }
 
 void CasinoCoinWebAPI::GetActiveNewsItems()
 {
-	Get( s_strServerAddress + "/" + s_strServerEndpoint + "/ActiveNewsItems" );
+	Get( s_strServerAddress + s_strServerEndpoint + "/ActiveNewsItems" );
 }
 
 void CasinoCoinWebAPI::GetActiveExchanges()
 {
-	Get( s_strServerAddress + "/" + s_strServerEndpoint + "/ActiveExchanges" );
+	Get( s_strServerAddress + s_strServerEndpoint + "/ActiveExchanges" );
 }
 
 void CasinoCoinWebAPI::Get( const QString& a_rUrl )
@@ -43,10 +43,11 @@ void CasinoCoinWebAPI::slotParseNetworkResponse( QNetworkReply *finished )
 	if ( finished->error() != QNetworkReply::NoError )
 	{
 		// A communication error has occurred
-		emit signalNetworkError( finished->error() );
+		qDebug() << finished->request().url();
+		emit signalNetworkError( finished->error(), finished->request().url() );
 		return;
 	}
 
-   QByteArray data = finished->readAll();
+	QByteArray data = finished->readAll();
 	emit signalResponseReady( data );
 }

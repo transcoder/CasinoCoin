@@ -1,39 +1,34 @@
 #include "qmlimageprovider.h"
 
-QmlImageProvider::QmlImageProvider( QQuickItem* a_pParent )
-	: QQuickPaintedItem( a_pParent )
-{
+#include <QDebug>
 
-}
-
-QmlImageProvider::QmlImageProvider( const QImage& a_rImage, QQuickItem* a_pParent )
-	: QQuickPaintedItem( a_pParent )
-	, m_oImage( a_rImage )
+QmlImageProvider::QmlImageProvider()
+	: QQuickImageProvider( QQuickImageProvider::Image )
 {
 }
 
-void QmlImageProvider::SetImage( const QImage& a_rImage )
+void QmlImageProvider::AddToImagePool( QString a_strImageID, const QImage& a_rImage )
 {
-	if ( a_rImage != m_oImage )
+	m_aImagePool.insert( a_strImageID, a_rImage );
+}
+
+void QmlImageProvider::AddToImagePool( const QMap<QString, QImage>& a_aImages )
+{
+	QMapIterator<QString,QImage> iter( a_aImages );
+	while( iter.hasNext() )
 	{
-		m_oImage = QImage( a_rImage );
-		emit signalImageChanged();
+		iter.next();
+		AddToImagePool( iter.key(), iter.value() );
 	}
 }
 
-void QmlImageProvider::paint( QPainter* a_pPainter )
+QImage QmlImageProvider::requestImage( const QString& a_rImageID, QSize* a_pSize, const QSize& a_ra_rRequestedSize )
 {
-	if ( a_pPainter )
+	QImage oImage( m_aImagePool.value( a_rImageID ) );
+	if ( a_pSize )
 	{
-		a_pPainter->drawImage( QPoint( 0, 0 ), m_oImage );
+		a_pSize->setWidth( oImage.width() );
+		a_pSize->setHeight( oImage.height() );
 	}
-}
-
-void QmlImageProvider::paintImage( const QImage& a_rImage, QPainter* a_pPainter )
-{
-	SetImage( a_rImage );
-	if ( a_pPainter )
-	{
-		a_pPainter->drawImage( QPoint( 0, 0 ), m_oImage );
-	}
+	return oImage;
 }

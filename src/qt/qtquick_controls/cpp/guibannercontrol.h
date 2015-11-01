@@ -18,8 +18,7 @@ public:
 	GUIBannerListView* GetAdvertsView() const { return m_pAdvertsView; }
 
 public slots:
-	void slotPopulateFromWeb( JsonActivePromotionsParser* a_pActivePromotions );
-	void slotPopulateLocally();
+	void slotPopulateListView( JsonActivePromotionsParser* a_pActivePromotions );
 
 signals:
 

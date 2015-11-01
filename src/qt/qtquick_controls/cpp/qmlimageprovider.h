@@ -1,26 +1,28 @@
 #ifndef QMLIMAGEPROVIDER_H
 #define QMLIMAGEPROVIDER_H
 
-#include <QQuickPaintedItem>
+#include <QQuickImageProvider>
 #include <QImage>
-#include <QPainter>
 
-class QmlImageProvider : public QQuickPaintedItem
+class QmlImageProvider : public QQuickImageProvider
 {
-	Q_OBJECT
-
-	Q_PROPERTY( QImage p_oImage MEMBER m_oImage NOTIFY signalImageChanged )
 public:
-	explicit QmlImageProvider( QQuickItem* a_pParent = 0 );
-	explicit QmlImageProvider( const QImage& a_rImage, QQuickItem* a_pParent = 0 );
+	explicit QmlImageProvider();
 
-	void SetImage( const QImage& a_rImage );
-	virtual void paint( QPainter* a_pPainter );
-	void paintImage( const QImage& a_rImage, QPainter* a_pPainter );
+	void AddToImagePool( QString a_strImageID, const QImage& a_rImage );
+	void AddToImagePool( const QMap<QString,QImage>& a_aImages );
+
+	virtual QImage	requestImage
+					( const QString& a_rImageID
+					, QSize* a_pSize
+					, const QSize& a_rRequestedSize
+					);
 signals:
-	void signalImageChanged();
+
+public slots:
+
 private:
-	QImage m_oImage;
+	QMap<QString,QImage> m_aImagePool;
 };
 
 #endif // QMLIMAGEPROVIDER_H

@@ -30,22 +30,12 @@ void GUIBannerControl::InitializeAdvertsView( GUIBannerListView* a_pView )
 	}
 }
 
-void GUIBannerControl::slotPopulateFromWeb( JsonActivePromotionsParser* a_pActivePromotions )
+void GUIBannerControl::slotPopulateListView( JsonActivePromotionsParser* a_pActivePromotions )
 {
 	if ( m_pAdvertsView )
 	{
 		QmlBannerListModel* pAdvertsModel = new QmlBannerListModel( *a_pActivePromotions );
 		m_pAdvertsView->SetModel( pAdvertsModel );
-	}
-}
-
-void GUIBannerControl::slotPopulateLocally()
-{
-	if ( m_pAdvertsView )
-	{
-		QmlBannerListModel* pAdvertsModel = new QmlBannerListModel( 0 );
-		m_pAdvertsView->SetModel( pAdvertsModel );
-		qDebug() << "Coming soon";
 	}
 }
 
