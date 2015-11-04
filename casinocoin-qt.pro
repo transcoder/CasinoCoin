@@ -272,7 +272,13 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/qtquick_controls/cpp/qmlbannerlistmodel.h \
     src/qt/qtquick_controls/cpp/qmlimageprovider.h \
     src/qt/qtquick_controls/cpp/qmllistitem.h \
-    src/qt/qtquick_controls/cpp/qmllistmodel.h
+    src/qt/qtquick_controls/cpp/qmllistmodel.h \
+    src/qt/qtquick_controls/cpp/qmlmenutoolbarmodel.h \
+    src/qt/qtquick_controls/cpp/qmlmenutoolbaritem.h \
+    src/qt/qtquick_controls/cpp/guimenutoolbarwidget.h \
+    src/qt/qtquick_controls/cpp/guimenutoolbarlistview.h \
+    src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.h \
+    src/qt/gui20_skin.h
 
 SOURCES += src/qt/bitcoin.cpp \
     src/qt/bitcoingui.cpp \
@@ -355,7 +361,13 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/qtquick_controls/cpp/qmlbannerlistmodel.cpp \
     src/qt/qtquick_controls/cpp/qmlimageprovider.cpp \
     src/qt/qtquick_controls/cpp/qmllistitem.cpp \
-    src/qt/qtquick_controls/cpp/qmllistmodel.cpp
+    src/qt/qtquick_controls/cpp/qmllistmodel.cpp \
+    src/qt/qtquick_controls/cpp/qmlmenutoolbarmodel.cpp \
+    src/qt/qtquick_controls/cpp/qmlmenutoolbaritem.cpp \
+    src/qt/qtquick_controls/cpp/guimenutoolbarwidget.cpp \
+    src/qt/qtquick_controls/cpp/guimenutoolbarlistview.cpp \
+    src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.cpp \
+    src/qt/gui20_skin.cpp
 
 RESOURCES += src/qt/bitcoin.qrc
 
@@ -512,3 +524,8 @@ contains(RELEASE, 1) {
 }
 
 system($$QMAKE_LRELEASE -silent $$TRANSLATIONS)
+
+DISTFILES += \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarListView.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarControl.qml
