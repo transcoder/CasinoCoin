@@ -5,6 +5,8 @@
 #include <QSystemTrayIcon>
 #include <QMap>
 
+#include "qtquick_controls/cpp/guimenutoolbarcontrol.h"
+
 class TransactionTableModel;
 class WalletFrame;
 class WalletView;
@@ -18,6 +20,8 @@ class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
 class RPCConsole;
+
+class GUIMenuToolbarWidget;
 
 class CWallet;
 
@@ -78,6 +82,7 @@ protected:
 private:
     ClientModel *clientModel;
     WalletFrame *walletFrame;
+	GUIMenuToolbarWidget *menuBar_new;
 
     QLabel *labelEncryptionIcon;
     QLabel *labelConnectionsIcon;
@@ -195,6 +200,9 @@ private slots:
 
     /** called by a timer to check if fRequestShutdown has been set **/
     void detectShutdown();
+
+	/** called from new Qml menu toolbar on user click **/
+	void slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes a_eType );
 };
 
 #endif // BITCOINGUI_H

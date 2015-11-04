@@ -44,6 +44,20 @@
         <file>res/icons/adverts_arrow_left_hover.png</file>
         <file>res/icons/adverts_arrow_right.png</file>
         <file>res/icons/adverts_arrow_right_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_transactions.png</file>
+        <file>res/icons/GUI20_mainToolBar_transactions_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_send.png</file>
+        <file>res/icons/GUI20_mainToolBar_send_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_redeemprypto.png</file>
+        <file>res/icons/GUI20_mainToolBar_redeemprypto_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_receive.png</file>
+        <file>res/icons/GUI20_mainToolBar_receive_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_overview.png</file>
+        <file>res/icons/GUI20_mainToolBar_overview_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_info.png</file>
+        <file>res/icons/GUI20_mainToolBar_info_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_contacts.png</file>
+        <file>res/icons/GUI20_mainToolBar_contacts_hover.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
@@ -107,5 +121,8 @@
         <file>qtquick_controls/qml/QmlGUIBannerControl.qml</file>
         <file>qtquick_controls/qml/QmlGUIBannerListView.qml</file>
         <file>qtquick_controls/qml/QmlGUIBannerWindow.qml</file>
+        <file>qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml</file>
+        <file>qtquick_controls/qml/QmlGUIMenuToolbarListView.qml</file>
+        <file>qtquick_controls/qml/QmlGUIMenuToolbarControl.qml</file>
     </qresource>
 </RCC>

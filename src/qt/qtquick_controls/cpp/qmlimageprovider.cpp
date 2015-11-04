@@ -22,8 +22,9 @@ void QmlImageProvider::AddToImagePool( const QMap<QString, QImage>& a_aImages )
 	}
 }
 
-QImage QmlImageProvider::requestImage( const QString& a_rImageID, QSize* a_pSize, const QSize& a_ra_rRequestedSize )
+QImage QmlImageProvider::requestImage( const QString& a_rImageID, QSize* a_pSize, const QSize& a_rRequestedSize )
 {
+	Q_UNUSED( a_rRequestedSize );
 	QImage oImage( m_aImagePool.value( a_rImageID ) );
 	if ( a_pSize )
 	{

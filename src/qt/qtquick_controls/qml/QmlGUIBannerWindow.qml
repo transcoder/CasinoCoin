@@ -7,7 +7,6 @@ Rectangle
 	{
 		id: id_bannerControlMain
 	}
-	color: "#F2F0F1"
 	width: id_bannerControlMain.width
 	height: id_bannerControlMain.height
 }
