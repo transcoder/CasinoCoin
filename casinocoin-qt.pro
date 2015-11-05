@@ -443,7 +443,10 @@ OTHER_FILES += README.md \
     src/qt/test/*.h \
     src/qt/qtquick_controls/qml/QmlGUIBannerControl.qml \
     src/qt/qtquick_controls/qml/QmlGUIBannerListView.qml \
-    src/qt/qtquick_controls/qml/QmlGUIBannerWindow.qml
+    src/qt/qtquick_controls/qml/QmlGUIBannerWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarListView.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarControl.qml
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
@@ -525,7 +528,3 @@ contains(RELEASE, 1) {
 
 system($$QMAKE_LRELEASE -silent $$TRANSLATIONS)
 
-DISTFILES += \
-    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml \
-    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarListView.qml \
-    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarControl.qml
