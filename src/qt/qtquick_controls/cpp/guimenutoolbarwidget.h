@@ -29,6 +29,7 @@ private:
 
 private slots:
 	void slotCurrentItemChanged();
+	void slotOurWebsiteURLClicked();
 };
 
 #endif // GUIMENUTOOLBARWIDGET_H

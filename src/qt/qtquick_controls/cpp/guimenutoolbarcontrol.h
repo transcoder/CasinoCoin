@@ -8,6 +8,10 @@ class GUIMenuToolbarListView;
 class GUIMenuToolbarControl : public QQuickItem
 {
 	Q_OBJECT
+
+	Q_PROPERTY( QString p_strVisitWebsiteText MEMBER m_strVisitWebsiteText NOTIFY signalVisitWebsiteTextChanged )
+	Q_PROPERTY( QString p_strWebsiteURL MEMBER m_strWebsiteURL NOTIFY signalWebsiteURLChanged )
+
 	Q_ENUMS( EMenuToolbarItemTypes )
 public:
 
@@ -27,16 +31,27 @@ public:
 	Q_INVOKABLE void InitializeMenuToolbarView( GUIMenuToolbarListView* a_pView );
 	GUIMenuToolbarListView* GetMenuToolbarView() const { return m_pMenuToolbarView; }
 
+	void SetVisitWebsiteText( QString a_strNewText );
+	void SetWebsiteURL( QString a_strNewText );
+
+	QString GetVisitWebsiteText() const { return m_strVisitWebsiteText; }
+	QString GetWebsiteURL() const { return m_strWebsiteURL; }
+
 public slots:
 
 signals:
 	void signalCurrentItemIndexChanged();
-public slots:
+	void signalVisitWebsiteTextChanged();
+	void signalWebsiteURLChanged();
+	void signalOurWebsiteURLClicked();
 
 private:
 	GUIMenuToolbarListView* m_pMenuToolbarView;
+	QString m_strVisitWebsiteText;
+	QString m_strWebsiteURL;
 
 	void ConnectListViewSignals();
+
 private slots:
 	void slotCurrentItemIndexChanged();
 };

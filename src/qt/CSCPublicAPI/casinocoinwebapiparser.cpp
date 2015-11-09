@@ -1,5 +1,10 @@
 #include "casinocoinwebapiparser.h"
 
+#include "util.h"
+
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
+
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonValue>
@@ -83,11 +88,9 @@ void CasinoCoinWebAPIParser::ParseNewsItems( const QJsonObject& a_rJsonNewsItems
 QByteArray CasinoCoinWebAPIParser::ReadFile( QString a_strSourcePath )
 {
 	QByteArray strAnswer;
-	if ( !QDir( "offlineData" ).exists() )
-	{
-		QDir().mkdir( "offlineData" );
-	}
-	QFile fileOutput( QDir( "offlineData" ).absoluteFilePath( a_strSourcePath ) );
+	boost::filesystem::path pathCasinoCoinAPIResources = GetDataDir() / "cscapires";
+
+	QFile fileOutput( QDir( QString::fromStdString( pathCasinoCoinAPIResources.string() ) ).absoluteFilePath( a_strSourcePath ) );
 	if ( !fileOutput.open( QIODevice::ReadOnly ) )
 	{
 		qWarning() << "cannot open file to read: " << QDir::current().relativeFilePath( a_strSourcePath );
@@ -102,11 +105,10 @@ QByteArray CasinoCoinWebAPIParser::ReadFile( QString a_strSourcePath )
 
 void CasinoCoinWebAPIParser::StoreFile( QString a_strDestinationPath, const QByteArray& a_rJsonFile )
 {
-	if ( !QDir( "offlineData" ).exists() )
-	{
-		QDir().mkdir( "offlineData" );
-	}
-	QFile fileOutput( QDir( "offlineData" ).absoluteFilePath( a_strDestinationPath ) );
+	boost::filesystem::path pathCasinoCoinAPIResources = GetDataDir() / "cscapires";
+	boost::filesystem::create_directories(pathCasinoCoinAPIResources);
+
+	QFile fileOutput( QDir( QString::fromStdString( pathCasinoCoinAPIResources.string() ) ).absoluteFilePath( a_strDestinationPath ) );
 	if ( !fileOutput.open( QIODevice::WriteOnly | QIODevice::Truncate ) )
 	{
 		qWarning() << "cannot open file to write: " << QDir::current().relativeFilePath( a_strDestinationPath );

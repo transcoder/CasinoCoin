@@ -11,6 +11,9 @@
 #include <QQuickView>
 #include <QQmlContext>
 
+#include <QDesktopServices>
+#include <QUrl>
+
 GUIMenuToolbarWidget::GUIMenuToolbarWidget( QWidget *a_pParent )
 	: QWidget( a_pParent )
 	, m_pToolbarControl( 0 )
@@ -21,16 +24,7 @@ GUIMenuToolbarWidget::GUIMenuToolbarWidget( QWidget *a_pParent )
 
 GUIMenuToolbarWidget::~GUIMenuToolbarWidget()
 {
-	if ( m_pQmlImageProvider )
-	{
-		delete m_pQmlImageProvider;
-		m_pQmlImageProvider = 0;
-	}
-	if( m_pToolbarControl )
-	{
-		delete m_pToolbarControl;
-		m_pToolbarControl = 0;
-	}
+	// member objects are moved to qml engine and it manages their instances
 }
 
 void GUIMenuToolbarWidget::registerCustomQmlTypes()
@@ -56,34 +50,53 @@ void GUIMenuToolbarWidget::slotCurrentItemChanged()
 	}
 }
 
+void GUIMenuToolbarWidget::slotOurWebsiteURLClicked()
+{
+	qDebug() << "clicked";
+	if ( m_pToolbarControl )
+	{
+		QString strUrl = m_pToolbarControl->GetWebsiteURL();
+		if ( !strUrl.contains( "http" ) )
+		{
+			strUrl.prepend( "http://" );
+		}
+		QDesktopServices::openUrl( QUrl( strUrl ) );
+	}
+}
+
 QWidget* GUIMenuToolbarWidget::dockQmlToWidget()
 {
 	QQuickView* pMenuToolbarWindow = new QQuickView;
-	QQmlContext* pContext = pMenuToolbarWindow->rootContext();
-	if ( pContext )
+	QWidget* pPlaceHolder = 0;
+	if ( pMenuToolbarWindow )
 	{
-		pContext->setContextProperty( "GUI20Skin", &GUI20Skin::Instance() );
-	}
-	QQmlEngine* pEngine = pMenuToolbarWindow->engine();
-	if ( pEngine )
-	{
-		m_pQmlImageProvider = new QmlImageProvider();
-		pEngine->addImageProvider( "mainToolBarImages", m_pQmlImageProvider );
-	}
-	pMenuToolbarWindow->setSource( QUrl( QStringLiteral( "qrc:/qml/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml" ) ) );
-	QQuickItem* pRootObject = pMenuToolbarWindow->rootObject();
-	if ( pRootObject )
-	{
-		m_pToolbarControl = pRootObject->findChild<GUIMenuToolbarControl*>();
-		if ( m_pToolbarControl )
+		QQmlContext* pContext = pMenuToolbarWindow->rootContext();
+		if ( pContext )
 		{
-			connect( m_pToolbarControl, SIGNAL( signalCurrentItemIndexChanged() ), this, SLOT( slotCurrentItemChanged() ), Qt::UniqueConnection );
+			pContext->setContextProperty( "GUI20Skin", &GUI20Skin::Instance() );
 		}
-	}
-	QWidget* pPlaceHolder = QWidget::createWindowContainer( pMenuToolbarWindow, this );
-	if ( pPlaceHolder )
-	{
-		pPlaceHolder->setMinimumHeight( 82 );
+		QQmlEngine* pEngine = pMenuToolbarWindow->engine();
+		if ( pEngine )
+		{
+			m_pQmlImageProvider = new QmlImageProvider();
+			pEngine->addImageProvider( "mainToolBarImages", m_pQmlImageProvider );
+		}
+		pMenuToolbarWindow->setSource( QUrl( QStringLiteral( "qrc:/qml/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml" ) ) );
+		QQuickItem* pRootObject = pMenuToolbarWindow->rootObject();
+		if ( pRootObject )
+		{
+			m_pToolbarControl = pRootObject->findChild<GUIMenuToolbarControl*>();
+			if ( m_pToolbarControl )
+			{
+				connect( m_pToolbarControl, SIGNAL( signalCurrentItemIndexChanged() ), this, SLOT( slotCurrentItemChanged() ), Qt::UniqueConnection );
+				connect( m_pToolbarControl, SIGNAL( signalOurWebsiteURLClicked() ), this, SLOT( slotOurWebsiteURLClicked() ), Qt::UniqueConnection );
+			}
+		}
+		pPlaceHolder = QWidget::createWindowContainer( pMenuToolbarWindow );
+		if ( pPlaceHolder )
+		{
+			pPlaceHolder->setMinimumHeight( 82 );
+		}
 	}
 	return pPlaceHolder;
 }

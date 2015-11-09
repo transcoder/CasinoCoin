@@ -62,7 +62,7 @@ const QString BitcoinGUI::DEFAULT_WALLET = "~Default";
 BitcoinGUI::BitcoinGUI(QWidget *parent) :
     QMainWindow(parent),
     clientModel(0),
-	menuBar_new(0),
+	toolbarGUI20(0),
     encryptWalletAction(0),
     changePassphraseAction(0),
     aboutQtAction(0),
@@ -82,13 +82,13 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
 #endif
 	// Create wallet frame with main menu
 	walletFrame = new WalletFrame(this);
-	menuBar_new = new GUIMenuToolbarWidget( this );
-	connect( menuBar_new, SIGNAL( signalItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes ) ), this, SLOT( slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes ) ), Qt::UniqueConnection );
+	toolbarGUI20 = new GUIMenuToolbarWidget( this );
+	connect( toolbarGUI20, SIGNAL( signalItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes ) ), this, SLOT( slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes ) ), Qt::UniqueConnection );
 
 	// envelope them in another widget
 	QWidget* pCentralWidget = new QWidget( this );
 	QVBoxLayout* pBoxLayout = new QVBoxLayout();
-	pBoxLayout->addWidget( menuBar_new->dockQmlToWidget() );
+	pBoxLayout->addWidget( toolbarGUI20->dockQmlToWidget() );
 	pBoxLayout->addWidget( walletFrame );
 	pCentralWidget->setLayout( pBoxLayout );
 
@@ -300,18 +300,6 @@ void BitcoinGUI::createMenuBar()
     help->addAction(aboutQtAction);
 }
 
-void BitcoinGUI::createToolBars()
-{
-    QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
-    toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    toolbar->addAction(overviewAction);
-    toolbar->addAction(sendCoinsAction);
-    toolbar->addAction(receiveCoinsAction);
-    toolbar->addAction(historyAction);
-    toolbar->addAction(addressBookAction);
-
-}
-
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
 {
     this->clientModel = clientModel;
@@ -481,7 +469,7 @@ void BitcoinGUI::optionsClicked()
 
 void BitcoinGUI::aboutClicked()
 {
-	if ( menuBar_new ) menuBar_new->SetCurrentItemType( GUIMenuToolbarControl::INFO );
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::INFO );
 	AboutDialog dlg;
     dlg.setModel(clientModel);
     dlg.exec();
@@ -499,31 +487,31 @@ void BitcoinGUI::aboutClicked()
 void BitcoinGUI::gotoOverviewPage()
 {
     if (walletFrame) walletFrame->gotoOverviewPage();
-	if ( menuBar_new ) menuBar_new->SetCurrentItemType( GUIMenuToolbarControl::OVERVIEW );
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::OVERVIEW );
 }
 
 void BitcoinGUI::gotoHistoryPage()
 {
     if (walletFrame) walletFrame->gotoHistoryPage();
-	if ( menuBar_new ) menuBar_new->SetCurrentItemType( GUIMenuToolbarControl::TRANSACTIONS );
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::TRANSACTIONS );
 }
 
 void BitcoinGUI::gotoAddressBookPage()
 {
     if (walletFrame) walletFrame->gotoAddressBookPage();
-	if ( menuBar_new ) menuBar_new->SetCurrentItemType( GUIMenuToolbarControl::CONTACTS );
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::CONTACTS );
 }
 
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
     if (walletFrame) walletFrame->gotoReceiveCoinsPage();
-	if ( menuBar_new ) menuBar_new->SetCurrentItemType( GUIMenuToolbarControl::RECEIVE );
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::RECEIVE );
 }
 
 void BitcoinGUI::gotoSendCoinsPage(QString addr)
 {
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
-	if ( menuBar_new ) menuBar_new->SetCurrentItemType( GUIMenuToolbarControl::SEND );
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::SEND );
 }
 
 void BitcoinGUI::gotoSignMessageTab(QString addr)

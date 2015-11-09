@@ -5,7 +5,7 @@ GUIBannerControl
 {
 	id: id_bannerControl
 
-	property color colorBackgroundInWidget: "#F2F0F1"
+	property color colorBackgroundInWidget: "#FFFFFF"
 	Rectangle
 	{
 		id: id_leftArrow

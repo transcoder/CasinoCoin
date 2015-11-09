@@ -9,6 +9,8 @@
 GUIMenuToolbarControl::GUIMenuToolbarControl( QQuickItem* a_pParent )
 	: QQuickItem( a_pParent )
 	, m_pMenuToolbarView( 0 )
+	, m_strVisitWebsiteText( tr( "Visit our website" ) )
+	, m_strWebsiteURL( tr( "casinocoin.org" ) )
 {
 }
 
@@ -48,6 +50,24 @@ void GUIMenuToolbarControl::InitializeMenuToolbarView( GUIMenuToolbarListView* a
 				ConnectListViewSignals();
 			}
 		}
+	}
+}
+
+void GUIMenuToolbarControl::SetVisitWebsiteText( QString a_strNewText )
+{
+	if ( m_strVisitWebsiteText != a_strNewText )
+	{
+		m_strVisitWebsiteText = a_strNewText;
+		emit signalVisitWebsiteTextChanged();
+	}
+}
+
+void GUIMenuToolbarControl::SetWebsiteURL( QString a_strNewText )
+{
+	if ( m_strWebsiteURL != a_strNewText )
+	{
+		m_strWebsiteURL = a_strNewText;
+		emit signalWebsiteURLChanged();
 	}
 }
 

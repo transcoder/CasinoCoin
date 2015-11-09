@@ -3,8 +3,8 @@ import QtQuick 2.0
 Rectangle
 {
 	id: id_toolbarRoot
-	width: 1280
-	height: 77 + 5
+	width: parent.width
+	height: parent.height
 	color: "transparent"
 	QmlGUIMenuToolbarControl
 	{

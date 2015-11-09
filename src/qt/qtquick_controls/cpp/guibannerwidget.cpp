@@ -30,7 +30,7 @@ GUIBannerWidget::GUIBannerWidget(QWidget *parent)
 
 GUIBannerWidget::~GUIBannerWidget()
 {
-
+	// member objects are moved to qml engine and it manages their instances
 }
 
 void GUIBannerWidget::registerCustomQmlTypes()
@@ -43,25 +43,31 @@ void GUIBannerWidget::registerCustomQmlTypes()
 QWidget* GUIBannerWidget::dockQmlToWidget()
 {
 	QQuickView* pBannerWindow = new QQuickView;
-	pBannerWindow->setSource( QUrl( QStringLiteral( "qrc:/qml/qtquick_controls/qml/QmlGUIBannerWindow.qml" ) ) );
-	QQmlEngine* pEngine = pBannerWindow->engine();
-	if ( pEngine )
+	QWidget* pPlaceHolder = 0;
+	if ( pBannerWindow )
 	{
-		m_pQmlImageProvider = new QmlImageProvider();
-		pEngine->addImageProvider( "advertImages", m_pQmlImageProvider );
-	}
-	QWidget* pPlaceHolder = QWidget::createWindowContainer( pBannerWindow, this );
-	pPlaceHolder->setMinimumSize( 445, 120 );
-	pPlaceHolder->setMaximumSize( 445, 120 );
-	pPlaceHolder->setStyleSheet( "background-color: rgb(242, 241, 240);");
-	QQuickItem* pRootObject = pBannerWindow->rootObject();
-	if ( pRootObject )
-	{
-		m_pBannerControl = pRootObject->findChild<GUIBannerControl*>();
-		if ( m_pBannerControl )
+		pBannerWindow->setSource( QUrl( QStringLiteral( "qrc:/qml/qtquick_controls/qml/QmlGUIBannerWindow.qml" ) ) );
+		QQmlEngine* pEngine = pBannerWindow->engine();
+		if ( pEngine )
 		{
-			m_pBannerControl->setWidth( ( 115 * 3 ) + ( 4 * 10 ) + 60 );
-			m_pBannerControl->setHeight( 115 );
+			m_pQmlImageProvider = new QmlImageProvider();
+			pEngine->addImageProvider( "advertImages", m_pQmlImageProvider );
+		}
+		pPlaceHolder = QWidget::createWindowContainer( pBannerWindow, this );
+		if ( pPlaceHolder )
+		{
+			pPlaceHolder->setMinimumSize( 445, 115 );
+			pPlaceHolder->setMaximumSize( 445, 115 );
+		}
+		QQuickItem* pRootObject = pBannerWindow->rootObject();
+		if ( pRootObject )
+		{
+			m_pBannerControl = pRootObject->findChild<GUIBannerControl*>();
+			if ( m_pBannerControl )
+			{
+				m_pBannerControl->setWidth( ( 115 * 3 ) + ( 4 * 10 ) + 60 );
+				m_pBannerControl->setHeight( 115 );
+			}
 		}
 	}
 

@@ -82,7 +82,7 @@ protected:
 private:
     ClientModel *clientModel;
     WalletFrame *walletFrame;
-	GUIMenuToolbarWidget *menuBar_new;
+	GUIMenuToolbarWidget *toolbarGUI20;
 
     QLabel *labelEncryptionIcon;
     QLabel *labelConnectionsIcon;
@@ -121,8 +121,6 @@ private:
     void createActions();
     /** Create the menu bar and sub-menus. */
     void createMenuBar();
-    /** Create the toolbars */
-    void createToolBars();
     /** Create system tray icon and notification */
     void createTrayIcon();
     /** Create system tray menu (or setup the dock menu) */

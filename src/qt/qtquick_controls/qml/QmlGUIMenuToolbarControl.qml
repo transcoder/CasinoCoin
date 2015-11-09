@@ -53,5 +53,52 @@ GUIMenuToolbarControl
 				NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
 			}
 		}
+		Image
+		{
+			id: id_cardsImage
+			anchors.top: id_toolbarRect.top
+			anchors.right: id_toolbarRect.right
+			source: "qrc:/images/res/images/GUI20_mainToolBar_cards.png"
+		}
+		Rectangle
+		{
+			id: id_visitWebsiteBox
+			height: id_visitWebsiteText.height + id_visitWebsiteURL.height
+			width: id_visitWebsiteText.width
+			anchors.rightMargin: 20
+			anchors.right: id_toolbarRect.right
+			anchors.topMargin: 25
+			anchors.top: id_toolbarRect.top
+			color: "transparent"
+			Column
+			{
+				anchors.right: id_visitWebsiteBox.right
+				anchors.top: id_visitWebsiteBox.top
+				Text
+				{
+					id: id_visitWebsiteText
+					text: id_toolbarControl.p_strVisitWebsiteText
+					color: GUI20Skin.colorToolbarMainTextVisitWebsite
+				}
+				Text
+				{
+					id: id_visitWebsiteURL
+					text: id_toolbarControl.p_strWebsiteURL
+					font.bold: true
+					color: GUI20Skin.colorToolbarMainTextWebsiteURL
+				}
+			}
+
+			MouseArea
+			{
+				id: id_visitWebsiteMouseArea
+				anchors.fill: id_visitWebsiteBox
+				onClicked:
+				{
+					console.log( "clicked hehe" )
+					signalOurWebsiteURLClicked()
+				}
+			}
+		}
 	}
 }

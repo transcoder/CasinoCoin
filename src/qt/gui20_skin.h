@@ -20,6 +20,8 @@ class GUI20Skin : public QObject
 	Q_PROPERTY( QColor colorToolbarMainTextCurrent			READ GetColorToolbarMainTextCurrent				CONSTANT )
 	Q_PROPERTY( QColor colorToolbarMainTextNormal			READ GetColorToolbarMainTextNormal				CONSTANT )
 	Q_PROPERTY( QColor colorToolbarMainTextShadow			READ GetColorToolbarMainTextShadow				CONSTANT )
+	Q_PROPERTY( QColor colorToolbarMainTextWebsiteURL		READ GetColorToolbarMainTextWebsiteURL			CONSTANT )
+	Q_PROPERTY( QColor colorToolbarMainTextVisitWebsite		READ GetColorToolbarMainTextVisitWebsite		CONSTANT )
 
 
 	Q_ENUMS( ESizeConstants )
@@ -41,8 +43,8 @@ public:
 	const QColor GetColorToolbarMainTextCurrent() const			{return colorToolbarMainTextCurrent;}
 	const QColor GetColorToolbarMainTextNormal() const			{return colorToolbarMainTextNormal;}
 	const QColor GetColorToolbarMainTextShadow() const			{return colorToolbarMainTextShadow;}
-
-
+	const QColor GetColorToolbarMainTextWebsiteURL() const		{return colorToolbarMainTextWebsiteURL;}
+	const QColor GetColorToolbarMainTextVisitWebsite() const	{return colorToolbarMainTextVisitWebsite;}
 private:
 	const QColor colorToolbarMainGradientBegin;
 	const QColor colorToolbarMainGradientEnd;
@@ -53,6 +55,8 @@ private:
 	const QColor colorToolbarMainTextCurrent;
 	const QColor colorToolbarMainTextNormal;
 	const QColor colorToolbarMainTextShadow;
+	const QColor colorToolbarMainTextWebsiteURL;
+	const QColor colorToolbarMainTextVisitWebsite;
 
 	const QColor colorMainWindowBackground;
 	const QColor colorMainWindowFrameBackground;
