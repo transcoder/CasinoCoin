@@ -852,7 +852,7 @@ void BitcoinGUI::toggleHidden()
 void BitcoinGUI::detectShutdown()
 {
     if (ShutdownRequested())
-		QMetaObject::invokeMethod(QCoreApplication::instance(), "quit", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(QCoreApplication::instance(), "quit", Qt::QueuedConnection);
 }
 
 void BitcoinGUI::slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes a_eType )
