@@ -215,6 +215,13 @@ void BitcoinGUI::createActions()
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 
+    pryptoRedeemAction = new QAction(QIcon(":/icons/receive"), tr("&Prypto Redeem"), this);
+    pryptoRedeemAction->setStatusTip(tr("Redeem the value of a Prypto card to your wallet"));
+    pryptoRedeemAction->setToolTip(pryptoRedeemAction->statusTip());
+    pryptoRedeemAction->setCheckable(true);
+    pryptoRedeemAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    tabGroup->addAction(pryptoRedeemAction);
+
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -225,6 +232,8 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
+    connect(pryptoRedeemAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(pryptoRedeemAction, SIGNAL(triggered()), this, SLOT(gotoPryptoPage()));
 
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
     quitAction->setStatusTip(tr("Quit application"));
@@ -373,6 +382,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     signMessageAction->setEnabled(enabled);
     verifyMessageAction->setEnabled(enabled);
     addressBookAction->setEnabled(enabled);
+    pryptoRedeemAction->setEnabled(enabled);
 }
 
 void BitcoinGUI::createTrayIcon()
@@ -500,6 +510,12 @@ void BitcoinGUI::gotoAddressBookPage()
 {
     if (walletFrame) walletFrame->gotoAddressBookPage();
 	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::CONTACTS );
+}
+
+void BitcoinGUI::gotoPryptoPage()
+{
+    if (walletFrame) walletFrame->gotoPryptoPage();
+    if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::REDEEM_PRYPTO );
 }
 
 void BitcoinGUI::gotoReceiveCoinsPage()
@@ -886,8 +902,7 @@ void BitcoinGUI::slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbar
 		}
 		case GUIMenuToolbarControl::REDEEM_PRYPTO:
 		{
-			// TODO
-			//				emit pryptoRedeemAction->triggered();
+            emit pryptoRedeemAction->triggered();
 			break;
 		}
 		case GUIMenuToolbarControl::INFO:
