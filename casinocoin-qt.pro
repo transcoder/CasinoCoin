@@ -278,7 +278,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/qtquick_controls/cpp/guimenutoolbarwidget.h \
     src/qt/qtquick_controls/cpp/guimenutoolbarlistview.h \
     src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.h \
-    src/qt/gui20_skin.h
+    src/qt/gui20_skin.h \
+    src/qt/cscfusionstyle.h
 
 SOURCES += src/qt/bitcoin.cpp \
     src/qt/bitcoingui.cpp \
@@ -367,7 +368,8 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/qtquick_controls/cpp/guimenutoolbarwidget.cpp \
     src/qt/qtquick_controls/cpp/guimenutoolbarlistview.cpp \
     src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.cpp \
-    src/qt/gui20_skin.cpp
+    src/qt/gui20_skin.cpp \
+    src/qt/cscfusionstyle.cpp
 
 RESOURCES += src/qt/bitcoin.qrc
 

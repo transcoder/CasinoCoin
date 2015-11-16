@@ -5,7 +5,7 @@ GUIBannerControl
 {
 	id: id_bannerControl
 
-	property color colorBackgroundInWidget: "#FFFFFF"
+	property color colorBackgroundInWidget: GUI20Skin.colorWindowBackground
 	Rectangle
 	{
 		id: id_leftArrow

@@ -13,8 +13,20 @@ GUI20Skin::GUI20Skin( QObject* a_pParent )
 	, colorToolbarMainTextVisitWebsite( "#ffffaf" )
 
 	, colorToolbarMainTextShadow( "#c72427" )
-	, colorMainWindowBackground( "#afafaf" )
-	, colorMainWindowFrameBackground( "#ffffff" )
+	, colorWindowBackground( "#f0f0f0" )
+	, colorFrameBackground( "#ffffff" )
+	, colorButtonTopGradient( colorFrameBackground )
+	, colorButtonBottomGradient( "#F2F2F2" )
+	, colorButtonMid( "#F8F8F8" )
+	, colorButtonDark( colorButtonBottomGradient )
+	, colorButtonLight( colorFrameBackground )
+	, colorListCurrent( "#F5E5E5" )
+	, colorListValue( colorFrameBackground )
+	, colorListValueAlternative( "#F5F5F5" )
+	, colorTextActive( "#404040" )
+	, colorTextActiveAutocomplete( "#6B3D3D" )
+	, colorTextDisabled( "#707070" )
+	, colorTextDisabledAutocomplete( "#8B5D5D" )
 {
 }
 

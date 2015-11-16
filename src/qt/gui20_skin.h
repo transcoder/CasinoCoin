@@ -23,6 +23,23 @@ class GUI20Skin : public QObject
 	Q_PROPERTY( QColor colorToolbarMainTextWebsiteURL		READ GetColorToolbarMainTextWebsiteURL			CONSTANT )
 	Q_PROPERTY( QColor colorToolbarMainTextVisitWebsite		READ GetColorToolbarMainTextVisitWebsite		CONSTANT )
 
+	Q_PROPERTY( QColor colorWindowBackground				READ GetColorWindowBackground					CONSTANT )
+	Q_PROPERTY( QColor colorFrameBackground					READ GetColorFrameBackground					CONSTANT )
+
+	Q_PROPERTY( QColor colorButtonTopGradient				READ GetColorButtonTopGradient					CONSTANT )
+	Q_PROPERTY( QColor colorButtonBottomGradient			READ GetColorButtonBottomGradient				CONSTANT )
+	Q_PROPERTY( QColor colorButtonMid						READ GetColorButtonMid							CONSTANT )
+	Q_PROPERTY( QColor colorButtonDark						READ GetColorButtonDark							CONSTANT )
+	Q_PROPERTY( QColor colorButtonLight						READ GetColorButtonLight						CONSTANT )
+
+	Q_PROPERTY( QColor colorListCurrent						READ GetColorListCurrent						CONSTANT )
+	Q_PROPERTY( QColor colorListValue						READ GetColorListValue							CONSTANT )
+	Q_PROPERTY( QColor colorListValueAlternative			READ GetColorListValueAlternative				CONSTANT )
+
+	Q_PROPERTY( QColor colorTextActive						READ GetColorTextActive							CONSTANT )
+	Q_PROPERTY( QColor colorTextActiveAutocomplete			READ GetColorTextActiveAutocomplete				CONSTANT )
+	Q_PROPERTY( QColor colorTextDisabled					READ GetColorTextDisabled						CONSTANT )
+	Q_PROPERTY( QColor colorTextDisabledAutocomplete		READ GetColorTextDisabledAutocomplete			CONSTANT )
 
 	Q_ENUMS( ESizeConstants )
 
@@ -45,6 +62,22 @@ public:
 	const QColor GetColorToolbarMainTextShadow() const			{return colorToolbarMainTextShadow;}
 	const QColor GetColorToolbarMainTextWebsiteURL() const		{return colorToolbarMainTextWebsiteURL;}
 	const QColor GetColorToolbarMainTextVisitWebsite() const	{return colorToolbarMainTextVisitWebsite;}
+
+	const QColor GetColorButtonTopGradient() const				{return colorButtonTopGradient;}
+	const QColor GetColorButtonBottomGradient() const			{return colorButtonBottomGradient;}
+	const QColor GetColorButtonMid() const						{return colorButtonMid;}
+	const QColor GetColorButtonDark() const						{return colorButtonDark;}
+	const QColor GetColorButtonLight() const					{return colorButtonLight;}
+
+	const QColor GetColorListCurrent() const					{return colorListCurrent;}
+	const QColor GetColorListValue() const						{return colorListValue;}
+	const QColor GetColorListValueAlternative() const			{return colorListValueAlternative;}
+
+	const QColor GetColorTextActive() const						{return colorTextActive;}
+	const QColor GetColorTextActiveAutocomplete() const			{return colorTextActiveAutocomplete;}
+	const QColor GetColorTextDisabled() const					{return colorTextDisabled;}
+	const QColor GetColorTextDisabledAutocomplete() const		{return colorTextDisabledAutocomplete;}
+
 private:
 	const QColor colorToolbarMainGradientBegin;
 	const QColor colorToolbarMainGradientEnd;
@@ -58,8 +91,23 @@ private:
 	const QColor colorToolbarMainTextWebsiteURL;
 	const QColor colorToolbarMainTextVisitWebsite;
 
-	const QColor colorMainWindowBackground;
-	const QColor colorMainWindowFrameBackground;
+	const QColor colorWindowBackground;
+	const QColor colorFrameBackground;
+
+	const QColor colorButtonTopGradient;
+	const QColor colorButtonBottomGradient;
+	const QColor colorButtonMid;
+	const QColor colorButtonDark;
+	const QColor colorButtonLight;
+
+	const QColor colorListCurrent;
+	const QColor colorListValue;
+	const QColor colorListValueAlternative;
+
+	const QColor colorTextActive;
+	const QColor colorTextActiveAutocomplete;
+	const QColor colorTextDisabled;
+	const QColor colorTextDisabledAutocomplete;
 
 public:
 	static GUI20Skin& Instance();
