@@ -2,7 +2,7 @@
 
 #include <QSsl>
 
-const QString CasinoCoinWebAPI::s_strServerAddress = "http://119.81.188.59/";
+const QString CasinoCoinWebAPI::s_strServerAddress = "http://api.csc.dig0.com/";
 const QString CasinoCoinWebAPI::s_strServerEndpoint = "CSCPublicAPI";
 
 CasinoCoinWebAPI::CasinoCoinWebAPI( QObject*a_pParent )

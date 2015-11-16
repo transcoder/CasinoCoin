@@ -11,7 +11,6 @@ GUI20Skin::GUI20Skin( QObject* a_pParent )
 	, colorToolbarMainTextNormal( "#3f0a0c" )
 	, colorToolbarMainTextWebsiteURL( colorToolbarMainTextCurrent )
 	, colorToolbarMainTextVisitWebsite( "#ffffaf" )
-
 	, colorToolbarMainTextShadow( "#c72427" )
 	, colorWindowBackground( "#f0f0f0" )
 	, colorFrameBackground( "#ffffff" )
