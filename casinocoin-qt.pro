@@ -278,7 +278,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/qtquick_controls/cpp/guimenutoolbarwidget.h \
     src/qt/qtquick_controls/cpp/guimenutoolbarlistview.h \
     src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.h \
-    src/qt/gui20_skin.h
+    src/qt/gui20_skin.h \
+    src/qt/cscfusionstyle.h
 
 SOURCES += src/qt/bitcoin.cpp \
     src/qt/bitcoingui.cpp \
@@ -367,7 +368,8 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/qtquick_controls/cpp/guimenutoolbarwidget.cpp \
     src/qt/qtquick_controls/cpp/guimenutoolbarlistview.cpp \
     src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.cpp \
-    src/qt/gui20_skin.cpp
+    src/qt/gui20_skin.cpp \
+    src/qt/cscfusionstyle.cpp
 
 RESOURCES += src/qt/bitcoin.qrc
 
@@ -443,7 +445,10 @@ OTHER_FILES += README.md \
     src/qt/test/*.h \
     src/qt/qtquick_controls/qml/QmlGUIBannerControl.qml \
     src/qt/qtquick_controls/qml/QmlGUIBannerListView.qml \
-    src/qt/qtquick_controls/qml/QmlGUIBannerWindow.qml
+    src/qt/qtquick_controls/qml/QmlGUIBannerWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarListView.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarControl.qml
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
@@ -525,7 +530,3 @@ contains(RELEASE, 1) {
 
 system($$QMAKE_LRELEASE -silent $$TRANSLATIONS)
 
-DISTFILES += \
-    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml \
-    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarListView.qml \
-    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarControl.qml

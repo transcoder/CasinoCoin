@@ -2,7 +2,10 @@
 
 #include <QHBoxLayout>
 #include <QCheckBox>
-#include <QtQuick/QQuickView>
+#include <QQuickView>
+#include <QQmlContext>
+
+#include "gui20_skin.h"
 
 // qml
 #include "guibannercontrol.h"
@@ -43,8 +46,7 @@ void GUIBannerWidget::registerCustomQmlTypes()
 QWidget* GUIBannerWidget::dockQmlToWidget()
 {
 	QQuickView* pBannerWindow = new QQuickView;
-	QWidget* pPlaceHolder = 0;
-	if ( pBannerWindow )
+	QQmlContext* pContext = pBannerWindow->rootContext();
 	{
 		pBannerWindow->setSource( QUrl( QStringLiteral( "qrc:/qml/qtquick_controls/qml/QmlGUIBannerWindow.qml" ) ) );
 		QQmlEngine* pEngine = pBannerWindow->engine();

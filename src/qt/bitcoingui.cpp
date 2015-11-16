@@ -25,6 +25,8 @@
 #include "ui_interface.h"
 #include "wallet.h"
 #include "init.h"
+#include "cscfusionstyle.h"
+#include "gui20_skin.h"
 
 #include "qtquick_controls/cpp/guimenutoolbarwidget.h"
 
@@ -54,6 +56,7 @@
 #include <QSettings>
 #include <QDesktopWidget>
 #include <QListWidget>
+#include <QToolTip>
 
 #include <iostream>
 
@@ -163,6 +166,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
 
     // Initially wallet actions should be disabled
     setWalletActionsEnabled(false);
+
+	QApplication::setStyle(new CSCFusionStyle);
 }
 
 BitcoinGUI::~BitcoinGUI()
