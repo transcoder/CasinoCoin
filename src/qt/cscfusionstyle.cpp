@@ -190,6 +190,20 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 		{
 			return;
 		}
+		case PE_PanelItemViewRow:
+		{
+			int x, y, width, height;
+			option->rect.getRect(&x, &y, &width, &height);
+
+			QPainterPath roundRect = roundRectPath(option->rect, 0);
+
+			QBrush brush = option->palette.base();
+			painter->save();
+			painter->setRenderHint(QPainter::Antialiasing, true);
+			painter->fillPath(roundRect, brush);
+			painter->restore();
+			break;
+		}
 		case PE_FrameGroupBox:
 		case PE_FrameWindow:
 		case PE_Frame:
@@ -206,6 +220,7 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 			painter->restore();
 			break;
 		}
+		case PE_PanelButtonTool:
 		case PE_PanelButtonCommand:
 		{
 			GUI20Skin& skin = GUI20Skin::Instance();
