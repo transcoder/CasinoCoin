@@ -2,6 +2,12 @@
 #define PRYPTOPAGE_H
 
 #include <QDialog>
+#include <QUrlQuery>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QProgressDialog>
+
+class WalletModel;
 
 namespace Ui {
     class PryptoPage;
@@ -13,13 +19,28 @@ class PryptoPage : public QDialog
 
 public:
     explicit PryptoPage(QWidget *parent = 0);
+    void setWalletModel(WalletModel *model);
     ~PryptoPage();
+
+signals:
+    void apiResponseReady( const QByteArray& content );
+    void apiNetworkError( QNetworkReply::NetworkError error );
 
 private slots:
     void on_butRedeem_clicked();
+    void parseAPINetworkResponse( QNetworkReply *finished );
+    void showAPIResult(QByteArray data);
+    void showAPINetworkError(QNetworkReply *reply);
 
 private:
+    static const QString strAPIEndpoint;
+    static const QString strMerchantToken;
+    static const QString strAddressLabel;
+
     Ui::PryptoPage *ui;
+    QNetworkAccessManager networkAccessManager;
+    WalletModel *walletModel;
+    QProgressDialog *busyDialog;
 };
 
 #endif // PRYPTOPAGE_H
