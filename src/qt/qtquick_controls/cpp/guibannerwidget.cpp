@@ -46,21 +46,21 @@ void GUIBannerWidget::registerCustomQmlTypes()
 QWidget* GUIBannerWidget::dockQmlToWidget()
 {
 	QQuickView* pBannerWindow = new QQuickView;
-	QQmlContext* pContext = pBannerWindow->rootContext();
+	QWidget* pPlaceHolder = 0;
+	if ( pBannerWindow )
 	{
-		pBannerWindow->setSource( QUrl( QStringLiteral( "qrc:/qml/qtquick_controls/qml/QmlGUIBannerWindow.qml" ) ) );
+		QQmlContext* pContext = pBannerWindow->rootContext();
+		if ( pContext )
+		{
+			pContext->setContextProperty( "GUI20Skin", &GUI20Skin::Instance() );
+		}
 		QQmlEngine* pEngine = pBannerWindow->engine();
 		if ( pEngine )
 		{
 			m_pQmlImageProvider = new QmlImageProvider();
 			pEngine->addImageProvider( "advertImages", m_pQmlImageProvider );
 		}
-		pPlaceHolder = QWidget::createWindowContainer( pBannerWindow, this );
-		if ( pPlaceHolder )
-		{
-			pPlaceHolder->setMinimumSize( 445, 115 );
-			pPlaceHolder->setMaximumSize( 445, 115 );
-		}
+		pBannerWindow->setSource( QUrl( QStringLiteral( "qrc:/qml/qtquick_controls/qml/QmlGUIBannerWindow.qml" ) ) );
 		QQuickItem* pRootObject = pBannerWindow->rootObject();
 		if ( pRootObject )
 		{
@@ -70,6 +70,12 @@ QWidget* GUIBannerWidget::dockQmlToWidget()
 				m_pBannerControl->setWidth( ( 115 * 3 ) + ( 4 * 10 ) + 60 );
 				m_pBannerControl->setHeight( 115 );
 			}
+		}
+		pPlaceHolder = QWidget::createWindowContainer( pBannerWindow, this );
+		if ( pPlaceHolder )
+		{
+			pPlaceHolder->setMinimumSize( 445, 115 );
+			pPlaceHolder->setMaximumSize( 445, 115 );
 		}
 	}
 

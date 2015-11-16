@@ -52,7 +52,6 @@ void GUIMenuToolbarWidget::slotCurrentItemChanged()
 
 void GUIMenuToolbarWidget::slotOurWebsiteURLClicked()
 {
-	qDebug() << "clicked";
 	if ( m_pToolbarControl )
 	{
 		QString strUrl = m_pToolbarControl->GetWebsiteURL();

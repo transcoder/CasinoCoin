@@ -63,6 +63,9 @@ public:
 	const QColor GetColorToolbarMainTextWebsiteURL() const		{return colorToolbarMainTextWebsiteURL;}
 	const QColor GetColorToolbarMainTextVisitWebsite() const	{return colorToolbarMainTextVisitWebsite;}
 
+	const QColor GetColorWindowBackground() const				{return colorWindowBackground;}
+	const QColor GetColorFrameBackground() const				{return colorFrameBackground;}
+
 	const QColor GetColorButtonTopGradient() const				{return colorButtonTopGradient;}
 	const QColor GetColorButtonBottomGradient() const			{return colorButtonBottomGradient;}
 	const QColor GetColorButtonMid() const						{return colorButtonMid;}

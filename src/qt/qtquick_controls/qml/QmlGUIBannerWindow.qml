@@ -7,7 +7,7 @@ Rectangle
 	{
 		id: id_bannerControlMain
 	}
-	color: "transparent"
+	color: GUI20Skin.colorFrameBackground
 	width: id_bannerControlMain.width
 	height: id_bannerControlMain.height
 }
