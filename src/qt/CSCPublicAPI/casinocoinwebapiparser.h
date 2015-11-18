@@ -5,6 +5,7 @@
 
 #include "jsonactivepromotionsparser.h"
 #include "jsonsingleactivepromotion.h"
+#include "jsoncoininfoparser.h"
 
 #include <QNetworkReply>
 
@@ -17,6 +18,7 @@ public:
 
 signals:
 	void signalActivePromotionsParsed( JsonActivePromotionsParser* a_pActivePromotions );
+    void signalCoinInfoParsed( JsonCoinInfoParser* a_pCoinInfo );
 //	void signalActiveCasinosParsed( JsonActiveCasinosParser* a_pActivePromotions );
 //	void signalActiveExchangesParsed( JsonActiveExchangesParser* a_pActivePromotions );
 //	void signalActiveNewsItemsParsed( JsonActiveNewsItemsParser* a_pActivePromotions );
@@ -32,6 +34,7 @@ private:
 	void ParseCasinos	( const QJsonObject& a_rJsonCasinos );
 	void ParseExchanges	( const QJsonObject& a_rJsonExchanges );
 	void ParseNewsItems	( const QJsonObject& a_rJsonNewsItems );
+    void ParseCoinInfo ( const QJsonObject& a_rJsonCoinInfo );
 
 	QByteArray ReadFile( QString a_strSourcePath );
 	void StoreFile( QString a_strDestinationPath, const QByteArray& a_rJsonFile );

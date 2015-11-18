@@ -27,6 +27,7 @@ public:
         ProxySocksVersion, // int
         Fee,               // qint64
         DisplayUnit,       // BitcoinUnits::Unit
+        DisplayFiatCurrency, // Currencies::FiatCurrencyID
         DisplayAddresses,  // bool
         Language,          // QString
         CoinControlFeatures, // bool
@@ -51,6 +52,7 @@ public:
     bool getDisplayAddresses() { return bDisplayAddresses; }
     QString getLanguage() { return language; }
     bool getCoinControlFeatures();
+    int getDisplayFiatCurrency() { return nDisplayFiatCurrency; }
 
 private:
     int nDisplayUnit;
@@ -59,6 +61,7 @@ private:
     bool fMinimizeOnClose;
     QString language;
     bool fCoinControlFeatures;
+    int nDisplayFiatCurrency;
 
 signals:
     void displayUnitChanged(int unit);

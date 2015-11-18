@@ -16,7 +16,7 @@ PryptoPage::PryptoPage(QWidget *parent) :
     ui->setupUi(this);
     connect( &networkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parseAPINetworkResponse(QNetworkReply*)) );
     connect( this, SIGNAL(apiResponseReady(QByteArray)), this, SLOT(showAPIResult(QByteArray)) );
-    connect( this, SIGNAL(apiNetworkError(QNetworkReply::NetworkError*)), this, SLOT(showAPINetworkError(QNetworkReply*)) );
+    connect( this, SIGNAL(apiNetworkError(QNetworkReply::NetworkError)), this, SLOT(showAPINetworkError(QNetworkReply::NetworkError)) );
 }
 
 void PryptoPage::setWalletModel(WalletModel *model)
@@ -81,10 +81,11 @@ void PryptoPage::parseAPINetworkResponse( QNetworkReply *finished )
     emit apiResponseReady( data );
 }
 
-void PryptoPage::showAPINetworkError(QNetworkReply *reply)
+void PryptoPage::showAPINetworkError(QNetworkReply::NetworkError error)
 {
+    qDebug() << "PryptoPage::showAPINetworkError: " << error;
     QMessageBox msgBox;
-    msgBox.setText("Error redeeming Prypto Card: " + reply->errorString());
+    msgBox.setText("Error redeeming Prypto Card.");
     msgBox.exec();
 }
 

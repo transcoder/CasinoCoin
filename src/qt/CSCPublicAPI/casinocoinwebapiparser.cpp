@@ -48,8 +48,21 @@ void CasinoCoinWebAPIParser::slotParseAnswer( const QByteArray& a_rJsonFile )
 				StoreFile( "ActiveExchanges", a_rJsonFile );
 				ParseExchanges( docAsObject );
 			}
-		}
+            else if ( jsonObjectResult.find( "CoinInfo" ).value().isObject() )
+            {
+                StoreFile( "CoinInfo", a_rJsonFile );
+                ParseCoinInfo( docAsObject );
+            }
+        }
+        else
+        {
+            qDebug() << "CasinoCoinWebAPIParser -> No Result object found: " << docAsObject.begin().key();
+        }
 	}
+    else
+    {
+        qDebug() << "CasinoCoinWebAPIParser -> Parse Error: " << oError.errorString();
+    }
 }
 
 void CasinoCoinWebAPIParser::slotNetworkError( QNetworkReply::NetworkError a_eError
@@ -83,6 +96,12 @@ void CasinoCoinWebAPIParser::ParseNewsItems( const QJsonObject& a_rJsonNewsItems
 {
 	qDebug() << "Coming soon - ParseNewsItems";
 	qDebug() << a_rJsonNewsItems;
+}
+
+void CasinoCoinWebAPIParser::ParseCoinInfo( const QJsonObject& a_rJsonCoinInfo )
+{
+    qDebug() << "ParseCoinInfo";
+    emit signalCoinInfoParsed( new JsonCoinInfoParser( a_rJsonCoinInfo ) );
 }
 
 QByteArray CasinoCoinWebAPIParser::ReadFile( QString a_strSourcePath )

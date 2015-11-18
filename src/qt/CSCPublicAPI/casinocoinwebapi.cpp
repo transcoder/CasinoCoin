@@ -31,6 +31,11 @@ void CasinoCoinWebAPI::GetActiveExchanges()
 	Get( s_strServerAddress + s_strServerEndpoint + "/ActiveExchanges" );
 }
 
+void CasinoCoinWebAPI::GetCoinInfo()
+{
+    Get( s_strServerAddress + s_strServerEndpoint + "/CoinInfo" );
+}
+
 void CasinoCoinWebAPI::Get( const QString& a_rUrl )
 {
 	QUrl oUrl ( a_rUrl );
@@ -43,7 +48,7 @@ void CasinoCoinWebAPI::slotParseNetworkResponse( QNetworkReply *finished )
 	if ( finished->error() != QNetworkReply::NoError )
 	{
 		// A communication error has occurred
-		qDebug() << finished->request().url();
+        qDebug() << "API Network Error: " << finished->errorString();
 		emit signalNetworkError( finished->error(), finished->request().url() );
 		return;
 	}

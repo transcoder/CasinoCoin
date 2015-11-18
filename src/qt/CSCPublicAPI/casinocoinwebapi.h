@@ -17,6 +17,7 @@ public:
 	void GetActiveCasinos();
 	void GetActiveNewsItems();
 	void GetActiveExchanges();
+    void GetCoinInfo();
 
 	static const QString s_strServerAddress;
 	static const QString s_strServerEndpoint;

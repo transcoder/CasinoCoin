@@ -60,6 +60,56 @@
             <property name="verticalSpacing">
              <number>12</number>
             </property>
+            <item row="0" column="0" colspan="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QLabel" name="label_5">
+                <property name="font">
+                 <font>
+                  <pointsize>14</pointsize>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(166, 27, 31);</string>
+                </property>
+                <property name="text">
+                 <string>Wallet</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="labelWalletStatus">
+                <property name="toolTip">
+                 <string>The displayed information may be out of date. Your wallet automatically synchronizes with the CasinoCoin network after a connection is established, but this process has not completed yet.</string>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(166, 27, 31);</string>
+                </property>
+                <property name="text">
+                 <string notr="true">(out of sync)</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
             <item row="1" column="0">
              <widget class="QLabel" name="labelBalanceText">
               <property name="text">
@@ -154,17 +204,7 @@
               </property>
              </widget>
             </item>
-            <item row="4" column="0" colspan="2">
-             <widget class="QWidget" name="widgetBuyCSCButton" native="true">
-              <property name="minimumSize">
-               <size>
-                <width>150</width>
-                <height>30</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0" colspan="2">
+            <item row="6" column="0" colspan="2">
              <spacer name="verticalSpacer">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -177,7 +217,10 @@
               </property>
              </spacer>
             </item>
-            <item row="6" column="0" colspan="2">
+            <item row="8" column="0" colspan="2">
+             <layout class="QVBoxLayout" name="verticalLayoutAdvertWidget"/>
+            </item>
+            <item row="7" column="0" colspan="2">
              <widget class="QPushButton" name="pushButtonToggleAdverts">
               <property name="styleSheet">
                <string notr="true"/>
@@ -196,58 +239,44 @@
               </property>
              </widget>
             </item>
-            <item row="7" column="0" colspan="2">
-             <layout class="QVBoxLayout" name="verticalLayoutAdvertWidget"/>
+            <item row="5" column="0" colspan="2">
+             <widget class="QWidget" name="widgetBuyCSCButton" native="true">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+             </widget>
             </item>
-            <item row="0" column="0" colspan="2">
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
-              <item>
-               <widget class="QLabel" name="label_5">
-                <property name="font">
-                 <font>
-                  <pointsize>14</pointsize>
-                  <weight>75</weight>
-                  <bold>true</bold>
-                 </font>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">color: rgb(166, 27, 31);</string>
-                </property>
-                <property name="text">
-                 <string>Wallet</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QLabel" name="labelWalletStatus">
-                <property name="toolTip">
-                 <string>The displayed information may be out of date. Your wallet automatically synchronizes with the CasinoCoin network after a connection is established, but this process has not completed yet.</string>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true">color: rgb(166, 27, 31);</string>
-                </property>
-                <property name="text">
-                 <string notr="true">(out of sync)</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="4" column="0">
+             <widget class="QLabel" name="labelBalanceFiatText">
+              <property name="text">
+               <string>Estimated Fiat Balance:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="labelBalanceFiat">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>Estimated Fiat balance calculated against current market value</string>
+              </property>
+              <property name="text">
+               <string notr="true">0</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

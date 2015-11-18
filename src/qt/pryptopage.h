@@ -24,13 +24,13 @@ public:
 
 signals:
     void apiResponseReady( const QByteArray& content );
-    void apiNetworkError( QNetworkReply::NetworkError error );
+    void apiNetworkError( const QNetworkReply::NetworkError& error );
 
 private slots:
     void on_butRedeem_clicked();
     void parseAPINetworkResponse( QNetworkReply *finished );
     void showAPIResult(QByteArray data);
-    void showAPINetworkError(QNetworkReply *reply);
+    void showAPINetworkError(QNetworkReply::NetworkError error);
 
 private:
     static const QString strAPIEndpoint;
