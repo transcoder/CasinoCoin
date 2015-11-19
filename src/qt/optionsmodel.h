@@ -31,6 +31,7 @@ public:
         DisplayAddresses,  // bool
         Language,          // QString
         CoinControlFeatures, // bool
+        DisplayPromotions, // bool
         OptionIDRowCount,
     };
 
@@ -53,6 +54,7 @@ public:
     QString getLanguage() { return language; }
     bool getCoinControlFeatures();
     int getDisplayFiatCurrency() { return nDisplayFiatCurrency; }
+    bool getDisplayPromotions() { return fDisplayPromotions; }
 
 private:
     int nDisplayUnit;
@@ -62,11 +64,14 @@ private:
     QString language;
     bool fCoinControlFeatures;
     int nDisplayFiatCurrency;
+    bool fDisplayPromotions;
 
 signals:
     void displayUnitChanged(int unit);
     void transactionFeeChanged(qint64);
     void coinControlFeaturesChanged(bool);
+    void displayCurrencyChanged(int currency);
+    void displayPromotionsChanged(bool);
 };
 
 #endif // OPTIONSMODEL_H

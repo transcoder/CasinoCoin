@@ -58,14 +58,14 @@ private:
     CasinoCoinWebAPI* cscWebApi;
     void getCoinInfo();
     QJsonObject coinInformation;
-    void updateFiatBalance();
 
 private slots:
     void updateDisplayUnit();
     void handleTransactionClicked(const QModelIndex &index);
     void updateAlerts(const QString &warnings);
-	void on_pushButtonToggleAdverts_clicked();
     void updateCoinInfoFromWeb( JsonCoinInfoParser* coinInfoParser );
+    void updateFiatBalance(int currency);
+    void updateDisplayPromotions(bool checked);
 };
 
 #endif // OVERVIEWPAGE_H

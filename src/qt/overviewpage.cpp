@@ -163,7 +163,7 @@ void OverviewPage::setBalance(qint64 balance, qint64 unconfirmedBalance, qint64 
     ui->labelImmature->setVisible(showImmature);
 	ui->labelImmatureText->setVisible(showImmature);
     // set fiat balance
-    updateFiatBalance();
+    updateFiatBalance(walletModel->getOptionsModel()->getDisplayFiatCurrency());
 }
 
 void OverviewPage::createAdvertsWidget()
@@ -205,8 +205,9 @@ void OverviewPage::setWalletModel(WalletModel *model)
         // Keep up to date with wallet
         setBalance(model->getBalance(), model->getUnconfirmedBalance(), model->getImmatureBalance());
         connect(model, SIGNAL(balanceChanged(qint64, qint64, qint64)), this, SLOT(setBalance(qint64, qint64, qint64)));
-
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
+        connect(model->getOptionsModel(), SIGNAL(displayCurrencyChanged(int)), this, SLOT(updateFiatBalance(int)));
+        connect(model->getOptionsModel(), SIGNAL(displayPromotionsChanged(bool)), this, SLOT(updateDisplayPromotions(bool)));
     }
 
     // update the display unit, to not use the default ("BTC")
@@ -239,27 +240,6 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
     ui->labelTransactionsStatus->setVisible(fShow);
 }
 
-
-void OverviewPage::on_pushButtonToggleAdverts_clicked()
-{
-	if ( ui->verticalLayoutAdvertWidget->itemAt( 0 ) )
-	{
-		QWidget* pAdvertWidget = ui->verticalLayoutAdvertWidget->itemAt( 0 )->widget();
-		if ( pAdvertWidget )
-		{
-			pAdvertWidget->setVisible( !pAdvertWidget->isVisible() );
-			if ( pAdvertWidget->isVisible() )
-			{
-				ui->pushButtonToggleAdverts->setText( tr( "Hide all advertisements" ) );
-			}
-			else
-			{
-				ui->pushButtonToggleAdverts->setText( tr( "Show advertisements" ) );
-			}
-		}
-	}
-}
-
 void OverviewPage::getCoinInfo()
 {
     if ( cscWebApi )
@@ -275,18 +255,30 @@ void OverviewPage::updateCoinInfoFromWeb( JsonCoinInfoParser* coinInfoParser )
     // save the coin information
     coinInformation = coinInfoParser->getCoinInfo();
     // calculate and set the estimated fiat balance
-    updateFiatBalance();
+    updateFiatBalance(walletModel->getOptionsModel()->getDisplayFiatCurrency());
 }
 
-void OverviewPage::updateFiatBalance()
+void OverviewPage::updateFiatBalance(int currency)
 {
     if(!coinInformation.isEmpty())
     {
-        int currency = walletModel->getOptionsModel()->getDisplayFiatCurrency();
         QString conversionCurrency = QString("Price").append(Currencies::name(currency));
         double currencyValue = coinInformation.find(conversionCurrency).value().toDouble();
-        double fiatBalance = currentBalance * currencyValue * 0.00000001;
+        double fiatBalance = currentBalance * currencyValue;
         qDebug() << "updateFiatBalance: " << QString::number(fiatBalance,'f',2);
-        ui->labelBalanceFiat->setText(QString::number(fiatBalance,'f',2).append(" ").append(Currencies::name(currency)));
+        ui->labelBalanceFiat->setText(Currencies::format(currency,fiatBalance,true));
+    }
+}
+
+void OverviewPage::updateDisplayPromotions(bool checked)
+{
+    qDebug() << "updateDisplayPromotions: " << checked;
+    if ( ui->verticalLayoutAdvertWidget->itemAt( 0 ) )
+    {
+        QWidget* pAdvertWidget = ui->verticalLayoutAdvertWidget->itemAt( 0 )->widget();
+        if ( pAdvertWidget )
+        {
+            pAdvertWidget->setVisible( checked );
+        }
     }
 }

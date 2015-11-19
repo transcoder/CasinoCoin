@@ -1,5 +1,6 @@
 #include "currencies.h"
 #include <QStringList>
+#include <QLocale>
 
 Currencies::Currencies(QObject *parent):
     QAbstractListModel(parent),
@@ -57,6 +58,34 @@ QString Currencies::description(int currency)
     case RUB: return QString("Russian Ruble");
     default: return QString("???");
     }
+}
+
+QString Currencies::symbol(int currency)
+{
+    switch(currency)
+    {
+    case USD: return QString("$");
+    case EUR: return QString("€");
+    case CNY: return QString("¥");
+    case JPY: return QString("¥");
+    case RUB: return QString("₽");
+    default: return QString("$");
+    }
+}
+
+QString Currencies::format(int currency, double value, bool useSymbol)
+{
+    // divide by satoshi
+    double fiatValue = value * 0.00000001;
+    QString formattedValue = "";
+    if(useSymbol)
+    {
+        formattedValue.append(symbol(currency)).append(" ");
+    }
+    // apply format
+    QLocale::setDefault( QLocale(QLocale::English, QLocale::UnitedStates) );
+    formattedValue.append(QString("%L1").arg(fiatValue, 0, 'f', 2)).append(" ").append(name(currency));
+    return formattedValue;
 }
 
 int Currencies::rowCount(const QModelIndex &parent) const

@@ -108,7 +108,6 @@ void OptionsDialog::setModel(OptionsModel *model)
     if(model)
     {
         connect(model, SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
-
         mapper->setModel(model);
         setMapper();
         mapper->toFirst();
@@ -150,6 +149,7 @@ void OptionsDialog::setMapper()
     mapper->addMapping(ui->currency, OptionsModel::DisplayFiatCurrency);
     mapper->addMapping(ui->displayAddresses, OptionsModel::DisplayAddresses);
     mapper->addMapping(ui->coinControlFeatures, OptionsModel::CoinControlFeatures);
+    mapper->addMapping(ui->displayPromotions, OptionsModel::DisplayPromotions);
 }
 
 void OptionsDialog::enableApplyButton()

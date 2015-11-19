@@ -309,7 +309,7 @@
         <rect>
          <x>10</x>
          <y>100</y>
-         <width>230</width>
+         <width>491</width>
          <height>20</height>
         </rect>
        </property>
@@ -324,8 +324,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>127</y>
-         <width>275</width>
+         <y>130</y>
+         <width>491</width>
          <height>20</height>
         </rect>
        </property>
@@ -345,7 +345,7 @@
          <height>24</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_2_Display_Currency">
+       <layout class="QHBoxLayout" name="horizontalLayout_display_Currency">
         <item>
          <widget class="QLabel" name="currencyLabel">
           <property name="text">
@@ -377,7 +377,7 @@
          <height>24</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_1_Display">
+       <layout class="QHBoxLayout" name="horizontalLayout_display_Language">
         <property name="sizeConstraint">
          <enum>QLayout::SetMaximumSize</enum>
         </property>
@@ -412,7 +412,7 @@
          <height>24</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_2_Display">
+       <layout class="QHBoxLayout" name="horizontalLayout_display_Units">
         <item>
          <widget class="QLabel" name="unitLabel">
           <property name="text">
@@ -434,6 +434,22 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QCheckBox" name="displayPromotions">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>160</y>
+         <width>491</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Whether to show casino promotions on the overview page or not.</string>
+       </property>
+       <property name="text">
+        <string>Display casino promotions</string>
+       </property>
       </widget>
      </widget>
     </widget>

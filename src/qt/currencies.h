@@ -26,6 +26,10 @@ public:
     static QString name(int currency);
     //! Longer description
     static QString description(int unit);
+    //! symbol
+    static QString symbol(int currency);
+    //! Format value
+    static QString format(int currency, double value, bool symbol);
 
     //! @name AbstractListModel implementation
     //! List model for currency drop-down selection box.
