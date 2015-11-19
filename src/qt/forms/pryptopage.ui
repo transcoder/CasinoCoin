@@ -6,77 +6,93 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>516</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="formLayoutWidget">
+  <widget class="QFrame" name="frame">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>70</y>
-     <width>361</width>
-     <height>112</height>
-    </rect>
-   </property>
-   <layout class="QFormLayout" name="formLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="lblPryptoCode">
-      <property name="text">
-       <string>Prypto Code</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="lblSecurityCode">
-      <property name="text">
-       <string>Security Code</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="txtPryptoCode"/>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="txtSecurityCode">
-      <property name="inputMethodHints">
-       <set>Qt::ImhDigitsOnly</set>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="butRedeem">
-      <property name="text">
-       <string>Redeem</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QLabel" name="lblHelp">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
+     <x>10</x>
      <y>10</y>
-     <width>361</width>
-     <height>51</height>
+     <width>501</width>
+     <height>281</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Enter your Prypto Code and Security Code to redeem your Prypto card.</string>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
    </property>
-   <property name="textFormat">
-    <enum>Qt::AutoText</enum>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
    </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>true</bool>
-   </property>
+   <widget class="QLabel" name="lblHelp">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>461</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter your Prypto Code and Security Code to redeem your Prypto card.</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>361</width>
+      <height>112</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="lblPryptoCode">
+       <property name="text">
+        <string>Prypto Code</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="lblSecurityCode">
+       <property name="text">
+        <string>Security Code</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="txtPryptoCode"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="txtSecurityCode">
+       <property name="inputMethodHints">
+        <set>Qt::ImhDigitsOnly</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="butRedeem">
+       <property name="text">
+        <string>Redeem</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
  <resources/>
