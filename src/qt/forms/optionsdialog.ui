@@ -336,7 +336,7 @@
         <string>Display coin &amp;control features (experts only!)</string>
        </property>
       </widget>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="layoutWidget1">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -368,7 +368,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="layoutWidget2">
        <property name="geometry">
         <rect>
          <x>11</x>
@@ -403,7 +403,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="layoutWidget">
+      <widget class="QWidget" name="layoutWidget3">
        <property name="geometry">
         <rect>
          <x>11</x>
