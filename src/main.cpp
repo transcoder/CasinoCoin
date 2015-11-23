@@ -1124,6 +1124,47 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
     return nSubsidy + nFees;
 }
 
+int64 GetTotalCoinSupply(int nHeight, bool noCheckpoints)
+{
+    int64 totalSupply = 0;
+    int startBlock = 1;
+    if ( !noCheckpoints ) {
+        // Reduce the amount of calculations by specifying total checkpoints
+        int heights[] = {
+            100000, 200000, 300000, 400000, 500000,
+            600000, 700000, 800000, 900000, 1000000,
+            1100000
+        };
+        int64 supplies[] = {
+            482721500000000, 982721500000000, 1482721500000000, 1982721500000000, 2482721500000000,
+            2882721500000000, 2982721500000000, 3082721500000000, 3182721500000000, 3282721500000000,
+            3382721500000000
+        };
+        if (nHeight>=1 ) {
+            int numHeights = (int)(sizeof(heights)/sizeof(heights[0]));
+//            int numSupplies = (int)(sizeof(supplies)/sizeof(supplies[0]));
+//            if (nHeight>heights[numHeights-1]) {
+//                nHeight = heights[numHeights-1];
+//            }
+            for (int i=(numHeights-1); i>=0; i--) {
+                if ( heights[i] <= nHeight ) {
+                    if (i>=0) {
+                        totalSupply = supplies[i];
+                        startBlock = heights[i] + 1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    if ( nHeight>=1 ) {
+        for (int i = startBlock; i <= nHeight; i++) {
+            totalSupply += GetBlockValue( i, 0 );
+        }
+    }
+    return totalSupply;
+}
+
 static const int64 nTargetTimespan =  0.25 * 24 * 60 * 60; // CasinoCoin: 0.25 day / 6 hours
 static const int64 nTargetSpacing = 1 * 30; // CasinoCoin: 30 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;

@@ -1607,3 +1607,22 @@ Value listlockunspent(const Array& params, bool fHelp)
     return ret;
 }
 
+Value getcoinsupply(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 2)
+        throw runtime_error(
+            "getcoinsupply [height]\n"
+            "Returns the total number of issued coins at the current block.\n"
+            "Pass in [height] to inform about the coin supply for a certain block.");
+
+    int height = nBestHeight;
+    bool noCheckpoints = false;
+    if (params.size() > 0) {
+        height = (int) params[0].get_int();
+        if(params.size() > 1){
+            noCheckpoints = (bool) params[1].get_bool();
+        }
+    }
+    int64 coinSupply =  GetTotalCoinSupply(height,noCheckpoints);
+    return ValueFromAmount(coinSupply);
+}
