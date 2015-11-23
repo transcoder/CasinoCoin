@@ -208,6 +208,9 @@ void OverviewPage::setWalletModel(WalletModel *model)
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
         connect(model->getOptionsModel(), SIGNAL(displayCurrencyChanged(int)), this, SLOT(updateFiatBalance(int)));
         connect(model->getOptionsModel(), SIGNAL(displayPromotionsChanged(bool)), this, SLOT(updateDisplayPromotions(bool)));
+
+        // set visibility of adverts widget
+        updateDisplayPromotions(model->getOptionsModel()->getDisplayPromotions());
     }
 
     // update the display unit, to not use the default ("BTC")
