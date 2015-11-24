@@ -280,7 +280,9 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.h \
     src/qt/gui20_skin.h \
     src/qt/cscfusionstyle.h \
-    src/qt/pryptopage.h
+    src/qt/pryptopage.h \
+    src/qt/currencies.h \
+    src/qt/CSCPublicAPI/jsoncoininfoparser.h
 
 SOURCES += src/qt/bitcoin.cpp \
     src/qt/bitcoingui.cpp \
@@ -371,7 +373,9 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.cpp \
     src/qt/gui20_skin.cpp \
     src/qt/cscfusionstyle.cpp \
-    src/qt/pryptopage.cpp
+    src/qt/pryptopage.cpp \
+    src/qt/currencies.cpp \
+    src/qt/CSCPublicAPI/jsoncoininfoparser.cpp
 
 
 RESOURCES += src/qt/bitcoin.qrc

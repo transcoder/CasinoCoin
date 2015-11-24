@@ -168,6 +168,10 @@ int CSCFusionStyle::styleHint(StyleHint hint, const QStyleOption *option,
 		{
 			return int(true);
 		}
+		case SH_ComboBox_Popup:
+		{
+			qDebug() << "yep, there are some comboboxes!";
+		}
 		default:
 		{
 			return QProxyStyle::styleHint(hint, option, widget, returnData);
