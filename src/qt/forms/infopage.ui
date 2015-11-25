@@ -31,15 +31,11 @@
    </property>
    <item row="1" column="1">
     <widget class="QFrame" name="casinoInfoBox">
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(166, 27, 31); background-color: rgb(255,255,255);</string>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
      </property>
      <widget class="QLabel" name="lblCasinosHeader">
       <property name="geometry">
@@ -68,15 +64,11 @@
    </item>
    <item row="0" column="1">
     <widget class="QFrame" name="newsItemsBox">
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(166, 27, 31); background-color: rgb(255,255,255);</string>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
      </property>
      <widget class="QLabel" name="lblNewsHeader">
       <property name="geometry">
@@ -105,15 +97,11 @@
    </item>
    <item row="1" column="0">
     <widget class="QFrame" name="exchangeInfoBox">
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(166, 27, 31); background-color: rgb(255,255,255);</string>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
      </property>
      <widget class="QLabel" name="lblExchangesHeader">
       <property name="geometry">
@@ -142,18 +130,14 @@
    </item>
    <item row="0" column="0">
     <widget class="QFrame" name="coinInfoBox">
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(166, 27, 31); background-color: rgb(255,255,255);</string>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
      </property>
      <widget class="QWidget" name="formLayoutWidget">
       <property name="geometry">

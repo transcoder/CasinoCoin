@@ -255,11 +255,11 @@
               </property>
              </spacer>
             </item>
-            <item row="6" column="0" colspan="2">
-             <layout class="QVBoxLayout" name="verticalLayoutAdvertWidget"/>
-            </item>
            </layout>
           </item>
+		  <item>
+			<layout class="QVBoxLayout" name="verticalLayoutAdvertWidget"/>
+		  </item>
          </layout>
         </widget>
        </item>

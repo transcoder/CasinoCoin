@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>516</width>
-    <height>300</height>
+    <width>507</width>
+    <height>282</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>381</width>
-     <height>191</height>
+     <width>481</width>
+     <height>261</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -28,8 +28,14 @@
    <property name="frameShadow">
     <enum>QFrame::Sunken</enum>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+   <layout class="QFormLayout" name="formLayout">
+    <property name="leftMargin">
+     <number>50</number>
+    </property>
+    <property name="rightMargin">
+     <number>50</number>
+    </property>
+    <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="lblHelp">
       <property name="minimumSize">
        <size>
@@ -52,45 +58,48 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="lblPryptoCode">
-        <property name="text">
-         <string>Prypto Code</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="txtPryptoCode"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="lblSecurityCode">
-        <property name="text">
-         <string>Security Code</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="txtSecurityCode">
-        <property name="inputMethodHints">
-         <set>Qt::ImhDigitsOnly</set>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="butRedeem">
-        <property name="text">
-         <string>Redeem</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QLabel" name="lblPryptoCode">
+      <property name="text">
+       <string>Prypto Code</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="txtPryptoCode"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="lblSecurityCode">
+      <property name="text">
+       <string>Security Code</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="txtSecurityCode">
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QPushButton" name="butRedeem">
+      <property name="text">
+       <string>Redeem</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../bitcoin.qrc">
+        <normaloff>:/icons/res/icons/prypto.png</normaloff>:/icons/res/icons/prypto.png</iconset>
+      </property>
+      <property name="autoDefault">
+       <bool>false</bool>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
-  <zorder>frame</zorder>
-  <zorder>formLayoutWidget</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="../bitcoin.qrc"/>
+ </resources>
  <connections/>
 </ui>

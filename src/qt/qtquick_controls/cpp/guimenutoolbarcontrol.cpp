@@ -24,7 +24,7 @@ GUIMenuToolbarControl::~GUIMenuToolbarControl()
 }
 
 
-void GUIMenuToolbarControl::InitializeMenuToolbarView( GUIMenuToolbarListView* a_pView )
+void GUIMenuToolbarControl::initializeMenuToolbarView( GUIMenuToolbarListView* a_pView )
 {
 	if ( a_pView )
 	{
@@ -47,13 +47,13 @@ void GUIMenuToolbarControl::InitializeMenuToolbarView( GUIMenuToolbarListView* a
 				pStandardMenuModel->append( new QmlMenuToolbarItem( tr( "Info" ),				tr( "Info description" ),				"qrc:/icons/res/icons/GUI20_mainToolBar_info_hover.png",					"qrc:/icons/res/icons/GUI20_mainToolBar_info.png"				, INFO			) );
 				pStandardMenuModel->SetCurrentItemIndex( 0 );
 				m_pMenuToolbarView->SetModel( pStandardMenuModel );
-				ConnectListViewSignals();
+                connectListViewSignals();
 			}
 		}
 	}
 }
 
-void GUIMenuToolbarControl::SetVisitWebsiteText( QString a_strNewText )
+void GUIMenuToolbarControl::setVisitWebsiteText( QString a_strNewText )
 {
 	if ( m_strVisitWebsiteText != a_strNewText )
 	{
@@ -62,7 +62,7 @@ void GUIMenuToolbarControl::SetVisitWebsiteText( QString a_strNewText )
 	}
 }
 
-void GUIMenuToolbarControl::SetWebsiteURL( QString a_strNewText )
+void GUIMenuToolbarControl::setWebsiteURL( QString a_strNewText )
 {
 	if ( m_strWebsiteURL != a_strNewText )
 	{
@@ -71,7 +71,7 @@ void GUIMenuToolbarControl::SetWebsiteURL( QString a_strNewText )
 	}
 }
 
-void GUIMenuToolbarControl::ConnectListViewSignals()
+void GUIMenuToolbarControl::connectListViewSignals()
 {
 	if ( m_pMenuToolbarView )
 	{

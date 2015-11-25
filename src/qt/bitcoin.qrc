@@ -58,6 +58,7 @@
         <file>res/icons/GUI20_mainToolBar_info_hover.png</file>
         <file>res/icons/GUI20_mainToolBar_contacts.png</file>
         <file>res/icons/GUI20_mainToolBar_contacts_hover.png</file>
+        <file>res/icons/prypto.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>

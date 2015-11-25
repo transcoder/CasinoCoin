@@ -28,11 +28,11 @@ public:
 	GUIMenuToolbarControl( QQuickItem* a_pParent = 0 );
 	virtual ~GUIMenuToolbarControl();
 
-	Q_INVOKABLE void InitializeMenuToolbarView( GUIMenuToolbarListView* a_pView );
+	Q_INVOKABLE void initializeMenuToolbarView( GUIMenuToolbarListView* a_pView );
 	GUIMenuToolbarListView* GetMenuToolbarView() const { return m_pMenuToolbarView; }
 
-	void SetVisitWebsiteText( QString a_strNewText );
-	void SetWebsiteURL( QString a_strNewText );
+	void setVisitWebsiteText( QString a_strNewText );
+	void setWebsiteURL( QString a_strNewText );
 
 	QString GetVisitWebsiteText() const { return m_strVisitWebsiteText; }
 	QString GetWebsiteURL() const { return m_strWebsiteURL; }
@@ -50,7 +50,7 @@ private:
 	QString m_strVisitWebsiteText;
 	QString m_strWebsiteURL;
 
-	void ConnectListViewSignals();
+	void connectListViewSignals();
 
 private slots:
 	void slotCurrentItemIndexChanged();

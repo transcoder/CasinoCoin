@@ -28,7 +28,7 @@ GUIMenuToolbarControl
 
 			Component.onCompleted:
 			{
-				id_toolbarControl.InitializeMenuToolbarView( id_menuToolbarListView )
+                id_toolbarControl.initializeMenuToolbarView( id_menuToolbarListView )
 			}
 			z: 2
 		}
