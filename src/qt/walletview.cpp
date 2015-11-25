@@ -9,6 +9,7 @@
 #include "transactiontablemodel.h"
 #include "addressbookpage.h"
 #include "pryptopage.h"
+#include "infopage.h"
 #include "sendcoinsdialog.h"
 #include "signverifymessagedialog.h"
 #include "clientmodel.h"
@@ -58,6 +59,8 @@ WalletView::WalletView(QWidget *parent, BitcoinGUI *_gui):
 
     pryptoPage = new PryptoPage(gui);
 
+    infoPage = new InfoPage(gui);
+
     receiveCoinsPage = new AddressBookPage(AddressBookPage::ForEditing, AddressBookPage::ReceivingTab);
 
     sendCoinsPage = new SendCoinsDialog(gui);
@@ -68,6 +71,7 @@ WalletView::WalletView(QWidget *parent, BitcoinGUI *_gui):
     addWidget(transactionsPage);
     addWidget(addressBookPage);
     addWidget(pryptoPage);
+    addWidget(infoPage);
     addWidget(receiveCoinsPage);
     addWidget(sendCoinsPage);
 
@@ -107,6 +111,7 @@ void WalletView::setClientModel(ClientModel *clientModel)
         overviewPage->setClientModel(clientModel);
         addressBookPage->setOptionsModel(clientModel->getOptionsModel());
         receiveCoinsPage->setOptionsModel(clientModel->getOptionsModel());
+        infoPage->setClientModel(clientModel);
     }
 }
 
@@ -126,6 +131,7 @@ void WalletView::setWalletModel(WalletModel *walletModel)
         sendCoinsPage->setModel(walletModel);
         signVerifyMessageDialog->setModel(walletModel);
         pryptoPage->setWalletModel(walletModel);
+        infoPage->setWalletModel(walletModel);
 
         setEncryptionStatus();
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), gui, SLOT(setEncryptionStatus(int)));
@@ -177,6 +183,12 @@ void WalletView::gotoPryptoPage()
 {
     gui->getPryptoRedeemAction()->setChecked(true);
     setCurrentWidget(pryptoPage);
+}
+
+void WalletView::gotoInfoPage()
+{
+    gui->getInfoPageAction()->setChecked(true);
+    setCurrentWidget(infoPage);
 }
 
 void WalletView::gotoReceiveCoinsPage()

@@ -103,6 +103,13 @@ void WalletStack::gotoPryptoPage()
         i.value()->gotoPryptoPage();
 }
 
+void WalletStack::gotoInfoPage()
+{
+    QMap<QString, WalletView*>::const_iterator i;
+    for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
+        i.value()->gotoInfoPage();
+}
+
 void WalletStack::gotoReceiveCoinsPage()
 {
     QMap<QString, WalletView*>::const_iterator i;

@@ -227,6 +227,13 @@ void BitcoinGUI::createActions()
     pryptoRedeemAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
     tabGroup->addAction(pryptoRedeemAction);
 
+    infoPageAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Information"), this);
+    infoPageAction->setStatusTip(tr("Show all Casinocoin related information"));
+    infoPageAction->setToolTip(infoPageAction->statusTip());
+    infoPageAction->setCheckable(true);
+    infoPageAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
+    tabGroup->addAction(infoPageAction);
+
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -239,6 +246,8 @@ void BitcoinGUI::createActions()
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
     connect(pryptoRedeemAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(pryptoRedeemAction, SIGNAL(triggered()), this, SLOT(gotoPryptoPage()));
+    connect(infoPageAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(infoPageAction, SIGNAL(triggered()), this, SLOT(gotoInfoPage()));
 
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
     quitAction->setStatusTip(tr("Quit application"));
@@ -388,6 +397,7 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     verifyMessageAction->setEnabled(enabled);
     addressBookAction->setEnabled(enabled);
     pryptoRedeemAction->setEnabled(enabled);
+    infoPageAction->setEnabled(enabled);
 }
 
 void BitcoinGUI::createTrayIcon()
@@ -521,6 +531,12 @@ void BitcoinGUI::gotoPryptoPage()
 {
     if (walletFrame) walletFrame->gotoPryptoPage();
     if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::REDEEM_PRYPTO );
+}
+
+void BitcoinGUI::gotoInfoPage()
+{
+    if (walletFrame) walletFrame->gotoInfoPage();
+    if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::INFO );
 }
 
 void BitcoinGUI::gotoReceiveCoinsPage()
@@ -912,7 +928,7 @@ void BitcoinGUI::slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbar
 		}
 		case GUIMenuToolbarControl::INFO:
 		{
-			emit aboutAction->triggered();
+            emit infoPageAction->triggered();
 			break;
 		}
 	}

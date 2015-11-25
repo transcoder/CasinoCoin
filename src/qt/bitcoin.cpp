@@ -292,12 +292,14 @@ int main(int argc, char *argv[])
             threadGroup.interrupt_all();
             threadGroup.join_all();
             Shutdown();
+            pollShutdownTimer->stop();
         }
         else
         {
             threadGroup.interrupt_all();
             threadGroup.join_all();
             Shutdown();
+            pollShutdownTimer->stop();
             return 1;
         }
     } catch (std::exception& e) {

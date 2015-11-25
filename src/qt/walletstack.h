@@ -76,6 +76,8 @@ public slots:
     void gotoAddressBookPage();
     /** Switch to redeem prypto page */
     void gotoPryptoPage();
+    /** Switch to info page */
+    void gotoInfoPage();
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */

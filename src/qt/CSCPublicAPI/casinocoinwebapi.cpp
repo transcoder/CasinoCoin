@@ -1,6 +1,7 @@
 #include "casinocoinwebapi.h"
 
 #include <QSsl>
+#include <QDebug>
 
 const QString CasinoCoinWebAPI::s_strServerAddress = "http://api.csc.dig0.com/";
 const QString CasinoCoinWebAPI::s_strServerEndpoint = "CSCPublicAPI";

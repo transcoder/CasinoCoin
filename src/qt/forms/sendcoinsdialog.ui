@@ -79,12 +79,13 @@
             </property>
             <property name="font">
              <font>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font-weight:bold;</string>
+             <string notr="true">color: rgb(166, 27, 31);</string>
             </property>
             <property name="text">
              <string>Coin Control Features</string>
@@ -130,7 +131,7 @@
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">color:red;font-weight:bold;</string>
+             <string notr="true">color: rgb(166, 27, 31);</string>
             </property>
             <property name="text">
              <string>Insufficient funds!</string>
@@ -634,8 +635,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>830</width>
-        <height>167</height>
+        <width>826</width>
+        <height>138</height>
        </rect>
       </property>
       <property name="styleSheet">

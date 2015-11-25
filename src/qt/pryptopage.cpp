@@ -4,6 +4,7 @@
 #include "addresstablemodel.h"
 #include <QSsl>
 #include <QMessageBox>
+#include <QDebug>
 
 const QString PryptoPage::strAPIEndpoint = "https://prypto.com/merchants/api/";
 const QString PryptoPage::strMerchantToken = "35616ab118fa557b77fdac78ef09d5632d302609";

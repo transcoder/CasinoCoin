@@ -102,6 +102,13 @@ void WalletFrame::gotoPryptoPage()
         walletStack->gotoPryptoPage();
 }
 
+void WalletFrame::gotoInfoPage()
+{
+    WalletView *walletView = currentWalletView();
+    if (walletView)
+        walletStack->gotoInfoPage();
+}
+
 void WalletFrame::gotoReceiveCoinsPage()
 {
     walletStack->gotoReceiveCoinsPage();

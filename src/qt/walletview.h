@@ -16,6 +16,7 @@ class TransactionView;
 class OverviewPage;
 class AddressBookPage;
 class PryptoPage;
+class InfoPage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class RPCConsole;
@@ -63,6 +64,7 @@ private:
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     PryptoPage *pryptoPage;
+    InfoPage *infoPage;
     AddressBookPage *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
@@ -78,6 +80,8 @@ public slots:
     void gotoAddressBookPage();
     /** Switch to redeem prypto page */
     void gotoPryptoPage();
+    /** Switch to info page */
+    void gotoInfoPage();
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */

@@ -71,16 +71,23 @@ public:
         }
         else
         {
-            foreground = option.palette.color(QPalette::Text);
+            foreground = COLOR_POSITIVE;
         }
         painter->setPen(foreground);
         QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
+        QFont amountFont = painter->font();
         if(!confirmed)
         {
             amountText = QString("[") + amountText + QString("]");
         }
+        else
+        {
+            amountFont.setWeight(QFont::Bold);
+            painter->setFont(amountFont);
+        }
         painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
-
+        amountFont.setWeight(QFont::Bold);
+        painter->setFont(amountFont);
         painter->setPen(option.palette.color(QPalette::Text));
         painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
 
@@ -106,13 +113,13 @@ OverviewPage::OverviewPage(QWidget *parent) :
     currentUnconfirmedBalance(-1),
     currentImmatureBalance(-1),
     txdelegate(new TxViewDelegate()),
-	filter(0),
+    filter(0),
     advertsWidget(0),
     cscWebApiParser( new CasinoCoinWebAPIParser( this ) ),
     cscWebApi( new CasinoCoinWebAPI( this ) )
 {
     ui->setupUi(this);
-	createAdvertsWidget();
+    createAdvertsWidget();
 
     // Recent transactions
     ui->listTransactions->setItemDelegate(txdelegate);
@@ -140,11 +147,6 @@ void OverviewPage::handleTransactionClicked(const QModelIndex &index)
 {
     if(filter)
         emit transactionClicked(filter->mapToSource(index));
-}
-
-OverviewPage::~OverviewPage()
-{
-    delete ui;
 }
 
 void OverviewPage::setBalance(qint64 balance, qint64 unconfirmedBalance, qint64 immatureBalance)
@@ -258,7 +260,10 @@ void OverviewPage::updateCoinInfoFromWeb( JsonCoinInfoParser* coinInfoParser )
     // save the coin information
     coinInformation = coinInfoParser->getCoinInfo();
     // calculate and set the estimated fiat balance
-    updateFiatBalance(walletModel->getOptionsModel()->getDisplayFiatCurrency());
+    if(walletModel)
+    {
+        updateFiatBalance(walletModel->getOptionsModel()->getDisplayFiatCurrency());
+    }
 }
 
 void OverviewPage::updateFiatBalance(int currency)
@@ -268,7 +273,6 @@ void OverviewPage::updateFiatBalance(int currency)
         QString conversionCurrency = QString("Price").append(Currencies::name(currency));
         double currencyValue = coinInformation.find(conversionCurrency).value().toDouble();
         double fiatBalance = currentBalance * currencyValue;
-        qDebug() << "updateFiatBalance: " << QString::number(fiatBalance,'f',2);
         ui->labelBalanceFiat->setText(Currencies::format(currency,fiatBalance,true));
     }
 }
@@ -284,4 +288,9 @@ void OverviewPage::updateDisplayPromotions(bool checked)
             pAdvertWidget->setVisible( checked );
         }
     }
+}
+
+OverviewPage::~OverviewPage()
+{
+    delete ui;
 }

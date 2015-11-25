@@ -70,6 +70,7 @@ public:
     QAction * getHistoryAction() { return historyAction; }
     QAction * getAddressBookAction() { return addressBookAction; }
     QAction * getPryptoRedeemAction() { return pryptoRedeemAction; }
+    QAction * getInfoPageAction() { return infoPageAction; }
     QAction * getReceiveCoinsAction() { return receiveCoinsAction; }
     QAction * getSendCoinsAction() { return sendCoinsAction; }
 
@@ -109,6 +110,7 @@ private:
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
     QAction *pryptoRedeemAction;
+    QAction *infoPageAction;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
@@ -180,6 +182,8 @@ private slots:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
+    /** Switch to info page */
+    void gotoInfoPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
