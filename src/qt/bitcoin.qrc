@@ -40,10 +40,10 @@
         <file alias="filesave">res/icons/filesave.png</file>
         <file alias="qrcode">res/icons/qrcode.png</file>
         <file alias="debugwindow">res/icons/debugwindow.png</file>
-        <file>res/icons/adverts_arrow_left.png</file>
-        <file>res/icons/adverts_arrow_left_hover.png</file>
-        <file>res/icons/adverts_arrow_right.png</file>
-        <file>res/icons/adverts_arrow_right_hover.png</file>
+        <file alias="advertsArrowLeft">res/icons/adverts_arrow_left.png</file>
+        <file alias="advertsArrowLeftHover">res/icons/adverts_arrow_left_hover.png</file>
+        <file alias="advertsArrowRight">res/icons/adverts_arrow_right.png</file>
+        <file alias="advertsArrowRightHover">res/icons/adverts_arrow_right_hover.png</file>
         <file>res/icons/GUI20_mainToolBar_transactions.png</file>
         <file>res/icons/GUI20_mainToolBar_transactions_hover.png</file>
         <file>res/icons/GUI20_mainToolBar_send.png</file>

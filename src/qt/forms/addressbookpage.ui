@@ -115,12 +115,24 @@
        <property name="toolTip">
         <string>Export the data in the current tab to a file</string>
        </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string>&amp;Export</string>
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/export</normaloff>:/icons/export</iconset>
+       </property>
+       <property name="autoDefault">
+        <bool>true</bool>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

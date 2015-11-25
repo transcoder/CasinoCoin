@@ -1,13 +1,14 @@
 TEMPLATE = app
 TARGET = casinocoin-qt
 macx:TARGET = "CasinoCoin-Qt"
-VERSION = 1.3.0.0
+VERSION = 2.0.0.0
 INCLUDEPATH += src src/json src/qt
-QT += core gui network quick
+QT += core gui network qml quick
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE USE_IPV6 __NO_SYSTEM_INCLUDES
 CONFIG += no_include_pwd
 CONFIG += thread
+CONFIG += static
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -280,7 +281,10 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.h \
     src/qt/gui20_skin.h \
     src/qt/cscfusionstyle.h \
-    src/qt/pryptopage.h
+    src/qt/pryptopage.h \
+    src/qt/currencies.h \
+    src/qt/CSCPublicAPI/jsoncoininfoparser.h \
+    src/qt/infopage.h
 
 SOURCES += src/qt/bitcoin.cpp \
     src/qt/bitcoingui.cpp \
@@ -371,7 +375,10 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.cpp \
     src/qt/gui20_skin.cpp \
     src/qt/cscfusionstyle.cpp \
-    src/qt/pryptopage.cpp
+    src/qt/pryptopage.cpp \
+    src/qt/currencies.cpp \
+    src/qt/CSCPublicAPI/jsoncoininfoparser.cpp \
+    src/qt/infopage.cpp
 
 
 RESOURCES += src/qt/bitcoin.qrc
@@ -388,7 +395,8 @@ FORMS += src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
     src/qt/forms/optionsdialog.ui \
-    src/qt/forms/pryptopage.ui
+    src/qt/forms/pryptopage.ui \
+    src/qt/forms/infopage.ui
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
