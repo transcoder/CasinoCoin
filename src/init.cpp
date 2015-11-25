@@ -78,7 +78,7 @@ volatile bool fRequestShutdown = false;
 
 void StartShutdown()
 {
-    Sleep(1000);
+	boost::this_thread::sleep_for( boost::chrono::seconds( 1 ) );
     fRequestShutdown = true;
 }
 bool ShutdownRequested()

@@ -16,7 +16,7 @@ GUIBannerControl
 		{
 			id: id_leftArrowImage
 
-			source: "qrc:/icons/res/icons/adverts_arrow_left.png"
+			source: "qrc:/icons/advertsArrowLeft"
 
 			anchors.centerIn: id_leftArrow
 		}
@@ -31,13 +31,13 @@ GUIBannerControl
 
 			onEntered:
 			{
-				id_leftArrowImage.source = "qrc:/icons/res/icons/adverts_arrow_left_hover.png"
+				id_leftArrowImage.source = "qrc:/icons/advertsArrowLeftHover"
 				id_bannerListView.m_PathView.decrementCurrentIndex()
 				id_animationTimer.restart()
 			}
 			onExited:
 			{
-				id_leftArrowImage.source = "qrc:/icons/res/icons/adverts_arrow_left.png"
+				id_leftArrowImage.source = "qrc:/icons/advertsArrowLeft"
 				id_animationTimer.stop()
 			}
 			onClicked:
@@ -114,7 +114,7 @@ GUIBannerControl
 		Image
 		{
 			id: id_rightArrowImage
-			source: "qrc:/icons/res/icons/adverts_arrow_right.png"
+			source: "qrc:/icons/advertsArrowRight"
 
 			anchors.centerIn: id_rightArrow
 		}
@@ -130,13 +130,13 @@ GUIBannerControl
 
 			onEntered:
 			{
-				id_rightArrowImage.source = "qrc:/icons/res/icons/adverts_arrow_right_hover.png"
+				id_rightArrowImage.source = "qrc:/icons/advertsArrowRightHover"
 				id_bannerListView.m_PathView.incrementCurrentIndex()
 				id_animationTimer.restart()
 			}
 			onExited:
 			{
-				id_rightArrowImage.source = "qrc:/icons/res/icons/adverts_arrow_right.png"
+				id_rightArrowImage.source = "qrc:/icons/advertsArrowRight"
 				id_animationTimer.stop()
 			}
 			onClicked:
