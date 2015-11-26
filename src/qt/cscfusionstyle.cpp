@@ -92,25 +92,16 @@ int CSCFusionStyle::pixelMetric(PixelMetric metric,
 	switch (metric)
 	{
 		case PM_DefaultFrameWidth:
-		{
-			return 8;
-		}
 		case PM_ComboBoxFrameWidth:
+		case PM_SpinBoxFrameWidth:
+		case PM_CheckBoxLabelSpacing:
+		case PM_HeaderMargin:
 		{
 			return 8;
 		}
 		case PM_IndicatorHeight:
-		{
-			return 18;
-		}
 		case PM_IndicatorWidth:
-		{
-			return 18;
-		}
 		case PM_ExclusiveIndicatorWidth:
-		{
-			return 18;
-		}
 		case PM_ExclusiveIndicatorHeight:
 		{
 			return 18;
@@ -141,10 +132,6 @@ int CSCFusionStyle::styleHint(StyleHint hint, const QStyleOption *option,
 			return int(false);
 		}
 		case SH_EtchDisabledText:
-		{
-			return int(true);
-		}
-		case SH_ScrollView_FrameOnlyAroundContents:
 		{
 			return int(true);
 		}
@@ -183,46 +170,46 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 			painter->restore();
 			break;
 		}
-		case PE_IndicatorArrowDown:
-		case PE_IndicatorArrowUp:
-		case PE_IndicatorArrowLeft:
-		case PE_IndicatorArrowRight:
-		{
-			int x, y, width, height;
-			option->rect.getRect(&x, &y, &width, &height);
-			painter->save();
-			painter->setRenderHint(QPainter::Antialiasing, true);
-			QImage imgArrow;
-			QString strPath = ":/icons/advertsArrow";
-			if ( element == PE_IndicatorArrowDown )
-			{
-				strPath.append( "Down" );
-			}
-			else if ( element == PE_IndicatorArrowLeft )
-			{
-				strPath.append( "Left" );
-			}
-			else if ( element == PE_IndicatorArrowUp )
-			{
-				strPath.append( "Top" );
-			}
-			else if ( element == PE_IndicatorArrowRight )
-			{
-				strPath.append( "Right" );
-			}
+//		case PE_IndicatorArrowDown:
+//		case PE_IndicatorArrowUp:
+//		case PE_IndicatorArrowLeft:
+//		case PE_IndicatorArrowRight:
+//		{
+//			int x, y, width, height;
+//			option->rect.getRect(&x, &y, &width, &height);
+//			painter->save();
+//			painter->setRenderHint(QPainter::Antialiasing, true);
+//			QImage imgArrow;
+//			QString strPath = ":/icons/advertsArrow";
+//			if ( element == PE_IndicatorArrowDown || PE_IndicatorSpinDown || PE_IndicatorSpinMinus )
+//			{
+//				strPath.append( "Down" );
+//			}
+//			else if ( element == PE_IndicatorArrowLeft )
+//			{
+//				strPath.append( "Left" );
+//			}
+//			else if ( element == PE_IndicatorArrowUp || PE_IndicatorSpinUp || PE_IndicatorSpinPlus )
+//			{
+//				strPath.append( "Up" );
+//			}
+//			else if ( element == PE_IndicatorArrowRight )
+//			{
+//				strPath.append( "Right" );
+//			}
 
-			if ( option->state & QStyle::State_MouseOver )
-			{
-				strPath.append( "Hover" );
-			}
-			qDebug() << "gonna draw: " << strPath;
-			imgArrow.load( strPath );
-			int iTopLeftX = x + ( ( ( width - imgArrow.width() ) / 2 ) );
-			int iTopLeftY = y + ( ( ( height - imgArrow.height() ) / 2 ) );
-			painter->drawImage( QPoint( iTopLeftX, iTopLeftY), imgArrow );
-			painter->restore();
-			break;
-		}
+//			if ( option->state & QStyle::State_MouseOver )
+//			{
+//				strPath.append( "Hover" );
+//			}
+//			qDebug() << "gonna draw: " << strPath;
+//			imgArrow.load( strPath );
+//			int iTopLeftX = x + ( ( ( width - imgArrow.width() ) / 2 ) );
+//			int iTopLeftY = y + ( ( ( height - imgArrow.height() ) / 2 ) );
+//			painter->drawImage( QPoint( iTopLeftX, iTopLeftY), imgArrow );
+//			painter->restore();
+//			break;
+//		}
 		case PE_FrameGroupBox:
 		case PE_FrameWindow:
 		case PE_Frame:
@@ -288,7 +275,6 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 			painter->restore();
 			break;
 		}
-		case PE_PanelButtonTool:
 		case PE_PanelButtonCommand:
 		{
 			GUI20Skin& skin = GUI20Skin::Instance();
@@ -303,7 +289,6 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 
 			int radius = 5;
 			QPainterPath roundRect = roundRectPath( QRect( x + 1, y + 1, width - 1, height - 1 ), radius );
-
 
 			QBrush brush;
 

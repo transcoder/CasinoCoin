@@ -60,23 +60,13 @@
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
             </property>
+            <property name="buddy">
+             <cstring>transactionFee</cstring>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="BitcoinAmountField" name="transactionFee"/>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_1_Main">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </widget>
@@ -179,7 +169,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="">
+        <widget class="QFrame" name="frame">
          <layout class="QGridLayout" name="gridLayout_4">
           <item row="0" column="0">
            <widget class="QLabel" name="proxyIpLabel">
@@ -188,6 +178,9 @@
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
+            </property>
+            <property name="buddy">
+             <cstring>proxyIp</cstring>
             </property>
            </widget>
           </item>
@@ -199,6 +192,9 @@
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
             </property>
+            <property name="buddy">
+             <cstring>proxyPort</cstring>
+            </property>
            </widget>
           </item>
           <item row="2" column="0">
@@ -208,6 +204,9 @@
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
+            </property>
+            <property name="buddy">
+             <cstring>socksVersion</cstring>
             </property>
            </widget>
           </item>
@@ -248,7 +247,7 @@
            <widget class="QLineEdit" name="proxyPort">
             <property name="maximumSize">
              <size>
-              <width>55</width>
+              <width>140</width>
               <height>16777215</height>
              </size>
             </property>
@@ -342,6 +341,9 @@
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
               </property>
+              <property name="buddy">
+               <cstring>lang</cstring>
+              </property>
              </widget>
             </item>
             <item>
@@ -362,6 +364,9 @@
               </property>
               <property name="textFormat">
                <enum>Qt::PlainText</enum>
+              </property>
+              <property name="buddy">
+               <cstring>unit</cstring>
               </property>
              </widget>
             </item>

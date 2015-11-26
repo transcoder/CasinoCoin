@@ -753,6 +753,15 @@ background-color: rgb(166, 27, 31);
    </item>
    <item>
     <widget class="QScrollArea" name="scrollArea">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
@@ -761,12 +770,12 @@ background-color: rgb(166, 27, 31);
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>826</width>
-        <height>143</height>
+        <width>832</width>
+        <height>169</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);</string>
+       <string notr="true"/>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <property name="leftMargin">
@@ -783,6 +792,12 @@ background-color: rgb(166, 27, 31);
        </property>
        <item>
         <widget class="QFrame" name="entries_2">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <layout class="QVBoxLayout" name="entries">
           <property name="spacing">
            <number>6</number>

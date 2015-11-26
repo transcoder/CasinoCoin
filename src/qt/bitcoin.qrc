@@ -60,10 +60,10 @@
         <file>res/icons/GUI20_mainToolBar_contacts_hover.png</file>
         <file>res/icons/prypto.png</file>
         <file alias="checkboxTick">res/icons/checkbox_tick.png</file>
-        <file alias="advertsArrowBottomHover">res/icons/adverts_arrow_bottom_hover.png</file>
-        <file alias="advertsArrowBottom">res/icons/adverts_arrow_bottom.png</file>
-        <file alias="advertsArrowTop">res/icons/adverts_arrow_top.png</file>
-        <file alias="advertsArrowTopHover">res/icons/adverts_arrow_top_hover.png</file>
+        <file alias="advertsArrowDownHover">res/icons/adverts_arrow_bottom_hover.png</file>
+        <file alias="advertsArrowDown">res/icons/adverts_arrow_bottom.png</file>
+        <file alias="advertsArrowUp">res/icons/adverts_arrow_top.png</file>
+        <file alias="advertsArrowUpHover">res/icons/adverts_arrow_top_hover.png</file>
         <file alias="radiobuttonTick">res/icons/radiobutton_tick.png</file>
     </qresource>
     <qresource prefix="/images">
