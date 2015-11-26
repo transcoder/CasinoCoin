@@ -28,18 +28,6 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     tab(tab)
 {
     ui->setupUi(this);
-	GUI20Skin& gui20Skin = GUI20Skin::Instance();
-	ui->exportButton->setStyleSheet("background-color: rgb	("		+ QString::number( gui20Skin.GetColorToolbarMainGradientBegin().red() ) +
-															", "	+ QString::number( gui20Skin.GetColorToolbarMainGradientBegin().green() ) +
-															", "	+ QString::number( gui20Skin.GetColorToolbarMainGradientBegin().blue() ) +
-															");" \
-									"color: rgb(255, 255, 255);" \
-									"pressed" \
-									"{" \
-										"background-color: rgb(170, 28, 33);" \
-									"}"
-									);
-	qDebug() << ui->exportButton->styleSheet();
 #ifdef Q_OS_MAC // Icons on push buttons are very uncommon on Mac
     ui->newAddress->setIcon(QIcon());
     ui->copyAddress->setIcon(QIcon());

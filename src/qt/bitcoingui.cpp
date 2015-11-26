@@ -74,6 +74,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
     rpcConsole(0),
     prevBlocks(0)
 {
+	QApplication::setStyle(new CSCFusionStyle);
+
     restoreWindowGeometry();
     setWindowTitle(tr("CasinoCoin") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
@@ -167,7 +169,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
     // Initially wallet actions should be disabled
     setWalletActionsEnabled(false);
 
-	QApplication::setStyle(new CSCFusionStyle);
 }
 
 BitcoinGUI::~BitcoinGUI()

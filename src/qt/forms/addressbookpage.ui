@@ -119,7 +119,12 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true"/>
+        <string notr="true">background-color: rgb(170, 28, 33);
+color: rgb(255, 255, 255);
+pressed
+{
+background-color: rgb(170, 28, 33);
+}</string>
        </property>
        <property name="text">
         <string>&amp;Export</string>

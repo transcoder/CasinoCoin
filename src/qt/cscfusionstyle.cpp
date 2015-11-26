@@ -1,43 +1,3 @@
-/****************************************************************************
-**
-** Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** You may use this file under the terms of the BSD license as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**	 notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**	 notice, this list of conditions and the following disclaimer in
-**	 the documentation and/or other materials provided with the
-**	 distribution.
-**   * Neither the name of Digia Plc and its Subsidiary(-ies) nor the names
-**	 of its contributors may be used to endorse or promote products derived
-**	 from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
 #include <QtWidgets>
 
 #include "cscfusionstyle.h"
@@ -139,6 +99,22 @@ int CSCFusionStyle::pixelMetric(PixelMetric metric,
 		{
 			return 8;
 		}
+		case PM_IndicatorHeight:
+		{
+			return 18;
+		}
+		case PM_IndicatorWidth:
+		{
+			return 18;
+		}
+		case PM_ExclusiveIndicatorWidth:
+		{
+			return 18;
+		}
+		case PM_ExclusiveIndicatorHeight:
+		{
+			return 18;
+		}
 		case PM_ScrollBarExtent:
 		{
 			return QProxyStyle::pixelMetric(metric, option, widget) + 4;
@@ -168,9 +144,9 @@ int CSCFusionStyle::styleHint(StyleHint hint, const QStyleOption *option,
 		{
 			return int(true);
 		}
-		case SH_ComboBox_Popup:
+		case SH_ScrollView_FrameOnlyAroundContents:
 		{
-			qDebug() << "yep, there are some comboboxes!";
+			return int(true);
 		}
 		default:
 		{
@@ -184,6 +160,8 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 									   QPainter *painter,
 									   const QWidget *widget) const
 {
+	GUI20Skin& skin = GUI20Skin::Instance();
+
 	switch (element)
 	{
 		case PE_FrameDefaultButton:
@@ -196,15 +174,52 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 		}
 		case PE_PanelItemViewRow:
 		{
-			int x, y, width, height;
-			option->rect.getRect(&x, &y, &width, &height);
-
 			QPainterPath roundRect = roundRectPath(option->rect, 0);
 
 			QBrush brush = option->palette.base();
 			painter->save();
 			painter->setRenderHint(QPainter::Antialiasing, true);
 			painter->fillPath(roundRect, brush);
+			painter->restore();
+			break;
+		}
+		case PE_IndicatorArrowDown:
+		case PE_IndicatorArrowUp:
+		case PE_IndicatorArrowLeft:
+		case PE_IndicatorArrowRight:
+		{
+			int x, y, width, height;
+			option->rect.getRect(&x, &y, &width, &height);
+			painter->save();
+			painter->setRenderHint(QPainter::Antialiasing, true);
+			QImage imgArrow;
+			QString strPath = ":/icons/advertsArrow";
+			if ( element == PE_IndicatorArrowDown )
+			{
+				strPath.append( "Down" );
+			}
+			else if ( element == PE_IndicatorArrowLeft )
+			{
+				strPath.append( "Left" );
+			}
+			else if ( element == PE_IndicatorArrowUp )
+			{
+				strPath.append( "Top" );
+			}
+			else if ( element == PE_IndicatorArrowRight )
+			{
+				strPath.append( "Right" );
+			}
+
+			if ( option->state & QStyle::State_MouseOver )
+			{
+				strPath.append( "Hover" );
+			}
+			qDebug() << "gonna draw: " << strPath;
+			imgArrow.load( strPath );
+			int iTopLeftX = x + ( ( ( width - imgArrow.width() ) / 2 ) );
+			int iTopLeftY = y + ( ( ( height - imgArrow.height() ) / 2 ) );
+			painter->drawImage( QPoint( iTopLeftX, iTopLeftY), imgArrow );
 			painter->restore();
 			break;
 		}
@@ -224,6 +239,55 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 			painter->restore();
 			break;
 		}
+		case PE_IndicatorRadioButton:
+		{
+			int x, y, width, height;
+			option->rect.getRect(&x, &y, &width, &height);
+
+			QPainterPath roundRect = roundRectPath( QRect( x + 1, y + 1, width - 1, height - 1 ), ( width -1 ) / 2);
+			QPen pen( skin.GetColorToolbarMainGradientBegin(), 2 );
+			painter->save();
+			painter->setPen( pen );
+			painter->setRenderHint(QPainter::Antialiasing, true);
+			painter->drawPath( roundRect );
+			if ( option->state & QStyle::State_Off )
+			{
+			}
+			else if ( option->state & QStyle::State_On )
+			{
+				QImage checkboxTick( ":/icons/radiobuttonTick" );
+				checkboxTick = checkboxTick.scaled( 10, 10 );
+				int iTopLeftX = x + ( ( ( width - checkboxTick.width() ) / 2 ) );
+				int iTopLeftY = y + ( ( ( height - checkboxTick.height() ) / 2 ) );
+				painter->drawImage( QPoint( iTopLeftX, iTopLeftY ), checkboxTick );
+			}
+			painter->restore();
+			break;
+		}
+		case PE_IndicatorCheckBox:
+		{
+			int x, y, width, height;
+			option->rect.getRect(&x, &y, &width, &height);
+
+			QPainterPath roundRect = roundRectPath( QRect( x + 1, y + 1, width - 1, height - 1 ), 2 );
+			QPen pen( skin.GetColorToolbarMainGradientBegin(), 2 );
+			painter->save();
+			painter->setPen( pen );
+			painter->setRenderHint(QPainter::Antialiasing, true);
+			painter->drawPath( roundRect );
+			if ( option->state & QStyle::State_Off )
+			{
+			}
+			else if ( option->state & QStyle::State_On )
+			{
+				QImage checkboxTick( ":/icons/checkboxTick" );
+				int iTopLeftX = x + ( ( ( width - checkboxTick.width() ) / 2 ) );
+				int iTopLeftY = y + ( ( ( height - checkboxTick.height() ) / 2 ) );
+				painter->drawImage( QPoint( iTopLeftX, iTopLeftY ), checkboxTick );
+			}
+			painter->restore();
+			break;
+		}
 		case PE_PanelButtonTool:
 		case PE_PanelButtonCommand:
 		{
@@ -237,9 +301,9 @@ void CSCFusionStyle::drawPrimitive(PrimitiveElement element,
 			int x, y, width, height;
 			option->rect.getRect(&x, &y, &width, &height);
 
-			QPainterPath roundRect = roundRectPath(option->rect, 5 );
-
 			int radius = 5;
+			QPainterPath roundRect = roundRectPath( QRect( x + 1, y + 1, width - 1, height - 1 ), radius );
+
 
 			QBrush brush;
 
@@ -377,5 +441,4 @@ QPainterPath CSCFusionStyle::roundRectPath(const QRect &rect, int radius)
 	path.closeSubpath();
 	return path;
 }
-//! [40]
 
