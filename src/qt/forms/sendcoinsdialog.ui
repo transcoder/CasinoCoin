@@ -730,11 +730,11 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(170, 28, 33);
+        <string notr="true">background-color: rgb(166, 27, 31);
 color: rgb(255, 255, 255);
 pressed
 {
-background-color: rgb(170, 28, 33);
+background-color: rgb(166, 27, 31);
 }</string>
        </property>
        <property name="text">

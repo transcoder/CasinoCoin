@@ -6,6 +6,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QProgressDialog>
+#include <QList>
 
 class WalletModel;
 
@@ -31,6 +32,7 @@ private slots:
     void parseAPINetworkResponse( QNetworkReply *finished );
     void showAPIResult(QByteArray data);
     void showAPINetworkError(QNetworkReply::NetworkError error);
+    void sslErrorHandler(QNetworkReply* qnr, const QList<QSslError> & errlist);
 
 private:
     static const QString strAPIEndpoint;

@@ -5,6 +5,7 @@
 #include <QSsl>
 #include <QMessageBox>
 #include <QDebug>
+#include <QListIterator>
 
 const QString PryptoPage::strAPIEndpoint = "https://prypto.com/merchants/api/";
 const QString PryptoPage::strMerchantToken = "35616ab118fa557b77fdac78ef09d5632d302609";
@@ -18,6 +19,7 @@ PryptoPage::PryptoPage(QWidget *parent) :
     connect( &networkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(parseAPINetworkResponse(QNetworkReply*)) );
     connect( this, SIGNAL(apiResponseReady(QByteArray)), this, SLOT(showAPIResult(QByteArray)) );
     connect( this, SIGNAL(apiNetworkError(QNetworkReply::NetworkError)), this, SLOT(showAPINetworkError(QNetworkReply::NetworkError)) );
+    connect( &networkAccessManager, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError> & )), this, SLOT(sslErrorHandler(QNetworkReply*, const QList<QSslError> & )));
 }
 
 void PryptoPage::setWalletModel(WalletModel *model)
@@ -80,6 +82,12 @@ void PryptoPage::parseAPINetworkResponse( QNetworkReply *finished )
     qDebug() << "API data: " << data;
     busyDialog->cancel();
     emit apiResponseReady( data );
+}
+
+void PryptoPage::sslErrorHandler(QNetworkReply* qnr, const QList<QSslError> & errlist)
+{
+qDebug() << "---PryptoPage::sslErrorHandler: ";
+qnr->ignoreSslErrors();
 }
 
 void PryptoPage::showAPINetworkError(QNetworkReply::NetworkError error)

@@ -88,8 +88,8 @@ void CasinoCoinWebAPIParser::ParseCasinos( const QJsonObject& a_rJsonCasinos )
 
 void CasinoCoinWebAPIParser::ParseExchanges( const QJsonObject& a_rJsonExchanges )
 {
-	qDebug() << "Coming soon - ParseExchanges";
-	qDebug() << a_rJsonExchanges;
+    qDebug() << "ParseExchanges";
+    emit signalActiveExchangesParsed( new JsonActiveExchangesParser( a_rJsonExchanges ) );
 }
 
 void CasinoCoinWebAPIParser::ParseNewsItems( const QJsonObject& a_rJsonNewsItems )

@@ -6,6 +6,8 @@
 #include "jsonactivepromotionsparser.h"
 #include "jsonsingleactivepromotion.h"
 #include "jsoncoininfoparser.h"
+#include "jsonactiveexchangesparser.h"
+#include "jsonsingleactiveexchange.h"
 
 #include <QNetworkReply>
 
@@ -20,7 +22,7 @@ signals:
 	void signalActivePromotionsParsed( JsonActivePromotionsParser* a_pActivePromotions );
     void signalCoinInfoParsed( JsonCoinInfoParser* a_pCoinInfo );
 //	void signalActiveCasinosParsed( JsonActiveCasinosParser* a_pActivePromotions );
-//	void signalActiveExchangesParsed( JsonActiveExchangesParser* a_pActivePromotions );
+    void signalActiveExchangesParsed( JsonActiveExchangesParser* a_pActiveExchanges );
 //	void signalActiveNewsItemsParsed( JsonActiveNewsItemsParser* a_pActivePromotions );
 
 public slots:
