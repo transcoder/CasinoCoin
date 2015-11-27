@@ -7,15 +7,20 @@
 #include "bitcoinunits.h"
 #include "main.h"
 
+#include "qtquick_controls/cpp/guiexchangeswidget.h"
+
 using namespace std;
 
 InfoPage::InfoPage(QWidget *parent) :
     QDialog(parent),
+	exchangesWidget( 0 ),
     ui(new Ui::InfoPage)
 {
     ui->setupUi(this);
     ui->casinoInfoBox->setVisible(false);
     ui->newsItemsBox->setVisible(false);
+
+	createExchangesWidget();
 }
 
 void InfoPage::setWalletModel(WalletModel *model)
@@ -105,5 +110,12 @@ double InfoPage::GetNetworkHashRate(int lookup, int height) {
 
 InfoPage::~InfoPage()
 {
-    delete ui;
+	delete ui;
+}
+
+void InfoPage::createExchangesWidget()
+{
+	exchangesWidget = new GUIExchangesWidget( this );
+	exchangesWidget->PopulateExchangesFromWeb();
+	ui->verticalLayoutExchanges->addWidget( exchangesWidget->dockQmlToWidget() );
 }

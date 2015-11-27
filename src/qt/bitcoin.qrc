@@ -132,5 +132,8 @@
         <file>qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml</file>
         <file>qtquick_controls/qml/QmlGUIMenuToolbarListView.qml</file>
         <file>qtquick_controls/qml/QmlGUIMenuToolbarControl.qml</file>
+        <file>qtquick_controls/qml/QmlGUIExchangesWindow.qml</file>
+        <file>qtquick_controls/qml/QmlGUIExchangesListView.qml</file>
+        <file>qtquick_controls/qml/QmlGUIExchangesControl.qml</file>
     </qresource>
 </RCC>

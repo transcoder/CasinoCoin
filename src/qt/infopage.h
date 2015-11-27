@@ -5,6 +5,7 @@
 
 class WalletModel;
 class ClientModel;
+class GUIExchangesWidget;
 
 namespace Ui {
 class InfoPage;
@@ -32,6 +33,9 @@ private:
     Ui::InfoPage *ui;
     WalletModel *walletModel;
     ClientModel *clientModel;
+	GUIExchangesWidget* exchangesWidget;
+
+	void createExchangesWidget();
     double GetNetworkHashRate(int lookup, int height);
 };
 

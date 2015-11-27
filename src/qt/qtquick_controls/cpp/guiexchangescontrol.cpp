@@ -1,0 +1,41 @@
+#include "guiexchangescontrol.h"
+#include "guiexchangeslistview.h"
+#include "qmlexchangeslistmodel.h"
+#include "qmlexchangeslistitem.h"
+
+GUIExchangesControl::GUIExchangesControl( QQuickItem* a_pParent )
+	: QQuickItem( a_pParent )
+	, m_pExchangesView( 0 )
+{
+}
+
+GUIExchangesControl::~GUIExchangesControl()
+{
+	if ( m_pExchangesView )
+	{
+		delete m_pExchangesView;
+		m_pExchangesView = 0;
+	}
+}
+
+void GUIExchangesControl::InitializeExchangesView( GUIExchangesListView* a_pView )
+{
+	if ( a_pView )
+	{
+		if ( m_pExchangesView )
+		{
+			delete m_pExchangesView;
+		}
+		m_pExchangesView = a_pView;
+	}
+}
+
+void GUIExchangesControl::slotPopulateListView( JsonActiveExchangesParser* a_pActiveExchanges )
+{
+	if ( m_pExchangesView )
+	{
+		QmlExchangesListModel* pExchangesModel = new QmlExchangesListModel( *a_pActiveExchanges );
+		m_pExchangesView->SetModel( pExchangesModel );
+	}
+}
+
