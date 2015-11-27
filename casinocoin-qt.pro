@@ -3,8 +3,7 @@ TARGET = casinocoin-qt
 macx:TARGET = "CasinoCoin-Qt"
 VERSION = 2.0.0.0
 INCLUDEPATH += src src/json src/qt
-QT += core gui network qml quick
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui network widgets qml quick
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE USE_IPV6 __NO_SYSTEM_INCLUDES
 CONFIG += no_include_pwd
 CONFIG += thread
@@ -264,10 +263,10 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/CSCPublicAPI/casinocoinwebapi.h \
     src/qt/CSCPublicAPI/casinocoinwebapiparser.h \
     src/qt/CSCPublicAPI/jsonactivepromotionsparser.h \
-	src/qt/CSCPublicAPI/jsonactiveexchangesparser.h \
-	src/qt/CSCPublicAPI/jsonsingleactivepromotion.h \
-	src/qt/CSCPublicAPI/jsonsingleactiveexchange.h \
-	src/qt/qtquick_controls/cpp/guibannercontrol.h \
+    src/qt/CSCPublicAPI/jsonactiveexchangesparser.h \
+    src/qt/CSCPublicAPI/jsonsingleactivepromotion.h \
+    src/qt/CSCPublicAPI/jsonsingleactiveexchange.h \
+    src/qt/qtquick_controls/cpp/guibannercontrol.h \
     src/qt/qtquick_controls/cpp/guibannerlistview.h \
     src/qt/qtquick_controls/cpp/guibannerwidget.h \
     src/qt/qtquick_controls/cpp/listiteminterface.h \
@@ -366,9 +365,9 @@ SOURCES += src/qt/bitcoin.cpp \
     src/qt/CSCPublicAPI/casinocoinwebapi.cpp \
     src/qt/CSCPublicAPI/casinocoinwebapiparser.cpp \
     src/qt/CSCPublicAPI/jsonactivepromotionsparser.cpp \
-	src/qt/CSCPublicAPI/jsonactiveexchangesparser.cpp \
-	src/qt/CSCPublicAPI/jsonsingleactivepromotion.cpp \
-	src/qt/CSCPublicAPI/jsonsingleactiveexchange.cpp \
+    src/qt/CSCPublicAPI/jsonactiveexchangesparser.cpp \
+    src/qt/CSCPublicAPI/jsonsingleactivepromotion.cpp \
+    src/qt/CSCPublicAPI/jsonsingleactiveexchange.cpp \
     src/qt/qtquick_controls/cpp/guibannercontrol.cpp \
     src/qt/qtquick_controls/cpp/guibannerlistview.cpp \
     src/qt/qtquick_controls/cpp/guibannerwidget.cpp \
@@ -472,9 +471,9 @@ OTHER_FILES += README.md \
     src/qt/qtquick_controls/qml/QmlGUIBannerControl.qml \
     src/qt/qtquick_controls/qml/QmlGUIBannerListView.qml \
     src/qt/qtquick_controls/qml/QmlGUIBannerWindow.qml \
-	src/qt/qtquick_controls/qml/QmlGUIExchangesControl.qml \
-	src/qt/qtquick_controls/qml/QmlGUIExchangesListView.qml \
-	src/qt/qtquick_controls/qml/QmlGUIExchangesWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIExchangesControl.qml \
+    src/qt/qtquick_controls/qml/QmlGUIExchangesListView.qml \
+    src/qt/qtquick_controls/qml/QmlGUIExchangesWindow.qml \
     src/qt/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml \
     src/qt/qtquick_controls/qml/QmlGUIMenuToolbarListView.qml \
     src/qt/qtquick_controls/qml/QmlGUIMenuToolbarControl.qml
@@ -559,3 +558,5 @@ contains(RELEASE, 1) {
 
 system($$QMAKE_LRELEASE -silent $$TRANSLATIONS)
 
+DISTFILES += \
+    QmlImports.qml
