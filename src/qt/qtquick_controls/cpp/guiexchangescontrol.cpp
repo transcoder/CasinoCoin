@@ -32,10 +32,12 @@ void GUIExchangesControl::initializeExchangesView( GUIExchangesListView* a_pView
 
 void GUIExchangesControl::slotPopulateListView( JsonActiveExchangesParser* a_pActiveExchanges )
 {
-	if ( m_pExchangesView )
+	if ( m_pExchangesView && a_pActiveExchanges )
 	{
 		QmlExchangesListModel* pExchangesModel = new QmlExchangesListModel( *a_pActiveExchanges );
 		m_pExchangesView->setModel( pExchangesModel );
+		delete a_pActiveExchanges;
+		a_pActiveExchanges = 0;
 	}
 }
 

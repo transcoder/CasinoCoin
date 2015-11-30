@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QNetworkReply>
+#include <QTimer>
 
 class CasinoCoinWebAPIParser;
 class CasinoCoinWebAPI;
@@ -20,17 +21,21 @@ public:
 
 	QWidget* dockQmlToWidget();
 
-	void PopulateExchangesFromWeb();
 	void PopulateExchangesLocally();
+
+public slots:
+	void slotPopulateExchangesFromWeb();
 
 private:
 	void registerCustomQmlTypes();
+	void SetupRefreshTimer();
 
 	GUIExchangesControl* m_pExchangesControl;
 
 	CasinoCoinWebAPIParser* m_pWebApiParserTemporary;
 	CasinoCoinWebAPI*		m_pWebApiTemporary;
 	QmlImageProvider*		m_pQmlImageProvider;
+	QTimer					m_timerRefresh;
 private slots:
 	void slotPopulateFromWeb( JsonActiveExchangesParser* a_pExchangesParser );
 

@@ -13,8 +13,8 @@ using namespace std;
 
 InfoPage::InfoPage(QWidget *parent) :
     QDialog(parent),
-	exchangesWidget( 0 ),
-    ui(new Ui::InfoPage)
+	ui(new Ui::InfoPage),
+	exchangesWidget( 0 )
 {
     ui->setupUi(this);
 //    ui->casinoInfoBox->setVisible(false);
@@ -116,6 +116,6 @@ InfoPage::~InfoPage()
 void InfoPage::createExchangesWidget()
 {
 	exchangesWidget = new GUIExchangesWidget( this );
-	exchangesWidget->PopulateExchangesFromWeb();
+	exchangesWidget->slotPopulateExchangesFromWeb();
 	ui->verticalLayoutExchanges->addWidget( exchangesWidget->dockQmlToWidget() );
 }

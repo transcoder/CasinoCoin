@@ -30,6 +30,9 @@ GUIExchangesWidget::GUIExchangesWidget(QWidget *parent)
 	connect( m_pWebApiTemporary, SIGNAL( signalResponseReady(const QByteArray&)), m_pWebApiParserTemporary, SLOT( slotParseAnswer(const QByteArray&)), Qt::UniqueConnection );
 	connect( m_pWebApiTemporary, SIGNAL( signalNetworkError(QNetworkReply::NetworkError,const QUrl)), m_pWebApiParserTemporary, SLOT( slotNetworkError(QNetworkReply::NetworkError,const QUrl)), Qt::UniqueConnection );
 	connect( m_pWebApiParserTemporary, SIGNAL( signalActiveExchangesParsed(JsonActiveExchangesParser*)), this, SLOT( slotPopulateFromWeb(JsonActiveExchangesParser*)), Qt::UniqueConnection );
+
+	SetupRefreshTimer();
+	m_timerRefresh.start();
 }
 
 GUIExchangesWidget::~GUIExchangesWidget()
@@ -42,6 +45,13 @@ void GUIExchangesWidget::registerCustomQmlTypes()
 	qmlRegisterType<GUIExchangesControl>("CasinoCoinControls", 1, 0, "GUIExchangesControl" );
 	qmlRegisterType<GUIExchangesListView>("CasinoCoinControls", 1, 0, "GUIExchangesListView" );
 	qmlRegisterType<QmlExchangesListModel>("CasinoCoinControls", 1, 0, "QmlExchangesListModel" );
+}
+
+void GUIExchangesWidget::SetupRefreshTimer()
+{
+	m_timerRefresh.setSingleShot( false );
+	m_timerRefresh.setInterval( 1000 * 60 );
+	connect( &m_timerRefresh, SIGNAL( timeout() ), this, SLOT( slotPopulateExchangesFromWeb() ), Qt::UniqueConnection );
 }
 
 QWidget* GUIExchangesWidget::dockQmlToWidget()
@@ -81,7 +91,7 @@ QWidget* GUIExchangesWidget::dockQmlToWidget()
 	return pPlaceHolder;
 }
 
-void GUIExchangesWidget::PopulateExchangesFromWeb()
+void GUIExchangesWidget::slotPopulateExchangesFromWeb()
 {
 	if ( m_pWebApiTemporary )
 	{
