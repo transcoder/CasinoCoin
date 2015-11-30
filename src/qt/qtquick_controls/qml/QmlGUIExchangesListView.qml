@@ -89,7 +89,9 @@ GUIExchangesListView
 								id: id_exchangeNameText
 								anchors.fill: id_exchangeNameRectangle
 								text: qsTr( m_exchangeName )
-								color: GUI20Skin.colorToolbarMainGradientEnd
+                                color: GUI20Skin.colorToolbarMainGradientEnd
+                                font.bold: true
+                                font.pointSize: 9
 							}
 						}
 						Rectangle
@@ -119,6 +121,7 @@ GUIExchangesListView
 										id: id_priceBidTextValue
 										anchors.left: id_priceBidTextDescription.right
 										text: qsTr( m_bidPrice )
+                                        font.bold: true
 										color: GUI20Skin.colorTextActive
 									}
 								}
@@ -141,6 +144,7 @@ GUIExchangesListView
 										id: id_priceAskTextValue
 										anchors.left: id_priceAskTextDescription.right
 										text: qsTr( m_askPrice )
+                                        font.bold: true
 										color: GUI20Skin.colorTextActive
 									}
 								}
@@ -162,6 +166,7 @@ GUIExchangesListView
 										id: id_volume24hTextValue
 										anchors.left: id_volume24hTextDescription.right
 										text: qsTr( m_volume24H )
+                                        font.bold: true
 										color: GUI20Skin.colorTextActive
 									}
 								}
@@ -194,6 +199,7 @@ GUIExchangesListView
 										id: id_priceLastTextValue
 										anchors.left: id_priceLastTextDescription.right
 										text: qsTr( m_lastPrice )
+                                        font.bold: true
 										color: GUI20Skin.colorTextActive
 									}
 								}
@@ -215,6 +221,7 @@ GUIExchangesListView
 										id: id_exchangeTimeValue
 										anchors.left: id_exchangeTimeDescription.right
 										text: qsTr( m_lastUpdateTime )
+                                        font.bold: true
 										color: GUI20Skin.colorTextActive
 									}
 								}
@@ -230,9 +237,9 @@ GUIExchangesListView
                             {
                                 id: id_exchangeLinkText
                                 anchors.fill: id_exchangeLink
-                                text: qsTr( "Go to site" )
-								font.underline: true
-								color: GUI20Skin.colorToolbarMainGradientEnd
+                                text: qsTr( "Trade Casinocoin at %1" ).arg(m_exchangeName)
+                                font.underline: true
+                                color: GUI20Skin.colorTextBlack
 								MouseArea
 								{
 									id: id_linkMouseArea

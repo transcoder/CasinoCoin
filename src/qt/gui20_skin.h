@@ -112,6 +112,8 @@ private:
 	const QColor colorTextDisabled;
 	const QColor colorTextDisabledAutocomplete;
 
+    const QColor colorTextBlack;
+
 public:
 	static GUI20Skin& Instance();
 private:

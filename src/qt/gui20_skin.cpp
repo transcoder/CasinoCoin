@@ -4,7 +4,8 @@
 GUI20Skin::GUI20Skin( QObject* a_pParent )
 	: QObject( a_pParent )
 	, colorToolbarMainGradientBegin( "#9c181c" )
-	, colorToolbarMainGradientEnd( "#ae1e22" )
+//	, colorToolbarMainGradientEnd( "#ae1e22" )
+    , colorToolbarMainGradientEnd( "#a61b22" )
 	, colorToolbarMainCurrent( "#761316" )
 	, colorToolbarMainBottomCurrent( "#e1252b" )
 	, colorToolbarMainTextCurrent( "#ffffff" )
@@ -26,6 +27,7 @@ GUI20Skin::GUI20Skin( QObject* a_pParent )
 	, colorTextActiveAutocomplete( "#6B3D3D" )
 	, colorTextDisabled( "#707070" )
 	, colorTextDisabledAutocomplete( "#8B5D5D" )
+    , colorTextBlack("#000000")
 {
 }
 
