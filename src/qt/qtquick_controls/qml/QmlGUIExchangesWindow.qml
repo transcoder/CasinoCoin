@@ -2,15 +2,15 @@ import QtQuick 2.2
 
 Rectangle
 {
-	id: id_root
+	id: id_ExchangesRoot
+	width: parent ? parent.width : 0
+	height: parent ? parent.height : 0
+	color: GUI20Skin.colorFrameBackground
 
     QmlGUIExchangesControl
     {
         id: id_ExchangesControlMain
-
-    }
-    width: 500
-    height: 250
-	color: GUI20Skin.colorFrameBackground
+		anchors.fill: id_ExchangesRoot
+	}
 }
 

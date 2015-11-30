@@ -14,14 +14,12 @@ GUIExchangesListView
     ScrollView
     {
         id: id_ExchangesScrollView
-        anchors.fill: parent
+		anchors.fill: id_ExchangesView
 
         ListView
         {
             id: id_listView
             anchors.fill: id_ExchangesScrollView
-            height: 250
-            width: 500
             clip: true
             visible: true
             interactive: contentHeight > id_listView.height ? true : false
@@ -39,8 +37,8 @@ GUIExchangesListView
 			id: id_listElement
 			objectName: id_ExchangesView.objectName + "_Element" + index
 
-            width: 750
-            height: 125
+			width: id_ExchangesView.width
+			height: 125
             Row
 			{
 				id: id_row
@@ -49,7 +47,7 @@ GUIExchangesListView
 				{
 					id: id_imageRectangle
 
-                    width: id_listElement.width / 5
+					width: id_listElement.width / 5
                     height: 100
 					anchors.verticalCenter: id_row.verticalCenter
 					Image
@@ -91,6 +89,7 @@ GUIExchangesListView
 								id: id_exchangeNameText
 								anchors.fill: id_exchangeNameRectangle
 								text: qsTr( m_exchangeName )
+								color: GUI20Skin.colorToolbarMainGradientEnd
 							}
 						}
 						Rectangle
@@ -105,65 +104,123 @@ GUIExchangesListView
 								Rectangle
 								{
 									id: id_priceBid
-                                    width: id_pricesRectangle.width / 4
+									width: id_pricesRectangle.width / 4
 									height: id_pricesRectangle.height
 									Text
 									{
-										id: id_priceBidText
-										anchors.fill: id_priceBid
-                                        text: qsTr("Bid: %1").arg(m_bidPrice)
+										id: id_priceBidTextDescription
+										anchors.left: id_priceBid.left
+										text: qsTr("Bid:")
+										width: id_priceBid.width / 3
+										color: GUI20Skin.colorToolbarMainGradientEnd
+									}
+									Text
+									{
+										id: id_priceBidTextValue
+										anchors.left: id_priceBidTextDescription.right
+										text: qsTr( m_bidPrice )
+										color: GUI20Skin.colorTextActive
 									}
 								}
 								Rectangle
 								{
 									id: id_priceAsk
-                                    width: id_pricesRectangle.width / 4
+									width: id_pricesRectangle.width / 4
 									height: id_pricesRectangle.height
+
 									Text
 									{
-										id: id_priceAskText
-										anchors.fill: id_priceAsk
-                                        text: qsTr("Ask: %1").arg(m_askPrice)
+										id: id_priceAskTextDescription
+										anchors.left: id_priceAsk.left
+										text: qsTr("Ask:")
+										color: GUI20Skin.colorToolbarMainGradientEnd
+										width: id_priceAsk.width / 3
+									}
+									Text
+									{
+										id: id_priceAskTextValue
+										anchors.left: id_priceAskTextDescription.right
+										text: qsTr( m_askPrice )
+										color: GUI20Skin.colorTextActive
 									}
 								}
 								Rectangle
 								{
-									id: id_priceLast
-                                    width: id_pricesRectangle.width / 4
+									id: id_volume24h
+									width: id_pricesRectangle.width / 2
 									height: id_pricesRectangle.height
 									Text
 									{
-										id: id_priceLastText
-										anchors.fill: id_priceLast
-                                        text: qsTr("Last: %1").arg(m_lastPrice)
+										id: id_volume24hTextDescription
+										anchors.left: id_volume24h.left
+										text: qsTr("24h Volume:")
+										color: GUI20Skin.colorToolbarMainGradientEnd
+										width: id_volume24h.width / 3
+									}
+									Text
+									{
+										id: id_volume24hTextValue
+										anchors.left: id_volume24hTextDescription.right
+										text: qsTr( m_volume24H )
+										color: GUI20Skin.colorTextActive
 									}
 								}
-                                Rectangle
-                                {
-                                    id: id_volume24h
-                                    width: id_pricesRectangle.width / 4
-                                    height: id_pricesRectangle.height
-                                    Text
-                                    {
-                                        id: id_volume24hText
-                                        anchors.fill: id_volume24h
-                                        text: qsTr("Volume: %1").arg(m_volume24H)
-                                    }
-                                }
 							}
 						}
 						Rectangle
 						{
-                            id: id_exchangeLastUpdateTime
+							id: id_volumeTimeRectangle
 							width: id_otherInfoRectangle.width
-                            height: id_otherInfoRectangle.height / 4
-							Text
+							height: id_otherInfoRectangle.height / 4
+							Row
 							{
-                                id: id_exchangeTime
-                                anchors.fill: id_exchangeLastUpdateTime
-                                text: qsTr( m_lastUpdateTime )
+								id: id_volumeTimeRow
+								anchors.fill: id_volumeTimeRectangle
+								Rectangle
+								{
+									id: id_priceLast
+									width: id_pricesRectangle.width / 4
+									height: id_pricesRectangle.height
+									Text
+									{
+										id: id_priceLastTextDescription
+										anchors.left: id_priceLast.left
+										text: qsTr("Last:")
+										color: GUI20Skin.colorToolbarMainGradientEnd
+										width: id_priceLast.width / 3
+									}
+									Text
+									{
+										id: id_priceLastTextValue
+										anchors.left: id_priceLastTextDescription.right
+										text: qsTr( m_lastPrice )
+										color: GUI20Skin.colorTextActive
+									}
+								}
+								Rectangle
+								{
+									id: id_exchangeLastUpdateTime
+									width: id_volumeTimeRectangle.width / 4
+									height: id_volumeTimeRectangle.height
+									Text
+									{
+										id: id_exchangeTimeDescription
+										anchors.left: id_exchangeLastUpdateTime.left
+										text: qsTr( "Time:" )
+										color: GUI20Skin.colorToolbarMainGradientEnd
+										width: id_exchangeLastUpdateTime.width / 3
+									}
+									Text
+									{
+										id: id_exchangeTimeValue
+										anchors.left: id_exchangeTimeDescription.right
+										text: qsTr( m_lastUpdateTime )
+										color: GUI20Skin.colorTextActive
+									}
+								}
 							}
 						}
+
                         Rectangle
                         {
                             id: id_exchangeLink
@@ -174,15 +231,26 @@ GUIExchangesListView
                                 id: id_exchangeLinkText
                                 anchors.fill: id_exchangeLink
                                 text: qsTr( "Go to site" )
-                                MouseArea
-                                {
-                                    id: id_linkMouseArea
-                                    anchors.fill: id_exchangeLinkText
-                                    onClicked:
-                                    {
-                                        id_ExchangesView.onClicked( index )
-                                    }
-                                }
+								font.underline: true
+								color: GUI20Skin.colorToolbarMainGradientEnd
+								MouseArea
+								{
+									id: id_linkMouseArea
+									anchors.fill: id_exchangeLinkText
+									hoverEnabled: true
+									onClicked:
+									{
+										id_ExchangesView.onClicked( index )
+									}
+									onEntered:
+									{
+										id_exchangeLinkText.color = GUI20Skin.colorTextActive
+									}
+									onExited:
+									{
+										id_exchangeLinkText.color = GUI20Skin.colorToolbarMainGradientEnd
+									}
+								}
                             }
                         }
 					}
