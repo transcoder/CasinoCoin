@@ -16,6 +16,8 @@ public:
 	, ROLE_ASK_PRICE							= ROLE_5
 	, ROLE_LAST_PRICE							= ROLE_6
 	, ROLE_DESCRIPTION							= ROLE_7
+    , ROLE_VOLUME24H                            = ROLE_8
+    , ROLE_LAST_UPDATE_TIME                     = ROLE_9
 	};
 
 	explicit QmlExchangesListItem
@@ -26,6 +28,8 @@ public:
 					, double a_dAskPrice
 					, double a_dLastPrice
 					, QString a_strDescription
+                    , double a_dVolume24H
+                    , QString a_strLastUpdateTime
 					, QObject *a_pParent = 0
 					);
 	explicit QmlExchangesListItem	( const JsonSingleActiveExchange& a_rExchangeDescription
@@ -41,7 +45,8 @@ signals:
 public slots:
 
 private:
-	QString GetFormattedPrice( double a_dPrice );
+    QString getFormattedPrice( double a_dPrice );
+    QString getFormattedDateTime( QString isoDateTime);
 };
 
 #endif // QMLEXCHANGESLISTITEM_H

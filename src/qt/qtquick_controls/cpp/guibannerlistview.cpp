@@ -13,7 +13,7 @@ GUIBannerListView::GUIBannerListView( QQuickItem* a_pParent )
 {
 }
 
-void GUIBannerListView::Clear()
+void GUIBannerListView::clear()
 {
 	if ( m_pModel )
 	{
@@ -21,7 +21,7 @@ void GUIBannerListView::Clear()
 	}
 }
 
-void GUIBannerListView::OnClicked( int a_iItemIndex )
+void GUIBannerListView::onClicked( int a_iItemIndex )
 {
 	if ( m_pModel )
 	{
@@ -39,7 +39,7 @@ GUIBannerListView::~GUIBannerListView()
 	}
 }
 
-void GUIBannerListView::SetModel( QmlBannerListModel* a_pModel )
+void GUIBannerListView::setModel( QmlBannerListModel* a_pModel )
 {
 	if ( m_pModel )
 	{

@@ -68,14 +68,14 @@ QWidget* GUIExchangesWidget::dockQmlToWidget()
 			m_pExchangesControl = pRootObject->findChild<GUIExchangesControl*>();
 			if ( m_pExchangesControl )
 			{
-				m_pExchangesControl->setWidth( 400 );
-				m_pExchangesControl->setHeight( 120 );
+                m_pExchangesControl->setWidth( 500 );
+                m_pExchangesControl->setHeight( 200 );
 			}
 		}
 		pPlaceHolder = QWidget::createWindowContainer( pExchangesWindow, this );
 		if ( pPlaceHolder )
 		{
-			pPlaceHolder->setMinimumSize( 400, 120 );
+            pPlaceHolder->setMinimumSize( 500, 200 );
 		}
 	}
 

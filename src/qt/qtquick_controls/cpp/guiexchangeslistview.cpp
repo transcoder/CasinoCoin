@@ -13,7 +13,7 @@ GUIExchangesListView::GUIExchangesListView( QQuickItem* a_pParent )
 {
 }
 
-void GUIExchangesListView::Clear()
+void GUIExchangesListView::clear()
 {
 	if ( m_pModel )
 	{
@@ -21,7 +21,7 @@ void GUIExchangesListView::Clear()
 	}
 }
 
-void GUIExchangesListView::OnClicked( int a_iItemIndex )
+void GUIExchangesListView::onClicked( int a_iItemIndex )
 {
 	if ( m_pModel )
 	{
@@ -39,7 +39,7 @@ GUIExchangesListView::~GUIExchangesListView()
 	}
 }
 
-void GUIExchangesListView::SetModel( QmlExchangesListModel* a_pModel )
+void GUIExchangesListView::setModel( QmlExchangesListModel* a_pModel )
 {
 	if ( m_pModel )
 	{

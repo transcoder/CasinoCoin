@@ -18,7 +18,7 @@ GUIExchangesControl::~GUIExchangesControl()
 	}
 }
 
-void GUIExchangesControl::InitializeExchangesView( GUIExchangesListView* a_pView )
+void GUIExchangesControl::initializeExchangesView( GUIExchangesListView* a_pView )
 {
 	if ( a_pView )
 	{
@@ -35,7 +35,7 @@ void GUIExchangesControl::slotPopulateListView( JsonActiveExchangesParser* a_pAc
 	if ( m_pExchangesView )
 	{
 		QmlExchangesListModel* pExchangesModel = new QmlExchangesListModel( *a_pActiveExchanges );
-		m_pExchangesView->SetModel( pExchangesModel );
+		m_pExchangesView->setModel( pExchangesModel );
 	}
 }
 

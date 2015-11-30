@@ -35,7 +35,7 @@ void GUIBannerControl::slotPopulateListView( JsonActivePromotionsParser* a_pActi
 	if ( m_pAdvertsView )
 	{
 		QmlBannerListModel* pAdvertsModel = new QmlBannerListModel( *a_pActivePromotions );
-		m_pAdvertsView->SetModel( pAdvertsModel );
+		m_pAdvertsView->setModel( pAdvertsModel );
 	}
 }
 

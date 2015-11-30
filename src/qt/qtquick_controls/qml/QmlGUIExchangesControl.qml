@@ -24,7 +24,7 @@ GUIExchangesControl
 		anchors.fill: id_ExchangessArea
 		Component.onCompleted:
 		{
-			id_ExchangesControl.InitializeExchangesView( id_ExchangesListView )
+            id_ExchangesControl.initializeExchangesView( id_ExchangesListView )
 		}
 	}
 }

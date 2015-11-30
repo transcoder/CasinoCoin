@@ -57,7 +57,7 @@ GUIBannerListView
 				anchors.fill: id_listElement
 				onClicked:
 				{
-					id_bannerView.OnClicked( index )
+                    id_bannerView.onClicked( index )
 				}
 			}
 		}

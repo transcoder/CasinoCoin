@@ -16,12 +16,12 @@ public:
 	explicit GUIBannerListView( QQuickItem *a_pParent = 0 );
 	virtual ~GUIBannerListView();																			/** Destructor **/
 
-	void SetModel( QmlBannerListModel* a_pModel );
-	QmlBannerListModel* GetModel() const { return m_pModel; }
+    void setModel( QmlBannerListModel* a_pModel );
+    QmlBannerListModel* setModel() const { return m_pModel; }
 
-	void Clear();
+    void clear();
 
-	Q_INVOKABLE void OnClicked( int a_iItemIndex );
+    Q_INVOKABLE void onClicked( int a_iItemIndex );
 signals:
 	void signalModelChanged();
 

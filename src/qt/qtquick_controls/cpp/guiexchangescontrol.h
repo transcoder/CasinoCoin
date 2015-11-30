@@ -14,8 +14,8 @@ public:
 	GUIExchangesControl( QQuickItem* a_pParent = 0 );
 	virtual ~GUIExchangesControl();
 
-	Q_INVOKABLE void InitializeExchangesView( GUIExchangesListView* a_pView );
-	GUIExchangesListView* GetExchangesView() const { return m_pExchangesView; }
+    Q_INVOKABLE void initializeExchangesView( GUIExchangesListView* a_pView );
+    GUIExchangesListView* getExchangesView() const { return m_pExchangesView; }
 
 public slots:
 	void slotPopulateListView( JsonActiveExchangesParser* a_pActiveExchanges );

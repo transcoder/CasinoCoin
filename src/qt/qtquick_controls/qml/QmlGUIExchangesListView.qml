@@ -1,5 +1,6 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import CasinoCoinControls 1.0
+import QtQuick.Controls 1.4
 
 GUIExchangesListView
 {
@@ -10,18 +11,25 @@ GUIExchangesListView
 	property alias m_ListModel: id_listView.model
 	property alias m_PathView: id_listView
 
-	ListView
-	{
-		id: id_listView
-		anchors.fill: id_ExchangesView
+    ScrollView
+    {
+        id: id_ExchangesScrollView
+        anchors.fill: parent
 
-		clip: true
-		visible: true
-		interactive: contentHeight > id_listView.height ? true : false
+        ListView
+        {
+            id: id_listView
+            anchors.fill: id_ExchangesScrollView
+            height: 250
+            width: 500
+            clip: true
+            visible: true
+            interactive: contentHeight > id_listView.height ? true : false
 
-		model: id_ExchangesView.p_pListModel
-		delegate: id_elementDelegate
-	}
+            model: id_ExchangesView.p_pListModel
+            delegate: id_elementDelegate
+        }
+    }
 
 	Component
 	{
@@ -31,9 +39,9 @@ GUIExchangesListView
 			id: id_listElement
 			objectName: id_ExchangesView.objectName + "_Element" + index
 
-			width: 400
-			height: 100
-			Row
+            width: 750
+            height: 125
+            Row
 			{
 				id: id_row
 				anchors.fill: id_listElement
@@ -41,8 +49,8 @@ GUIExchangesListView
 				{
 					id: id_imageRectangle
 
-					width: id_listElement.width / 3
-					height: 80
+                    width: id_listElement.width / 5
+                    height: 100
 					anchors.verticalCenter: id_row.verticalCenter
 					Image
 					{
@@ -58,7 +66,7 @@ GUIExchangesListView
 						anchors.fill: id_imageRectangle
 						onClicked:
 						{
-							id_ExchangesView.OnClicked( index )
+                            id_ExchangesView.onClicked( index )
 						}
 					}
 				}
@@ -67,7 +75,7 @@ GUIExchangesListView
 					id: id_otherInfoRectangle
 
 					width: id_listElement.width - id_imageRectangle.width
-					height: 90
+                    height: 100
 					anchors.verticalCenter: id_row.verticalCenter
 					Column
 					{
@@ -77,7 +85,7 @@ GUIExchangesListView
 						{
 							id: id_exchangeNameRectangle
 							width: id_otherInfoRectangle.width
-							height: id_otherInfoRectangle.height / 3
+                            height: id_otherInfoRectangle.height / 4
 							Text
 							{
 								id: id_exchangeNameText
@@ -89,7 +97,7 @@ GUIExchangesListView
 						{
 							id: id_pricesRectangle
 							width: id_otherInfoRectangle.width
-							height: id_otherInfoRectangle.height / 3
+                            height: id_otherInfoRectangle.height / 4
 							Row
 							{
 								id: id_pricesRow
@@ -97,62 +105,86 @@ GUIExchangesListView
 								Rectangle
 								{
 									id: id_priceBid
-									width: id_pricesRectangle.width / 3
+                                    width: id_pricesRectangle.width / 4
 									height: id_pricesRectangle.height
 									Text
 									{
 										id: id_priceBidText
 										anchors.fill: id_priceBid
-										text: qsTr( m_bidPrice )
+                                        text: qsTr("Bid: %1").arg(m_bidPrice)
 									}
 								}
 								Rectangle
 								{
 									id: id_priceAsk
-									width: id_pricesRectangle.width / 3
+                                    width: id_pricesRectangle.width / 4
 									height: id_pricesRectangle.height
 									Text
 									{
 										id: id_priceAskText
 										anchors.fill: id_priceAsk
-										text: qsTr( m_askPrice )
+                                        text: qsTr("Ask: %1").arg(m_askPrice)
 									}
 								}
 								Rectangle
 								{
 									id: id_priceLast
-									width: id_pricesRectangle.width / 3
+                                    width: id_pricesRectangle.width / 4
 									height: id_pricesRectangle.height
 									Text
 									{
 										id: id_priceLastText
 										anchors.fill: id_priceLast
-										text: qsTr( m_lastPrice )
+                                        text: qsTr("Last: %1").arg(m_lastPrice)
 									}
 								}
+                                Rectangle
+                                {
+                                    id: id_volume24h
+                                    width: id_pricesRectangle.width / 4
+                                    height: id_pricesRectangle.height
+                                    Text
+                                    {
+                                        id: id_volume24hText
+                                        anchors.fill: id_volume24h
+                                        text: qsTr("Volume: %1").arg(m_volume24H)
+                                    }
+                                }
 							}
 						}
 						Rectangle
 						{
-							id: id_exchangeLink
+                            id: id_exchangeLastUpdateTime
 							width: id_otherInfoRectangle.width
-							height: id_otherInfoRectangle.height / 3
+                            height: id_otherInfoRectangle.height / 4
 							Text
 							{
-								id: id_exchangeLinkText
-								anchors.fill: id_exchangeLink
-								text: qsTr( "Go to site" )
-								MouseArea
-								{
-									id: id_linkMouseArea
-									anchors.fill: id_exchangeLinkText
-									onClicked:
-									{
-										id_ExchangesView.OnClicked( index )
-									}
-								}
+                                id: id_exchangeTime
+                                anchors.fill: id_exchangeLastUpdateTime
+                                text: qsTr( m_lastUpdateTime )
 							}
 						}
+                        Rectangle
+                        {
+                            id: id_exchangeLink
+                            width: id_otherInfoRectangle.width
+                            height: id_otherInfoRectangle.height / 4
+                            Text
+                            {
+                                id: id_exchangeLinkText
+                                anchors.fill: id_exchangeLink
+                                text: qsTr( "Go to site" )
+                                MouseArea
+                                {
+                                    id: id_linkMouseArea
+                                    anchors.fill: id_exchangeLinkText
+                                    onClicked:
+                                    {
+                                        id_ExchangesView.onClicked( index )
+                                    }
+                                }
+                            }
+                        }
 					}
 				}
 			}

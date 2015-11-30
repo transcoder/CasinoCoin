@@ -191,6 +191,7 @@ QHash<int, QByteArray> QmlListItem::RoleNames() const
 	aRoleNames[ROLE_6]		= "m_role6";
 	aRoleNames[ROLE_7]		= "m_role7";
 	aRoleNames[ROLE_8]		= "m_role8";
+    aRoleNames[ROLE_9]		= "m_role9";
 	return aRoleNames;
 }
 

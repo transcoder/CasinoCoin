@@ -17,8 +17,8 @@ InfoPage::InfoPage(QWidget *parent) :
     ui(new Ui::InfoPage)
 {
     ui->setupUi(this);
-    ui->casinoInfoBox->setVisible(false);
-    ui->newsItemsBox->setVisible(false);
+//    ui->casinoInfoBox->setVisible(false);
+//    ui->newsItemsBox->setVisible(false);
 
 	createExchangesWidget();
 }
