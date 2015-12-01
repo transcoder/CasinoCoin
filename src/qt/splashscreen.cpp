@@ -10,7 +10,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
     QSplashScreen(pixmap, f)
 {
     // set reference point, paddings
-    int paddingLeftCol1 = 110;
+    int paddingLeftCol1 = 90;
     int paddingLeftCol2 = 170;
     int paddingTopCol = 300;
     int line1 = 0;
@@ -20,8 +20,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
 
     // define text to place
     QString versionText     = QString("Version %1 ").arg(QString::fromStdString(FormatFullVersion()));
-    QString copyrightText   = QChar(0xA9)+QString(" 2013-%1 ").arg(COPYRIGHT_YEAR) + QString(tr("The CasinoCoin developers"));
-
+    QString copyrightText1  = QString("Copyright ") + QChar(0xA9) + QString(" 2013-%1 - ").arg(COPYRIGHT_YEAR) + QString(tr("The CasinoCoin developers"));
     QString font            = "Arial";
 
     // load the bitmap for writing some text over it
@@ -41,7 +40,7 @@ SplashScreen::SplashScreen(const QPixmap &pixmap, Qt::WindowFlags f) :
 
     // draw copyright stuff
     pixPaint.setFont(QFont(font, 8*fontFactor));
-    pixPaint.drawText(paddingLeftCol1,paddingTopCol+line1,copyrightText);
+    pixPaint.drawText(paddingLeftCol1,paddingTopCol+line1,copyrightText1);
     // draw version number
     pixPaint.setFont(QFont(font, 8*fontFactor));
     pixPaint.drawText(paddingLeftCol2,paddingTopCol+line2,versionText);

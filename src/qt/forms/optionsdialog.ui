@@ -23,7 +23,7 @@
       <enum>QTabWidget::North</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="tabMain">
       <attribute name="title">
@@ -31,7 +31,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_Main">
        <item>
-        <widget class="QFrame" name="verticalFrame">
+        <widget class="QFrame" name="verticalFrame1">
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
            <widget class="QLabel" name="transactionFeeInfoLabel">
@@ -72,7 +72,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="verticalFrame">
+        <widget class="QFrame" name="verticalFrame2">
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
            <widget class="QCheckBox" name="bitcoinAtStartup">
@@ -143,7 +143,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_Network">
        <item>
-        <widget class="QFrame" name="verticalFrame">
+        <widget class="QFrame" name="verticalFrame3">
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QCheckBox" name="connectSocks">
@@ -280,7 +280,7 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_Window">
        <item>
-        <widget class="QFrame" name="verticalFrame">
+        <widget class="QFrame" name="verticalFrame4">
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QCheckBox" name="minimizeToTray">
@@ -326,7 +326,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QFrame" name="verticalFrame">
+        <widget class="QFrame" name="verticalFrame5">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_display_Language">
@@ -404,7 +404,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QFrame" name="verticalFrame">
+        <widget class="QFrame" name="verticalFrame6">
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <widget class="QCheckBox" name="displayAddresses">
