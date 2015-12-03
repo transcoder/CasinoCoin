@@ -1,13 +1,13 @@
 TEMPLATE = app
 TARGET = casinocoin-qt
 macx:TARGET = "CasinoCoin-Qt"
-VERSION = 1.1.0.0
+VERSION = 2.0.0.0
 INCLUDEPATH += src src/json src/qt
-QT += core gui network
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui network widgets qml quick
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE USE_IPV6 __NO_SYSTEM_INCLUDES
 CONFIG += no_include_pwd
 CONFIG += thread
+CONFIG += static
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -19,14 +19,40 @@ CONFIG += thread
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
-BOOST_INCLUDE_PATH=E:/crypto/deps/boost_1_53_0
-BOOST_LIB_PATH=E:/crypto/deps/boost_1_53_0/stage/lib
-BDB_INCLUDE_PATH=E:/crypto/deps/db-4.8.30.NC/build_unix
-BDB_LIB_PATH=E:/crypto/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=E:/crypto/deps/openssl-1.0.1b/include
-OPENSSL_LIB_PATH=E:/crypto/deps/openssl-1.0.1b
-QRENCODE_INCLUDE_PATH=E:/crypto/deps/qrencode-3.4.3
-QRENCODE_LIB_PATH=E:/crypto/deps/qrencode-3.4.3/.libs
+win32 {
+    BOOST_LIB_SUFFIX=-mt
+    BOOST_THREAD_LIB_SUFFIX=_win32-mt
+    BDB_INCLUDE_PATH=/home/ubuntu/deps/windows/db-4.8.30.NC/build_unix
+    BDB_LIB_PATH=/home/ubuntu/deps/windows/db-4.8.30.NC/build_unix
+    OPENSSL_INCLUDE_PATH=/home/ubuntu/deps/windows/openssl-1.0.1h/include
+    OPENSSL_LIB_PATH=/home/ubuntu/deps/windows/openssl-1.0.1h
+    MINIUPNPC_INCLUDE_PATH=/home/ubuntu/deps/windows/
+    MINIUPNPC_LIB_PATH=/home/ubuntu/deps/windows/miniupnpc
+    QRENCODE_INCLUDE_PATH=/home/ubuntu/deps/windows/qrencode-3.4.3
+    QRENCODE_LIB_PATH=/home/ubuntu/deps/windows/qrencode-3.4.3/.libs
+} macx {
+    BOOST_INCLUDE_PATH=/usr/local/opt/boost/include
+    BOOST_LIB_PATH=/usr/local/opt/boost/lib
+    BDB_INCLUDE_PATH=/usr/local/opt/berkeley-db4/include
+    BDB_LIB_PATH=/usr/local/opt/berkeley-db4/lib
+    OPENSSL_INCLUDE_PATH=/usr/local/opt/openssl/include
+    OPENSSL_LIB_PATH=/usr/local/opt/openssl/lib
+    MINIUPNPC_INCLUDE_PATH=/usr/local/opt/miniupnpc/include
+    MINIUPNPC_LIB_PATH=/usr/local/opt/miniupnpc/lib
+    QRENCODE_INCLUDE_PATH=/usr/local/opt/qrencode/include
+    QRENCODE_LIB_PATH=/usr/local/opt/qrencode/lib
+} else {
+    BOOST_INCLUDE_PATH=/home/ubuntu/deps/linux/boost_1_55_0
+    BOOST_LIB_PATH=/home/ubuntu/deps/linux/boost_1_55_0/stage/lib
+    BDB_INCLUDE_PATH=/home/ubuntu/deps/linux/db-4.8.30.NC/build_unix
+    BDB_LIB_PATH=/home/ubuntu/deps/linux/db-4.8.30.NC/build_unix
+    OPENSSL_INCLUDE_PATH=/home/ubuntu/deps/linux/openssl-1.0.1h/include
+    OPENSSL_LIB_PATH=/home/ubuntu/deps/linux/openssl-1.0.1h
+    MINIUPNPC_INCLUDE_PATH=/home/ubuntu/deps/linux/
+    MINIUPNPC_LIB_PATH=/home/ubuntu/deps/linux/miniupnpc
+    QRENCODE_INCLUDE_PATH=/home/ubuntu/deps/linux/qrencode-3.4.3
+    QRENCODE_LIB_PATH=/home/ubuntu/deps/linux/qrencode-3.4.3/.libs
+}
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -141,7 +167,11 @@ QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) cl
     DEFINES += HAVE_BUILD_INFO
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -Wno-strict-aliasing -Wstack-protector
+
+!macx {
+   QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-local-typedefs
+}
 
 # Input
 DEPENDPATH += src src/json src/qt
@@ -229,7 +259,38 @@ HEADERS += src/qt/bitcoingui.h \
     src/threadsafety.h \
     src/limitedmap.h \
     src/qt/macnotificationhandler.h \
-    src/qt/splashscreen.h
+    src/qt/splashscreen.h \
+    src/qt/CSCPublicAPI/casinocoinwebapi.h \
+    src/qt/CSCPublicAPI/casinocoinwebapiparser.h \
+    src/qt/CSCPublicAPI/jsonactivepromotionsparser.h \
+    src/qt/CSCPublicAPI/jsonactiveexchangesparser.h \
+    src/qt/CSCPublicAPI/jsonsingleactivepromotion.h \
+    src/qt/CSCPublicAPI/jsonsingleactiveexchange.h \
+    src/qt/qtquick_controls/cpp/guibannercontrol.h \
+    src/qt/qtquick_controls/cpp/guibannerlistview.h \
+    src/qt/qtquick_controls/cpp/guibannerwidget.h \
+    src/qt/qtquick_controls/cpp/listiteminterface.h \
+    src/qt/qtquick_controls/cpp/qmlbannerlistitem.h \
+    src/qt/qtquick_controls/cpp/qmlbannerlistmodel.h \
+    src/qt/qtquick_controls/cpp/qmlimageprovider.h \
+    src/qt/qtquick_controls/cpp/qmllistitem.h \
+    src/qt/qtquick_controls/cpp/qmllistmodel.h \
+    src/qt/qtquick_controls/cpp/qmlmenutoolbarmodel.h \
+    src/qt/qtquick_controls/cpp/qmlmenutoolbaritem.h \
+    src/qt/qtquick_controls/cpp/guimenutoolbarwidget.h \
+    src/qt/qtquick_controls/cpp/guimenutoolbarlistview.h \
+    src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.h \
+    src/qt/gui20_skin.h \
+    src/qt/cscfusionstyle.h \
+    src/qt/pryptopage.h \
+    src/qt/currencies.h \
+    src/qt/CSCPublicAPI/jsoncoininfoparser.h \
+    src/qt/infopage.h \
+    src/qt/qtquick_controls/cpp/guiexchangeswidget.h \
+    src/qt/qtquick_controls/cpp/qmlexchangeslistmodel.h \
+    src/qt/qtquick_controls/cpp/qmlexchangeslistitem.h \
+    src/qt/qtquick_controls/cpp/guiexchangeslistview.h \
+    src/qt/qtquick_controls/cpp/guiexchangescontrol.h
 
 SOURCES += src/qt/bitcoin.cpp \
     src/qt/bitcoingui.cpp \
@@ -300,7 +361,38 @@ SOURCES += src/qt/bitcoin.cpp \
     src/noui.cpp \
     src/leveldb.cpp \
     src/txdb.cpp \
-    src/qt/splashscreen.cpp
+    src/qt/splashscreen.cpp \
+    src/qt/CSCPublicAPI/casinocoinwebapi.cpp \
+    src/qt/CSCPublicAPI/casinocoinwebapiparser.cpp \
+    src/qt/CSCPublicAPI/jsonactivepromotionsparser.cpp \
+    src/qt/CSCPublicAPI/jsonactiveexchangesparser.cpp \
+    src/qt/CSCPublicAPI/jsonsingleactivepromotion.cpp \
+    src/qt/CSCPublicAPI/jsonsingleactiveexchange.cpp \
+    src/qt/qtquick_controls/cpp/guibannercontrol.cpp \
+    src/qt/qtquick_controls/cpp/guibannerlistview.cpp \
+    src/qt/qtquick_controls/cpp/guibannerwidget.cpp \
+    src/qt/qtquick_controls/cpp/qmlbannerlistitem.cpp \
+    src/qt/qtquick_controls/cpp/qmlbannerlistmodel.cpp \
+    src/qt/qtquick_controls/cpp/qmlimageprovider.cpp \
+    src/qt/qtquick_controls/cpp/qmllistitem.cpp \
+    src/qt/qtquick_controls/cpp/qmllistmodel.cpp \
+    src/qt/qtquick_controls/cpp/qmlmenutoolbarmodel.cpp \
+    src/qt/qtquick_controls/cpp/qmlmenutoolbaritem.cpp \
+    src/qt/qtquick_controls/cpp/guimenutoolbarwidget.cpp \
+    src/qt/qtquick_controls/cpp/guimenutoolbarlistview.cpp \
+    src/qt/qtquick_controls/cpp/guimenutoolbarcontrol.cpp \
+    src/qt/gui20_skin.cpp \
+    src/qt/cscfusionstyle.cpp \
+    src/qt/pryptopage.cpp \
+    src/qt/currencies.cpp \
+    src/qt/CSCPublicAPI/jsoncoininfoparser.cpp \
+    src/qt/infopage.cpp \
+    src/qt/qtquick_controls/cpp/guiexchangeswidget.cpp \
+    src/qt/qtquick_controls/cpp/qmlexchangeslistmodel.cpp \
+    src/qt/qtquick_controls/cpp/qmlexchangeslistitem.cpp \
+    src/qt/qtquick_controls/cpp/guiexchangeslistview.cpp \
+    src/qt/qtquick_controls/cpp/guiexchangescontrol.cpp
+
 
 RESOURCES += src/qt/bitcoin.qrc
 
@@ -315,7 +407,9 @@ FORMS += src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
-    src/qt/forms/optionsdialog.ui
+    src/qt/forms/optionsdialog.ui \
+    src/qt/forms/pryptopage.ui \
+    src/qt/forms/infopage.ui
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
@@ -351,8 +445,9 @@ CODECFORTR = UTF-8
 TRANSLATIONS = $$files(src/qt/locale/bitcoin_*.ts)
 
 isEmpty(QMAKE_LRELEASE) {
-    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\\lrelease.exe
-    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+#    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\\lrelease.exe
+#    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
+    QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
 }
 isEmpty(QM_DIR):QM_DIR = $$PWD/src/qt/locale
 # automatically build translations, so they can be included in resource file
@@ -372,7 +467,16 @@ OTHER_FILES += README.md \
     src/test/*.cpp \
     src/test/*.h \
     src/qt/test/*.cpp \
-    src/qt/test/*.h
+    src/qt/test/*.h \
+    src/qt/qtquick_controls/qml/QmlGUIBannerControl.qml \
+    src/qt/qtquick_controls/qml/QmlGUIBannerListView.qml \
+    src/qt/qtquick_controls/qml/QmlGUIBannerWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIExchangesControl.qml \
+    src/qt/qtquick_controls/qml/QmlGUIExchangesListView.qml \
+    src/qt/qtquick_controls/qml/QmlGUIExchangesWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarListView.qml \
+    src/qt/qtquick_controls/qml/QmlGUIMenuToolbarControl.qml
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
@@ -453,3 +557,6 @@ contains(RELEASE, 1) {
 }
 
 system($$QMAKE_LRELEASE -silent $$TRANSLATIONS)
+
+DISTFILES += \
+    QmlImports.qml

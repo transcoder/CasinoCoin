@@ -21,21 +21,21 @@ USE_UPNP:=-
 USE_IPV6:=1
 
 DEPSDIR?=/usr/local
-BOOST_SUFFIX?=-mgw46-mt-s-1_53
+BOOST_SUFFIX?=-mgw49-mt-s-1_55
 
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
- -I"E:\crypto\deps\boost_1_53_0" \
- -I"E:\crypto\deps\db-4.8.30.NC\build_unix" \
- -I"E:\crypto\deps\openssl-1.0.1b\include" \
- -I"E:\crypto\deps\qrencode-3.4.3"
+ -I"C:\deps\boost_1_55_0" \
+ -I"C:\deps\db-4.8.30.NC\build_unix" \
+ -I"C:\deps\openssl-1.0.2d\include" \
+ -I"C:\deps\qrencode-3.4.3"
 
 LIBPATHS= \
  -L"$(CURDIR)/leveldb" \
- -L"E:\crypto\deps\boost_1_53_0\stage\lib" \
- -L"E:\crypto\deps\db-4.8.30.NC\build_unix" \
- -L"E:\crypto\deps\openssl-1.0.1b" \
- -L"E:\crypto\deps\qrencode-3.4.3\.libs"
+ -L"C:\deps\boost_1_55_0\stage\lib" \
+ -L"C:\deps\db-4.8.30.NC\build_unix" \
+ -L"C:\deps\openssl-1.0.2d" \
+ -L"C:\deps\qrencode-3.4.3\.libs"
 
 LIBS= \
  -l leveldb \

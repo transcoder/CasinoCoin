@@ -2,6 +2,7 @@
 #include "ui_optionsdialog.h"
 
 #include "bitcoinunits.h"
+#include "currencies.h"
 #include "monitoreddatamapper.h"
 #include "netbase.h"
 #include "optionsmodel.h"
@@ -80,6 +81,7 @@ OptionsDialog::OptionsDialog(QWidget *parent) :
     }
 
     ui->unit->setModel(new BitcoinUnits(this));
+    ui->currency->setModel(new Currencies(this));
 
     /* Widget-to-option mapper */
     mapper = new MonitoredDataMapper(this);
@@ -106,7 +108,6 @@ void OptionsDialog::setModel(OptionsModel *model)
     if(model)
     {
         connect(model, SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
-
         mapper->setModel(model);
         setMapper();
         mapper->toFirst();
@@ -145,8 +146,10 @@ void OptionsDialog::setMapper()
     /* Display */
     mapper->addMapping(ui->lang, OptionsModel::Language);
     mapper->addMapping(ui->unit, OptionsModel::DisplayUnit);
+    mapper->addMapping(ui->currency, OptionsModel::DisplayFiatCurrency);
     mapper->addMapping(ui->displayAddresses, OptionsModel::DisplayAddresses);
     mapper->addMapping(ui->coinControlFeatures, OptionsModel::CoinControlFeatures);
+    mapper->addMapping(ui->displayPromotions, OptionsModel::DisplayPromotions);
 }
 
 void OptionsDialog::enableApplyButton()

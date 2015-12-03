@@ -1,6 +1,7 @@
 #include "optionsmodel.h"
 
 #include "bitcoinunits.h"
+#include "currencies.h"
 #include "init.h"
 #include "walletdb.h"
 #include "guiutil.h"
@@ -49,6 +50,8 @@ void OptionsModel::Init()
     nTransactionFee = settings.value("nTransactionFee").toLongLong();
     language = settings.value("language", "").toString();
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
+    nDisplayFiatCurrency = settings.value("nDisplayFiatCurrency", Currencies::USD).toInt();
+    fDisplayPromotions = settings.value("fDisplayPromotions", true).toBool();
 
     // These are shared with core Bitcoin; we want
     // command-line options to override the GUI settings:
@@ -199,6 +202,10 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return settings.value("language", "");
         case CoinControlFeatures:
             return QVariant(fCoinControlFeatures);
+        case DisplayFiatCurrency:
+            return QVariant(nDisplayFiatCurrency);
+        case DisplayPromotions:
+            return QVariant(fDisplayPromotions);
         default:
             return QVariant();
         }
@@ -274,6 +281,11 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             settings.setValue("nDisplayUnit", nDisplayUnit);
             emit displayUnitChanged(nDisplayUnit);
             break;
+        case DisplayFiatCurrency:
+            nDisplayFiatCurrency = value.toInt();
+            settings.setValue("nDisplayFiatCurrency", nDisplayFiatCurrency);
+            emit displayCurrencyChanged(nDisplayFiatCurrency);
+            break;
         case DisplayAddresses:
             bDisplayAddresses = value.toBool();
             settings.setValue("bDisplayAddresses", bDisplayAddresses);
@@ -285,6 +297,12 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             fCoinControlFeatures = value.toBool();
             settings.setValue("fCoinControlFeatures", fCoinControlFeatures);
             emit coinControlFeaturesChanged(fCoinControlFeatures);
+        }
+        break;
+        case DisplayPromotions: {
+            fDisplayPromotions = value.toBool();
+            settings.setValue("fDisplayPromotions", fDisplayPromotions);
+            emit displayPromotionsChanged(fDisplayPromotions);
         }
         break;
         default:

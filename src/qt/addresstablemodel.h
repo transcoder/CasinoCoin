@@ -69,6 +69,10 @@ public:
 
     EditStatus getEditStatus() const { return editStatus; }
 
+    /* Look up address for label in address book, if not found return empty string.
+     */
+    QString addressForLabel(const QString &label) const;
+
 private:
     WalletModel *walletModel;
     CWallet *wallet;

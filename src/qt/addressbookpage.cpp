@@ -8,6 +8,8 @@
 #include "csvmodelwriter.h"
 #include "guiutil.h"
 
+#include "gui20_skin.h"
+
 #ifdef USE_QRCODE
 #include "qrcodedialog.h"
 #endif
@@ -26,7 +28,6 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     tab(tab)
 {
     ui->setupUi(this);
-
 #ifdef Q_OS_MAC // Icons on push buttons are very uncommon on Mac
     ui->newAddress->setIcon(QIcon());
     ui->copyAddress->setIcon(QIcon());

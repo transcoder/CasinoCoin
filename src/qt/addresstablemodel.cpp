@@ -6,6 +6,7 @@
 #include "wallet.h"
 #include "base58.h"
 
+#include <QDebug>
 #include <QFont>
 
 const QString AddressTableModel::Send = "S";
@@ -423,4 +424,25 @@ int AddressTableModel::lookupAddress(const QString &address) const
 void AddressTableModel::emitDataChanged(int idx)
 {
     emit dataChanged(index(idx, 0, QModelIndex()), index(idx, columns.length()-1, QModelIndex()));
+}
+
+/* Look up address for label in address book, if not found return empty string.
+ */
+QString AddressTableModel::addressForLabel(const QString &label) const
+{
+    LOCK(wallet->cs_wallet);
+    QString walletAddress = "";
+    // loop over addressbook values to find the key
+    std::map<CTxDestination, std::string>::iterator it;
+    for( it = wallet->mapAddressBook.begin(); it != wallet->mapAddressBook.end(); it++)
+    {
+        qDebug() << "Label Value: " << QString::fromStdString(it->second);
+        if (it->second.compare(label.toStdString()) == 0)
+        {
+            CTxDestination dest = it->first;
+            walletAddress = QString::fromStdString(CBitcoinAddress(dest).ToString());
+            break;
+        }
+    }
+    return walletAddress;
 }

@@ -27,9 +27,11 @@ public:
         ProxySocksVersion, // int
         Fee,               // qint64
         DisplayUnit,       // BitcoinUnits::Unit
+        DisplayFiatCurrency, // Currencies::FiatCurrencyID
         DisplayAddresses,  // bool
         Language,          // QString
         CoinControlFeatures, // bool
+        DisplayPromotions, // bool
         OptionIDRowCount,
     };
 
@@ -51,6 +53,8 @@ public:
     bool getDisplayAddresses() { return bDisplayAddresses; }
     QString getLanguage() { return language; }
     bool getCoinControlFeatures();
+    int getDisplayFiatCurrency() { return nDisplayFiatCurrency; }
+    bool getDisplayPromotions() { return fDisplayPromotions; }
 
 private:
     int nDisplayUnit;
@@ -59,11 +63,15 @@ private:
     bool fMinimizeOnClose;
     QString language;
     bool fCoinControlFeatures;
+    int nDisplayFiatCurrency;
+    bool fDisplayPromotions;
 
 signals:
     void displayUnitChanged(int unit);
     void transactionFeeChanged(qint64);
     void coinControlFeaturesChanged(bool);
+    void displayCurrencyChanged(int currency);
+    void displayPromotionsChanged(bool);
 };
 
 #endif // OPTIONSMODEL_H

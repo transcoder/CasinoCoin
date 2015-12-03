@@ -1,3 +1,5 @@
+<h2>Please download the updated wallet asap, hard fork incoming at block 546250</h2>
+[Click here to download the most recent wallet version -> 1.3.0 (Updated on July, 18 2014)](https://github.com/casinocoin/casinocoin/releases/tag/1.3.0.0 "Click to go to releases page")
 
 <p align="center"><img src="https://raw.github.com/transcoder/CasinoCoin/master/src/qt/res/images/logo.png" /></p>
 
@@ -31,21 +33,32 @@ Technical Specifications
 
  - scrypt proof-of-work algorithm
  - 30 second block time targets
- - ~336 million total coins
- - 720 blocks to retarget difficulty
- - 50 coins per block, halves every 3,153,600 blocks (~3 years)
+ - ~63 million total coins
+ - new digishield difficulty retargetting system (from block 445000) 
+ - 50 coins per block, permanent reduction to 10 cons per block after block 575000
  - fair launch, absolutely no premine
+
+Casinocoin Mailing Lists
+========================
+
+If you operate a pool or service that relies on Casinocoin wallets, please subscribe to the "Csinocoin Development" mailing list for notifications of client updates, hardforks,or other issues that may impact you.
+
+ - Casinocoin Development mailing list subscription form: http://eepurl.com/WGcoP
+
+If you are a community mber interested in more general announcements related to Casinocoin, please subscribe to the "Casinocoin Announcements" mailing list.
+
+ - Casinocoin Announcements mailing list subscription form: http://eepurl.com/WGeu1
+
 
 
 Links
 ======
 
-Website: http://casinoco.in
+Website: http://casinocoin.org
 
 
-Forum: http://forum.casinoco.in
+Forum: http://forums.casinocoin.org
 
 
-Source: https://github.com/transcoder/CasinoCoin
-
+Source: https://github.com/casinocoin/casinocoin
 

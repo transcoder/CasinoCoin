@@ -54,7 +54,7 @@ static const int64 DUST_SOFT_LIMIT = 100000; // 0.001 CSC
 /** Dust Hard Limit, ignored as wallet inputs (mininput default) */
 static const int64 DUST_HARD_LIMIT = 1000;   // 0.00001 CSC mininput
 /** No amount larger than this (in satoshi) is valid */
-static const int64 MAX_MONEY = 336000000 * COIN;
+static const int64 MAX_MONEY = 63000000 * COIN;
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
 static const int COINBASE_MATURITY = 8;
@@ -191,12 +191,8 @@ CBlockIndex * InsertBlockIndex(uint256 hash);
 bool VerifySignature(const CCoins& txFrom, const CTransaction& txTo, unsigned int nIn, unsigned int flags, int nHashType);
 /** Abort with a message */
 bool AbortNode(const std::string &msg);
-
-
-
-
-
-
+/** Get total coin supply for block height */
+int64 GetTotalCoinSupply(int nHeight, bool noCheckpoints);
 
 
 

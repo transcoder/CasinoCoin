@@ -1108,10 +1108,61 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
         nSubsidy = 45 * COIN;
     }
 
-    // Subsidy is cut in half every 3153600 blocks, which will occur approximately every 3 years
-    nSubsidy >>= (nHeight / 3153600);
+    // Permantently reduce the number of mined coins to 10 after block 575000
+    if(nHeight > 575000){
+        if(nHeight < 3756000){
+	    nSubsidy = 10 * COIN;
+        }
+	    else
+        {
+            nSubsidy = 0 * COIN;
+        }
+    }
+
+    
 
     return nSubsidy + nFees;
+}
+
+int64 GetTotalCoinSupply(int nHeight, bool noCheckpoints)
+{
+    int64 totalSupply = 0;
+    int startBlock = 1;
+    if ( !noCheckpoints ) {
+        // Reduce the amount of calculations by specifying total checkpoints
+        int heights[] = {
+            100000, 200000, 300000, 400000, 500000,
+            600000, 700000, 800000, 900000, 1000000,
+            1100000
+        };
+        int64 supplies[] = {
+            482721500000000, 982721500000000, 1482721500000000, 1982721500000000, 2482721500000000,
+            2882721500000000, 2982721500000000, 3082721500000000, 3182721500000000, 3282721500000000,
+            3382721500000000
+        };
+        if (nHeight>=1 ) {
+            int numHeights = (int)(sizeof(heights)/sizeof(heights[0]));
+//            int numSupplies = (int)(sizeof(supplies)/sizeof(supplies[0]));
+//            if (nHeight>heights[numHeights-1]) {
+//                nHeight = heights[numHeights-1];
+//            }
+            for (int i=(numHeights-1); i>=0; i--) {
+                if ( heights[i] <= nHeight ) {
+                    if (i>=0) {
+                        totalSupply = supplies[i];
+                        startBlock = heights[i] + 1;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    if ( nHeight>=1 ) {
+        for (int i = startBlock; i <= nHeight; i++) {
+            totalSupply += GetBlockValue( i, 0 );
+        }
+    }
+    return totalSupply;
 }
 
 static const int64 nTargetTimespan =  0.25 * 24 * 60 * 60; // CasinoCoin: 0.25 day / 6 hours
@@ -1215,6 +1266,9 @@ unsigned int static GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const 
 unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const CBlockHeader *pblock, uint64 TargetBlocksSpacingSeconds, uint64 PastBlocksMin, uint64 PastBlocksMax)
 {
 	/* Kimoto Gravity Well implementation - credit to Dr Kimoto Chan of Megacoin */
+    //
+    // DigiShield comes in at block 445000
+    //
 	const CBlockIndex  *BlockLastSolved = pindexLast;
 	const CBlockIndex  *BlockReading = pindexLast;
 	const CBlockHeader *BlockCreating = pblock;
@@ -1289,21 +1343,99 @@ unsigned int static GetNextWorkRequired_V2(const CBlockIndex* pindexLast, const 
 	return KimotoGravityWell(pindexLast, pblock, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
 }
 
+unsigned int static DigiShield(const CBlockIndex* pindexLast, const CBlockHeader *pblock)
+{
+    // DigiShield difficulty retarget system
+    // Credits to DigiByte developers
+    unsigned int nProofOfWorkLimit = bnProofOfWorkLimit.GetCompact();
+
+    int blockstogoback = 0;
+
+    //set default to pre-v2.0 values
+    int64 retargetTimespan = nTargetSpacing; //Make sure we retarget every block
+    int64 retargetSpacing = nTargetSpacing;
+    int64 retargetInterval = retargetTimespan / retargetSpacing;
+    // Genesis block
+    if (pindexLast == NULL) return nProofOfWorkLimit;
+    
+    // Only change once per interval
+    if ((pindexLast->nHeight+1) % retargetInterval != 0){
+      // Special difficulty rule for testnet:
+        if (fTestNet){
+            // If the new block's timestamp is more than 2* 10 minutes
+            // then allow mining of a min-difficulty block.
+            if (pblock->nTime > pindexLast->nTime + retargetSpacing*2)
+                return nProofOfWorkLimit;
+        else {
+            // Return the last non-special-min-difficulty-rules-block
+            const CBlockIndex* pindex = pindexLast;
+            while (pindex->pprev && pindex->nHeight % retargetInterval != 0 && pindex->nBits == nProofOfWorkLimit) 
+            pindex = pindex->pprev;
+        return pindex->nBits;
+        }
+      }  
+      return pindexLast->nBits;
+    }
+    
+    // DigiByte: This fixes an issue where a 51% attack can change difficulty at will.
+    // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
+    blockstogoback = retargetInterval-1;
+    if ((pindexLast->nHeight+1) != retargetInterval) blockstogoback = retargetInterval;
+    
+    // Go back by what we want to be 14 days worth of blocks
+    const CBlockIndex* pindexFirst = pindexLast;
+    for (int i = 0; pindexFirst && i < blockstogoback; i++)
+        pindexFirst = pindexFirst->pprev;
+    assert(pindexFirst);
+
+    // Limit adjustment step
+    int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
+    printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
+
+
+
+    CBigNum bnNew;
+    bnNew.SetCompact(pindexLast->nBits);
+    
+    if (nActualTimespan < (retargetTimespan - (retargetTimespan/4)) ) nActualTimespan = (retargetTimespan - (retargetTimespan/4));
+    if (nActualTimespan > (retargetTimespan + (retargetTimespan/2)) ) nActualTimespan = (retargetTimespan + (retargetTimespan/2));
+
+    // Retarget
+    bnNew *= nActualTimespan;
+    bnNew /= retargetTimespan;
+    
+    /// debug print
+    printf("DigiShield RETARGET \n");
+    printf("retargetTimespan = %"PRI64d"    nActualTimespan = %"PRI64d"\n", retargetTimespan, nActualTimespan);
+    printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
+    printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
+    
+
+    if (bnNew > bnProofOfWorkLimit)
+        bnNew = bnProofOfWorkLimit;
+
+
+
+    return bnNew.GetCompact();
+}
+
 unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock)
 {
-	int DiffMode = 1;
-	if (fTestNet)
-	{
-		if (pindexLast->nHeight+1 >= 100) { DiffMode = 2; }
-	}
-	else
-	{
-		if (pindexLast->nHeight+1 >= 227000) { DiffMode = 2; }
-	}
+    int DiffMode = 1;
+    if (fTestNet)
+    {
+        if (pindexLast->nHeight+1 >= 100) { DiffMode = 2; }
+    }
+    else
+    {
+        if (pindexLast->nHeight+1 >= 227000 && pindexLast->nHeight+1 < 445000) { DiffMode = 2; }
+        else if (pindexLast->nHeight+1 >= 445000) { DiffMode = 3; }
+    }
         
-	if (DiffMode == 1) { return GetNextWorkRequired_V1(pindexLast, pblock); }
-	else if (DiffMode == 2) { return GetNextWorkRequired_V2(pindexLast, pblock); }
-	return GetNextWorkRequired_V2(pindexLast, pblock);
+    if (DiffMode == 1) { return GetNextWorkRequired_V1(pindexLast, pblock); }
+    else if (DiffMode == 2) { return GetNextWorkRequired_V2(pindexLast, pblock); }
+    else if (DiffMode == 3) { return DigiShield(pindexLast, pblock); }
+    return DigiShield(pindexLast, pblock);
 }
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits)

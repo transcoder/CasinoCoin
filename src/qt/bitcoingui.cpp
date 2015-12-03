@@ -25,6 +25,10 @@
 #include "ui_interface.h"
 #include "wallet.h"
 #include "init.h"
+#include "cscfusionstyle.h"
+#include "gui20_skin.h"
+
+#include "qtquick_controls/cpp/guimenutoolbarwidget.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -52,6 +56,7 @@
 #include <QSettings>
 #include <QDesktopWidget>
 #include <QListWidget>
+#include <QToolTip>
 
 #include <iostream>
 
@@ -60,6 +65,7 @@ const QString BitcoinGUI::DEFAULT_WALLET = "~Default";
 BitcoinGUI::BitcoinGUI(QWidget *parent) :
     QMainWindow(parent),
     clientModel(0),
+	toolbarGUI20(0),
     encryptWalletAction(0),
     changePassphraseAction(0),
     aboutQtAction(0),
@@ -68,6 +74,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
     rpcConsole(0),
     prevBlocks(0)
 {
+	QApplication::setStyle(new CSCFusionStyle);
+
     restoreWindowGeometry();
     setWindowTitle(tr("CasinoCoin") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
@@ -77,9 +85,20 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
     setUnifiedTitleAndToolBarOnMac(true);
     QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
-    // Create wallet frame and make it the central widget
-    walletFrame = new WalletFrame(this);
-    setCentralWidget(walletFrame);
+	// Create wallet frame with main menu
+	walletFrame = new WalletFrame(this);
+	toolbarGUI20 = new GUIMenuToolbarWidget( this );
+	connect( toolbarGUI20, SIGNAL( signalItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes ) ), this, SLOT( slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes ) ), Qt::UniqueConnection );
+
+	// envelope them in another widget
+	QWidget* pCentralWidget = new QWidget( this );
+	QVBoxLayout* pBoxLayout = new QVBoxLayout();
+	pBoxLayout->addWidget( toolbarGUI20->dockQmlToWidget() );
+	pBoxLayout->addWidget( walletFrame );
+	pCentralWidget->setLayout( pBoxLayout );
+
+	// and make it the central widget
+	setCentralWidget(pCentralWidget);
 
     // Accept D&D of URIs
     setAcceptDrops(true);
@@ -92,7 +111,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
     createMenuBar();
 
     // Create the toolbars
-    createToolBars();
+//    createToolBars();
 
     // Create system tray icon and notification
     createTrayIcon();
@@ -149,6 +168,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
 
     // Initially wallet actions should be disabled
     setWalletActionsEnabled(false);
+
 }
 
 BitcoinGUI::~BitcoinGUI()
@@ -201,6 +221,20 @@ void BitcoinGUI::createActions()
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 
+    pryptoRedeemAction = new QAction(QIcon(":/icons/receive"), tr("&Prypto Redeem"), this);
+    pryptoRedeemAction->setStatusTip(tr("Redeem the value of a Prypto card to your wallet"));
+    pryptoRedeemAction->setToolTip(pryptoRedeemAction->statusTip());
+    pryptoRedeemAction->setCheckable(true);
+    pryptoRedeemAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    tabGroup->addAction(pryptoRedeemAction);
+
+    infoPageAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Information"), this);
+    infoPageAction->setStatusTip(tr("Show all Casinocoin related information"));
+    infoPageAction->setToolTip(infoPageAction->statusTip());
+    infoPageAction->setCheckable(true);
+    infoPageAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
+    tabGroup->addAction(infoPageAction);
+
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -211,6 +245,10 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
+    connect(pryptoRedeemAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(pryptoRedeemAction, SIGNAL(triggered()), this, SLOT(gotoPryptoPage()));
+    connect(infoPageAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(infoPageAction, SIGNAL(triggered()), this, SLOT(gotoInfoPage()));
 
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
     quitAction->setStatusTip(tr("Quit application"));
@@ -286,17 +324,6 @@ void BitcoinGUI::createMenuBar()
     help->addAction(aboutQtAction);
 }
 
-void BitcoinGUI::createToolBars()
-{
-    QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
-    toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    toolbar->addAction(overviewAction);
-    toolbar->addAction(sendCoinsAction);
-    toolbar->addAction(receiveCoinsAction);
-    toolbar->addAction(historyAction);
-    toolbar->addAction(addressBookAction);
-}
-
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
 {
     this->clientModel = clientModel;
@@ -318,7 +345,6 @@ void BitcoinGUI::setClientModel(ClientModel *clientModel)
                 trayIcon->setToolTip(trayIcon->toolTip() + QString(" ") + tr("[testnet]"));
                 trayIcon->setIcon(QIcon(":/icons/toolbar_testnet"));
             }
-
             toggleHideAction->setIcon(QIcon(":/icons/toolbar_testnet"));
             aboutAction->setIcon(QIcon(":/icons/toolbar_testnet"));
         }
@@ -371,6 +397,8 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     signMessageAction->setEnabled(enabled);
     verifyMessageAction->setEnabled(enabled);
     addressBookAction->setEnabled(enabled);
+    pryptoRedeemAction->setEnabled(enabled);
+    infoPageAction->setEnabled(enabled);
 }
 
 void BitcoinGUI::createTrayIcon()
@@ -467,34 +495,61 @@ void BitcoinGUI::optionsClicked()
 
 void BitcoinGUI::aboutClicked()
 {
-    AboutDialog dlg;
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::INFO );
+	AboutDialog dlg;
     dlg.setModel(clientModel);
     dlg.exec();
 }
 
+// TODO
+//void BitcoinGUI::redeemPryptoClicked()
+//{
+//	if ( menuBar_new ) menuBar_new->SetCurrentItemType( GUIMenuToolbarControl::INFO );
+//    RedeemPryptoDialog dlg;
+//    dlg.setModel(clientModel);
+//    dlg.exec();
+//}
+
 void BitcoinGUI::gotoOverviewPage()
 {
     if (walletFrame) walletFrame->gotoOverviewPage();
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::OVERVIEW );
 }
 
 void BitcoinGUI::gotoHistoryPage()
 {
     if (walletFrame) walletFrame->gotoHistoryPage();
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::TRANSACTIONS );
 }
 
 void BitcoinGUI::gotoAddressBookPage()
 {
     if (walletFrame) walletFrame->gotoAddressBookPage();
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::CONTACTS );
+}
+
+void BitcoinGUI::gotoPryptoPage()
+{
+    if (walletFrame) walletFrame->gotoPryptoPage();
+    if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::REDEEM_PRYPTO );
+}
+
+void BitcoinGUI::gotoInfoPage()
+{
+    if (walletFrame) walletFrame->gotoInfoPage();
+    if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::INFO );
 }
 
 void BitcoinGUI::gotoReceiveCoinsPage()
 {
     if (walletFrame) walletFrame->gotoReceiveCoinsPage();
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::RECEIVE );
 }
 
 void BitcoinGUI::gotoSendCoinsPage(QString addr)
 {
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
+	if ( toolbarGUI20 ) toolbarGUI20->SetCurrentItemType( GUIMenuToolbarControl::SEND );
 }
 
 void BitcoinGUI::gotoSignMessageTab(QString addr)
@@ -836,4 +891,46 @@ void BitcoinGUI::detectShutdown()
 {
     if (ShutdownRequested())
         QMetaObject::invokeMethod(QCoreApplication::instance(), "quit", Qt::QueuedConnection);
+}
+
+void BitcoinGUI::slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes a_eType )
+{
+	switch( a_eType )
+	{
+		case GUIMenuToolbarControl::OVERVIEW:
+		{
+			emit overviewAction->triggered();
+			break;
+		}
+		case GUIMenuToolbarControl::SEND:
+		{
+			emit sendCoinsAction->triggered();
+			break;
+		}
+		case GUIMenuToolbarControl::RECEIVE:
+		{
+			emit receiveCoinsAction->triggered();
+			break;
+		}
+		case GUIMenuToolbarControl::TRANSACTIONS:
+		{
+			emit historyAction->triggered();
+			break;
+		}
+		case GUIMenuToolbarControl::CONTACTS:
+		{
+			emit addressBookAction->triggered();
+			break;
+		}
+		case GUIMenuToolbarControl::REDEEM_PRYPTO:
+		{
+            emit pryptoRedeemAction->triggered();
+			break;
+		}
+		case GUIMenuToolbarControl::INFO:
+		{
+            emit infoPageAction->triggered();
+			break;
+		}
+	}
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE RCC><RCC version="1.0">
+<RCC>
     <qresource prefix="/icons">
         <file alias="bitcoin">res/icons/bitcoin.png</file>
         <file alias="address-book">res/icons/address-book.png</file>
@@ -40,12 +40,38 @@
         <file alias="filesave">res/icons/filesave.png</file>
         <file alias="qrcode">res/icons/qrcode.png</file>
         <file alias="debugwindow">res/icons/debugwindow.png</file>
+        <file alias="advertsArrowLeft">res/icons/adverts_arrow_left.png</file>
+        <file alias="advertsArrowLeftHover">res/icons/adverts_arrow_left_hover.png</file>
+        <file alias="advertsArrowRight">res/icons/adverts_arrow_right.png</file>
+        <file alias="advertsArrowRightHover">res/icons/adverts_arrow_right_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_transactions.png</file>
+        <file>res/icons/GUI20_mainToolBar_transactions_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_send.png</file>
+        <file>res/icons/GUI20_mainToolBar_send_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_redeemprypto.png</file>
+        <file>res/icons/GUI20_mainToolBar_redeemprypto_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_receive.png</file>
+        <file>res/icons/GUI20_mainToolBar_receive_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_overview.png</file>
+        <file>res/icons/GUI20_mainToolBar_overview_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_info.png</file>
+        <file>res/icons/GUI20_mainToolBar_info_hover.png</file>
+        <file>res/icons/GUI20_mainToolBar_contacts.png</file>
+        <file>res/icons/GUI20_mainToolBar_contacts_hover.png</file>
+        <file>res/icons/prypto.png</file>
+        <file alias="checkboxTick">res/icons/checkbox_tick.png</file>
+        <file alias="advertsArrowDownHover">res/icons/adverts_arrow_bottom_hover.png</file>
+        <file alias="advertsArrowDown">res/icons/adverts_arrow_bottom.png</file>
+        <file alias="advertsArrowUp">res/icons/adverts_arrow_top.png</file>
+        <file alias="advertsArrowUpHover">res/icons/adverts_arrow_top_hover.png</file>
+        <file alias="radiobuttonTick">res/icons/radiobutton_tick.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
         <file alias="splash">res/images/splash.png</file>
         <file alias="splash_testnet">res/images/splash_testnet.png</file>
         <file alias="backg">res/images/wallet.png</file>
+        <file>res/images/GUI20_mainToolBar_cards.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>
@@ -98,5 +124,16 @@
         <file alias="uk">locale/bitcoin_uk.qm</file>
         <file alias="zh_CN">locale/bitcoin_zh_CN.qm</file>
         <file alias="zh_TW">locale/bitcoin_zh_TW.qm</file>
+    </qresource>
+    <qresource prefix="/qml">
+        <file>qtquick_controls/qml/QmlGUIBannerControl.qml</file>
+        <file>qtquick_controls/qml/QmlGUIBannerListView.qml</file>
+        <file>qtquick_controls/qml/QmlGUIBannerWindow.qml</file>
+        <file>qtquick_controls/qml/QmlGUIMenuToolbarWindow.qml</file>
+        <file>qtquick_controls/qml/QmlGUIMenuToolbarListView.qml</file>
+        <file>qtquick_controls/qml/QmlGUIMenuToolbarControl.qml</file>
+        <file>qtquick_controls/qml/QmlGUIExchangesWindow.qml</file>
+        <file>qtquick_controls/qml/QmlGUIExchangesListView.qml</file>
+        <file>qtquick_controls/qml/QmlGUIExchangesControl.qml</file>
     </qresource>
 </RCC>

@@ -2,13 +2,17 @@ src/*.exe
 src/casinocoin
 src/casinocoind
 src/test_casinocoin
+src/obj/*
+casinocoin-qt_plugin_import.cpp
+object_script.casinocoin-qt.Debug
+object_script.casinocoin-qt.Release
+release/*
 .*.swp
 *.*~*
 *.bak
 *.rej
 *.orig
 *.o
-*.patch
 .casinocoin
 
 # Compilation and Qt preprocessor part

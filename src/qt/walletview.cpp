@@ -8,6 +8,8 @@
 #include "bitcoingui.h"
 #include "transactiontablemodel.h"
 #include "addressbookpage.h"
+#include "pryptopage.h"
+#include "infopage.h"
 #include "sendcoinsdialog.h"
 #include "signverifymessagedialog.h"
 #include "clientmodel.h"
@@ -45,6 +47,7 @@ WalletView::WalletView(QWidget *parent, BitcoinGUI *_gui):
     vbox->addWidget(transactionView);
     QPushButton *exportButton = new QPushButton(tr("&Export"), this);
     exportButton->setToolTip(tr("Export the data in the current tab to a file"));
+	exportButton->setStyleSheet( "background-color: rgb(170, 28, 33);\ncolor: rgb(255, 255, 255);\npressed\n{\nbackground-color: rgb(166, 27, 31);\n}" );
 #ifndef Q_OS_MAC // Icons on push buttons are very uncommon on Mac
     exportButton->setIcon(QIcon(":/icons/export"));
 #endif
@@ -55,6 +58,10 @@ WalletView::WalletView(QWidget *parent, BitcoinGUI *_gui):
 
     addressBookPage = new AddressBookPage(AddressBookPage::ForEditing, AddressBookPage::SendingTab);
 
+    pryptoPage = new PryptoPage(gui);
+
+    infoPage = new InfoPage(gui);
+
     receiveCoinsPage = new AddressBookPage(AddressBookPage::ForEditing, AddressBookPage::ReceivingTab);
 
     sendCoinsPage = new SendCoinsDialog(gui);
@@ -64,11 +71,13 @@ WalletView::WalletView(QWidget *parent, BitcoinGUI *_gui):
     addWidget(overviewPage);
     addWidget(transactionsPage);
     addWidget(addressBookPage);
+    addWidget(pryptoPage);
+    addWidget(infoPage);
     addWidget(receiveCoinsPage);
     addWidget(sendCoinsPage);
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
-    connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
+	connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), gui->getHistoryAction(), SIGNAL(triggered()));
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), transactionView, SLOT(focusTransaction(QModelIndex)));
 
     // Double-clicking on a transaction on the transaction history page shows details
@@ -103,6 +112,7 @@ void WalletView::setClientModel(ClientModel *clientModel)
         overviewPage->setClientModel(clientModel);
         addressBookPage->setOptionsModel(clientModel->getOptionsModel());
         receiveCoinsPage->setOptionsModel(clientModel->getOptionsModel());
+        infoPage->setClientModel(clientModel);
     }
 }
 
@@ -121,6 +131,8 @@ void WalletView::setWalletModel(WalletModel *walletModel)
         receiveCoinsPage->setModel(walletModel->getAddressTableModel());
         sendCoinsPage->setModel(walletModel);
         signVerifyMessageDialog->setModel(walletModel);
+        pryptoPage->setWalletModel(walletModel);
+        infoPage->setWalletModel(walletModel);
 
         setEncryptionStatus();
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), gui, SLOT(setEncryptionStatus(int)));
@@ -166,6 +178,18 @@ void WalletView::gotoAddressBookPage()
 {
     gui->getAddressBookAction()->setChecked(true);
     setCurrentWidget(addressBookPage);
+}
+
+void WalletView::gotoPryptoPage()
+{
+    gui->getPryptoRedeemAction()->setChecked(true);
+    setCurrentWidget(pryptoPage);
+}
+
+void WalletView::gotoInfoPage()
+{
+    gui->getInfoPageAction()->setChecked(true);
+    setCurrentWidget(infoPage);
 }
 
 void WalletView::gotoReceiveCoinsPage()

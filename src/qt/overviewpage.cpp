@@ -4,17 +4,23 @@
 #include "clientmodel.h"
 #include "walletmodel.h"
 #include "bitcoinunits.h"
+#include "currencies.h"
 #include "optionsmodel.h"
 #include "transactiontablemodel.h"
 #include "transactionfilterproxy.h"
 #include "guiutil.h"
 #include "guiconstants.h"
+#include "qtquick_controls/cpp/guibannerwidget.h"
+
+#include "CSCPublicAPI/casinocoinwebapi.h"
+#include "CSCPublicAPI/casinocoinwebapiparser.h"
 
 #include <QAbstractItemDelegate>
 #include <QPainter>
+#include <QDebug>
 
 #define DECORATION_SIZE 64
-#define NUM_ITEMS 3
+#define NUM_ITEMS 5
 
 class TxViewDelegate : public QAbstractItemDelegate
 {
@@ -65,16 +71,23 @@ public:
         }
         else
         {
-            foreground = option.palette.color(QPalette::Text);
+            foreground = COLOR_POSITIVE;
         }
         painter->setPen(foreground);
         QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
+        QFont amountFont = painter->font();
         if(!confirmed)
         {
             amountText = QString("[") + amountText + QString("]");
         }
+        else
+        {
+            amountFont.setWeight(QFont::Bold);
+            painter->setFont(amountFont);
+        }
         painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
-
+        amountFont.setWeight(QFont::Bold);
+        painter->setFont(amountFont);
         painter->setPen(option.palette.color(QPalette::Text));
         painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
 
@@ -100,9 +113,13 @@ OverviewPage::OverviewPage(QWidget *parent) :
     currentUnconfirmedBalance(-1),
     currentImmatureBalance(-1),
     txdelegate(new TxViewDelegate()),
-    filter(0)
+    filter(0),
+    advertsWidget(0),
+    cscWebApiParser( new CasinoCoinWebAPIParser( this ) ),
+    cscWebApi( new CasinoCoinWebAPI( this ) )
 {
     ui->setupUi(this);
+    createAdvertsWidget();
 
     // Recent transactions
     ui->listTransactions->setItemDelegate(txdelegate);
@@ -111,6 +128,9 @@ OverviewPage::OverviewPage(QWidget *parent) :
     ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
+    connect( cscWebApi, SIGNAL( signalResponseReady(const QByteArray&)), cscWebApiParser, SLOT( slotParseAnswer(const QByteArray&)), Qt::UniqueConnection );
+    connect( cscWebApi, SIGNAL( signalNetworkError(QNetworkReply::NetworkError,const QUrl)), cscWebApiParser, SLOT( slotNetworkError(QNetworkReply::NetworkError,const QUrl)), Qt::UniqueConnection );
+    connect( cscWebApiParser, SIGNAL( signalCoinInfoParsed(JsonCoinInfoParser*)), this, SLOT( updateCoinInfoFromWeb(JsonCoinInfoParser*)), Qt::UniqueConnection );
 
     // init "out of sync" warning labels
     ui->labelWalletStatus->setText("(" + tr("out of sync") + ")");
@@ -118,17 +138,15 @@ OverviewPage::OverviewPage(QWidget *parent) :
 
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
+
+    // get CoinInfo from the web
+    getCoinInfo();
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
 {
     if(filter)
         emit transactionClicked(filter->mapToSource(index));
-}
-
-OverviewPage::~OverviewPage()
-{
-    delete ui;
 }
 
 void OverviewPage::setBalance(qint64 balance, qint64 unconfirmedBalance, qint64 immatureBalance)
@@ -145,7 +163,18 @@ void OverviewPage::setBalance(qint64 balance, qint64 unconfirmedBalance, qint64 
     // for the non-mining users
     bool showImmature = immatureBalance != 0;
     ui->labelImmature->setVisible(showImmature);
-    ui->labelImmatureText->setVisible(showImmature);
+	ui->labelImmatureText->setVisible(showImmature);
+    // set fiat balance
+    updateFiatBalance(walletModel->getOptionsModel()->getDisplayFiatCurrency());
+}
+
+void OverviewPage::createAdvertsWidget()
+{
+	advertsWidget = new GUIBannerWidget( this );
+	ui->verticalLayoutAdvertWidget->addWidget( advertsWidget->dockQmlToWidget(), Qt::AlignCenter );
+	// first load from local files as its faster, than look for new ads in CasinoCoinAPI
+//	advertsWidget->PopulateBannerLocally();
+	advertsWidget->PopulateBannerFromWeb();
 }
 
 void OverviewPage::setClientModel(ClientModel *model)
@@ -178,8 +207,12 @@ void OverviewPage::setWalletModel(WalletModel *model)
         // Keep up to date with wallet
         setBalance(model->getBalance(), model->getUnconfirmedBalance(), model->getImmatureBalance());
         connect(model, SIGNAL(balanceChanged(qint64, qint64, qint64)), this, SLOT(setBalance(qint64, qint64, qint64)));
-
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
+        connect(model->getOptionsModel(), SIGNAL(displayCurrencyChanged(int)), this, SLOT(updateFiatBalance(int)));
+        connect(model->getOptionsModel(), SIGNAL(displayPromotionsChanged(bool)), this, SLOT(updateDisplayPromotions(bool)));
+
+        // set visibility of adverts widget
+        updateDisplayPromotions(model->getOptionsModel()->getDisplayPromotions());
     }
 
     // update the display unit, to not use the default ("BTC")
@@ -210,4 +243,54 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 {
     ui->labelWalletStatus->setVisible(fShow);
     ui->labelTransactionsStatus->setVisible(fShow);
+}
+
+void OverviewPage::getCoinInfo()
+{
+    if ( cscWebApi )
+    {
+        cscWebApi->GetCoinInfo();
+    }
+}
+
+void OverviewPage::updateCoinInfoFromWeb( JsonCoinInfoParser* coinInfoParser )
+{
+    qDebug() << "CoinInfo ID: " << coinInfoParser->getCoinInfo().find("ID").value().toDouble();
+    qDebug() << "CoinInfo InfoTime: " <<coinInfoParser->getCoinInfo().find("InfoTime").value().toString();
+    // save the coin information
+    coinInformation = coinInfoParser->getCoinInfo();
+    // calculate and set the estimated fiat balance
+    if(walletModel)
+    {
+        updateFiatBalance(walletModel->getOptionsModel()->getDisplayFiatCurrency());
+    }
+}
+
+void OverviewPage::updateFiatBalance(int currency)
+{
+    if(!coinInformation.isEmpty())
+    {
+        QString conversionCurrency = QString("Price").append(Currencies::name(currency));
+        double currencyValue = coinInformation.find(conversionCurrency).value().toDouble();
+        double fiatBalance = currentBalance * currencyValue;
+        ui->labelBalanceFiat->setText(Currencies::format(currency,fiatBalance,true));
+    }
+}
+
+void OverviewPage::updateDisplayPromotions(bool checked)
+{
+    qDebug() << "updateDisplayPromotions: " << checked;
+    if ( ui->verticalLayoutAdvertWidget->itemAt( 0 ) )
+    {
+        QWidget* pAdvertWidget = ui->verticalLayoutAdvertWidget->itemAt( 0 )->widget();
+        if ( pAdvertWidget )
+        {
+            pAdvertWidget->setVisible( checked );
+        }
+    }
+}
+
+OverviewPage::~OverviewPage()
+{
+    delete ui;
 }

@@ -91,7 +91,7 @@ static void InitMessage(const std::string &message)
 {
     if(splashref)
     {
-        splashref->showMessage(QString::fromStdString(message), Qt::AlignBottom|Qt::AlignHCenter, QColor(55,55,55));
+        splashref->showMessage(QString::fromStdString(message), Qt::AlignBottom|Qt::AlignHCenter, QColor(Qt::black));
         qApp->processEvents();
     }
     printf("init message: %s\n", message.c_str());
@@ -292,12 +292,14 @@ int main(int argc, char *argv[])
             threadGroup.interrupt_all();
             threadGroup.join_all();
             Shutdown();
+            pollShutdownTimer->stop();
         }
         else
         {
             threadGroup.interrupt_all();
             threadGroup.join_all();
             Shutdown();
+            pollShutdownTimer->stop();
             return 1;
         }
     } catch (std::exception& e) {

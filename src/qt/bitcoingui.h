@@ -5,6 +5,8 @@
 #include <QSystemTrayIcon>
 #include <QMap>
 
+#include "qtquick_controls/cpp/guimenutoolbarcontrol.h"
+
 class TransactionTableModel;
 class WalletFrame;
 class WalletView;
@@ -18,6 +20,8 @@ class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
 class RPCConsole;
+
+class GUIMenuToolbarWidget;
 
 class CWallet;
 
@@ -65,6 +69,8 @@ public:
     QAction * getOverviewAction() { return overviewAction; }
     QAction * getHistoryAction() { return historyAction; }
     QAction * getAddressBookAction() { return addressBookAction; }
+    QAction * getPryptoRedeemAction() { return pryptoRedeemAction; }
+    QAction * getInfoPageAction() { return infoPageAction; }
     QAction * getReceiveCoinsAction() { return receiveCoinsAction; }
     QAction * getSendCoinsAction() { return sendCoinsAction; }
 
@@ -78,6 +84,7 @@ protected:
 private:
     ClientModel *clientModel;
     WalletFrame *walletFrame;
+	GUIMenuToolbarWidget *toolbarGUI20;
 
     QLabel *labelEncryptionIcon;
     QLabel *labelConnectionsIcon;
@@ -102,6 +109,8 @@ private:
     QAction *changePassphraseAction;
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
+    QAction *pryptoRedeemAction;
+    QAction *infoPageAction;
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
@@ -116,8 +125,6 @@ private:
     void createActions();
     /** Create the menu bar and sub-menus. */
     void createMenuBar();
-    /** Create the toolbars */
-    void createToolBars();
     /** Create system tray icon and notification */
     void createTrayIcon();
     /** Create system tray menu (or setup the dock menu) */
@@ -169,10 +176,14 @@ private slots:
     void gotoHistoryPage();
     /** Switch to address book page */
     void gotoAddressBookPage();
+    /** Switch to redeem prypto page */
+    void gotoPryptoPage();
     /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage(QString addr = "");
+    /** Switch to info page */
+    void gotoInfoPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
@@ -195,6 +206,9 @@ private slots:
 
     /** called by a timer to check if fRequestShutdown has been set **/
     void detectShutdown();
+
+	/** called from new Qml menu toolbar on user click **/
+	void slotMenuToolbarItemClicked( GUIMenuToolbarControl::EMenuToolbarItemTypes a_eType );
 };
 
 #endif // BITCOINGUI_H

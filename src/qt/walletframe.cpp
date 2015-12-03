@@ -95,6 +95,20 @@ void WalletFrame::gotoAddressBookPage()
         walletStack->gotoAddressBookPage();
 }
 
+void WalletFrame::gotoPryptoPage()
+{
+    WalletView *walletView = currentWalletView();
+    if (walletView)
+        walletStack->gotoPryptoPage();
+}
+
+void WalletFrame::gotoInfoPage()
+{
+    WalletView *walletView = currentWalletView();
+    if (walletView)
+        walletStack->gotoInfoPage();
+}
+
 void WalletFrame::gotoReceiveCoinsPage()
 {
     walletStack->gotoReceiveCoinsPage();

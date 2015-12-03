@@ -2,6 +2,7 @@
 #define OVERVIEWPAGE_H
 
 #include <QWidget>
+#include <QJsonObject>
 
 namespace Ui {
     class OverviewPage;
@@ -10,6 +11,10 @@ class ClientModel;
 class WalletModel;
 class TxViewDelegate;
 class TransactionFilterProxy;
+class GUIBannerWidget;
+class CasinoCoinWebAPIParser;
+class CasinoCoinWebAPI;
+class JsonCoinInfoParser;
 
 QT_BEGIN_NAMESPACE
 class QModelIndex;
@@ -45,10 +50,22 @@ private:
     TxViewDelegate *txdelegate;
     TransactionFilterProxy *filter;
 
+	GUIBannerWidget* advertsWidget;
+	/** Create widget to populate adverts */
+	void createAdvertsWidget();
+    /** Get the CoinInfo from REST service */
+    CasinoCoinWebAPIParser* cscWebApiParser;
+    CasinoCoinWebAPI* cscWebApi;
+    void getCoinInfo();
+    QJsonObject coinInformation;
+
 private slots:
     void updateDisplayUnit();
     void handleTransactionClicked(const QModelIndex &index);
     void updateAlerts(const QString &warnings);
+    void updateCoinInfoFromWeb( JsonCoinInfoParser* coinInfoParser );
+    void updateFiatBalance(int currency);
+    void updateDisplayPromotions(bool checked);
 };
 
 #endif // OVERVIEWPAGE_H
